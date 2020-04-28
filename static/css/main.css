@@ -254,3 +254,7 @@ pre.highlight, table  {
 .info {
   text-align: center;
 }
+
+.container {
+  width: auto;
+}
