@@ -89,6 +89,21 @@
 <li class="toc-entry toc-h2"><a href="#general-idea">General Idea</a></li>
 <li class="toc-entry toc-h2"><a href="#hash-function">Hash Function</a></li>
 <li class="toc-entry toc-h2"><a href="#separate-chaining">Separate Chaining</a></li>
+<li class="toc-entry toc-h2"><a href="#hash-tables-without-linked-lists">Hash Tables Without Linked Lists</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#linear-probing">Linear Probing</a></li>
+<li class="toc-entry toc-h3"><a href="#quadratic-probing">Quadratic Probing</a></li>
+<li class="toc-entry toc-h3"><a href="#double-hashing">Double Hashing</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#rehashing">Rehashing</a></li>
+<li class="toc-entry toc-h2"><a href="#hash-tables-in-the-standard-library">Hash Tables in the Standard Library</a></li>
+<li class="toc-entry toc-h2"><a href="#hash-tables-with-worst-case-o1-access">Hash Tables with Worst-Case O(1) Access</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#perfect-hashing">Perfect Hashing</a></li>
+<li class="toc-entry toc-h3"><a href="#cuckoo-hashing">Cuckoo Hashing</a></li>
+</ul>
+</li>
 </ul>
         </div>
         <!-- end /.fixed-condition -->
@@ -189,27 +204,41 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Class skeleton(骨架) for separate chaining hash table</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SeparateChainingHashTable</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="nf">SeparateChainingHashTable</span><span class="o">()</span> <span class="o">{</span>
-        <span class="o">...</span>
+        <span class="k">this</span><span class="o">(</span><span class="no">DEFAULT_TABLE_SIZE</span><span class="o">);</span>
     <span class="o">}</span>
     
     <span class="kd">public</span> <span class="nf">SeparateChainingHashTable</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
-        <span class="o">...</span>
+        <span class="n">theLists</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">[</span><span class="n">nextPrime</span><span class="o">(</span><span class="n">size</span><span class="o">)];</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">theLists</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">theLists</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
     <span class="o">}</span>
     
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insert</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
-        <span class="o">...</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="n">whichList</span> <span class="o">=</span> <span class="n">theLists</span><span class="o">[</span><span class="n">myhash</span><span class="o">(</span><span class="n">x</span><span class="o">)];</span>
+        <span class="k">if</span><span class="o">(!</span><span class="n">whichList</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">x</span><span class="o">)){</span>
+            <span class="n">whichList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(++</span><span class="n">currentSize</span> <span class="o">&gt;</span> <span class="n">theLists</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+                <span class="n">rehash</span><span class="o">();</span>
+        <span class="o">}</span>
     <span class="o">}</span>
     
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">remove</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
-        <span class="o">...</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="n">whichList</span> <span class="o">=</span> <span class="n">theLists</span><span class="o">[</span><span class="n">myhash</span><span class="o">(</span><span class="n">x</span><span class="o">)];</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">whichList</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">x</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">whichList</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+            <span class="n">currentSize</span><span class="o">--;</span>
+        <span class="o">}</span>
     <span class="o">}</span>
     
     <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
-        <span class="o">...</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="n">whichList</span> <span class="o">=</span> <span class="n">theList</span><span class="o">[</span><span class="n">myhash</span><span class="o">(</span><span class="n">x</span><span class="o">)];</span>
+        <span class="k">return</span> <span class="n">whichList</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
     <span class="o">}</span>
     
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeEmpty</span><span class="o">()</span> <span class="o">{</span>
-        <span class="o">...</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">theLists</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">theLists</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">currentSize</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
     <span class="o">}</span>
     
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">DEFAULT_TABLE_SIZE</span> <span class="o">=</span> <span class="mi">101</span><span class="o">;</span>
@@ -222,7 +251,11 @@
     <span class="o">}</span>
     
     <span class="kd">private</span> <span class="kt">int</span> <span class="nf">myhash</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
-        <span class="o">...</span>
+        <span class="kt">int</span> <span class="n">hashVal</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span> <span class="c1">//a good hash function</span>
+        <span class="n">hashVal</span> <span class="o">%=</span> <span class="n">theLists</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">hashVal</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">hashVal</span> <span class="o">+=</span> <span class="n">theLists</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">hashVal</span><span class="o">;</span>
     <span class="o">}</span>
     
     <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">nextPrime</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
@@ -234,6 +267,374 @@
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
+
+<p>Any scheme could be used besides linked lists to resolve the collisions; a binary search tree or even another hash table would work, but we expect that if the table is large and the hash function is good, all the lists should be short, so basic separate chaining makes no attempt to try anything complicated.</p>
+
+<p>We define the load factor, $\lambda$, of a hash table to be the ratio of the number of elements in the hash table to the table size. The average length of a list is $\lambda$. The effort required to perform a search is the constant time required to evaluate the hash function plus the time to traverse the list. In an unsuccessful search, the number of nodes to examine is $\lambda$ on average. A successful search requires that about $1+\frac{\lambda}2$links be traversed.  The general rule for separate chaining hashing is to make the table size about as large as the number of elements expected(in other words, let $\lambda \approx 1$).</p>
+
+<h2 id="hash-tables-without-linked-lists">Hash Tables Without Linked Lists</h2>
+
+<p>Disadvantage of separate chaining using linked lists: This could slow the algorithm down a bit because of the time required to allocate new cells, and also essentially requires the implementation of a second data structure.</p>
+
+<p>An alternative to resolving collisions with linked lists is to try alternative cells until an empty cell is found. More formally, cells $h_0(x), h_1(x), h_2(x), …$ are tried in succession, where $h_i(x) = hash(x) + f(i)$ mod TableSize, with $f(0) = 0$. The function $f$ is the collision resolution strategy. Generally, the load factor should be below $\lambda = 0.5$ for a hash table that doesn’t use separate chaining. We call such tables <strong>probing hash tables</strong>.</p>
+
+<h3 id="linear-probing">Linear Probing</h3>
+
+<p>In linear probing, $f$ is a linear function of $i$, typically $f(i) = i$. This amounts to trying cells sequentially (with wraparound) in search of an empty cell.</p>
+
+<p><strong>Primary clustering</strong> means that any key that hashes into the cluster will require several attempts to resolve the collision, and then it will add to the cluster.</p>
+
+<p>The expected number of probes using linear probing is roughly $\frac{1}{2}(1+\frac{1}{(1-\lambda)^2})$ for insertions and unsuccessful searches, and $\frac{1}{2}(1+\frac{1}{1-\lambda})$ for successful searches. On average, successful searches should take less time than unsuccessful searches.</p>
+
+<h3 id="quadratic-probing">Quadratic Probing</h3>
+
+<p>Quadratic probing is a collision resolution method that eliminates the primary clustering problem of linear probing. The collision function is $f(i) = i^2$.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>linear probing</th>
+      <th>quadratic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>It’s a bad idea to let the hash table get nearly fully, because performance degrades.</td>
+      <td>There is no guarantee of finding an empty cell once the table gets more than half full, or even before the table gets half full if the table size is not prime.</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>Theorem: If quadratic probing is used, and the table size is prime, then a new element can always be inserted if the table is at least half empty.</p>
+</blockquote>
+
+<blockquote>
+  <p>Proof: Let the table size, TableSize, be an (odd) prime greater than 3. We show that the first [TableSize/2] alternative locations (including the initial location $h_0(x)$) are all distinct. Two of these locations are $h(x)+i^2$ (mod TableSize) and $h(x) + j^2$ (mod TableSize), where $0\le i,j\le \lfloor TableSize/2\rfloor$. Suppose, for the sake of contradiction, that these locations are the same, but $i\ne j$. Then</p>
+
+  <p>$h(x) + i^2 = h(x) + j^2 $ (mod TableSize)</p>
+
+  <p>$i^2 = j^2$ (mod TableSize)</p>
+
+  <p>$i^2 - j^2 = 0$ (mod TableSize)</p>
+
+  <p>$(i-j)(i+j) = 0$ (mod TableSize)</p>
+
+  <p>Since TableSize is prime, it follows that either<code class="language-plaintext highlighter-rouge">i-j</code> or <code class="language-plaintext highlighter-rouge">i+j</code> is equal to <code class="language-plaintext highlighter-rouge">0 (mod TableSize)</code>. Since i and j are distinct, the first option is not possible. Since $0\le i,j\le \lfloor TableSize/2\rfloor$, the second option is also impossible. Thus, the first $\lceil TableSize/2\rceil$ alternative locations are distinct. If at most $\lfloor TableSize/2 \rfloor$ positions are taken, then an empty spot can always be found.</p>
+</blockquote>
+
+<p>Standard deletion cannot be performed in a probing hash table, because the cell might have caused a collision to go past it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Class sleleton for hash tables using probing strategies, including the nested HashEntry class</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">QuadraticProbingHashTable</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">QuadraticProbingHashTable</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="no">DEFAULT_TABLE_SIZE</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nf">QuadraticProbingHashTable</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">allocateArray</span><span class="o">(</span><span class="n">size</span><span class="o">);</span>
+        <span class="n">makeEmpty</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeEmpty</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">currentSize</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">currentPos</span> <span class="o">=</span> <span class="n">findPos</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nf">isActive</span><span class="o">(</span><span class="n">currentPos</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insert</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// insert x as active</span>
+        <span class="kt">int</span> <span class="n">currentPos</span> <span class="o">=</span> <span class="n">findPos</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">isActive</span><span class="o">(</span><span class="n">currentPos</span><span class="o">))</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="n">array</span><span class="o">[</span><span class="n">currentPos</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashEntry</span><span class="o">&lt;&gt;(</span><span class="n">x</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="c1">//Rehash;</span>
+        <span class="k">if</span><span class="o">(++</span><span class="n">currentSize</span> <span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">/</span><span class="mi">2</span><span class="o">)</span>
+            <span class="n">rehash</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">remove</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">currentPos</span> <span class="o">=</span> <span class="n">findPos</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">isActive</span><span class="o">(</span><span class="n">currentPos</span><span class="o">))</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">currentPos</span><span class="o">].</span><span class="na">isActive</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">HashEntry</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">AnyType</span> <span class="n">element</span><span class="o">;</span> <span class="c1">// the element</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">isActive</span><span class="o">;</span> <span class="c1">// false if marked deleted</span>
+        <span class="kd">public</span> <span class="nf">HashEntry</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="nf">HashEntry</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">e</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+            <span class="n">isActive</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">DEFAULT_TABLE_SIZE</span> <span class="o">=</span> <span class="mi">11</span><span class="o">;</span>
+    
+    <span class="kd">private</span> <span class="nc">HashEntry</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="o">[]</span> <span class="n">array</span><span class="o">;</span> <span class="c1">// the array of elements</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">currentSize</span><span class="o">;</span> <span class="c1">// the number of occupied cells</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">allocateArray</span><span class="o">(</span><span class="kt">int</span> <span class="n">arraySize</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashEntry</span><span class="o">[</span><span class="n">nextPrime</span><span class="o">(</span><span class="n">arraySize</span><span class="o">)];</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isActive</span><span class="o">(</span><span class="kt">int</span> <span class="n">currentPos</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">currentPos</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="o">[</span><span class="n">currentPos</span><span class="o">].</span><span class="na">isActive</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">findPos</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">currentPos</span> <span class="o">=</span> <span class="n">myhash</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        
+        <span class="k">while</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">currentPos</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">array</span><span class="o">[</span><span class="n">currentPos</span><span class="o">].</span><span class="na">element</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">x</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">currentPos</span> <span class="o">+=</span> <span class="n">offset</span><span class="o">;</span> <span class="c1">// Compute ith probe</span>
+            <span class="n">offset</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">currentPos</span> <span class="o">&gt;=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+                <span class="n">currentPos</span> <span class="o">-=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">currentPos</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">rehash</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">myhash</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/*See online code*/</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">nextPrime</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/*See online code*/</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isPrime</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/*See online code*/</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Secondary clustering</strong> means elements that hash to the same position will probe the same alternative cells.</p>
+
+<h3 id="double-hashing">Double Hashing</h3>
+
+<p>For double hashing, one popular choice is $f(i) = i\times hash_2(x)$. This formula says that we apply a second hash function to x and probe at a distance $hash_2(x), 2hash_2(x), …$, and so on. It is also important to make sure all cells can be probed. A function such as $hash_2(x) = R - (x \mod R)$, with R a prime smaller than $TableSize$, will work well.</p>
+
+<h2 id="rehashing">Rehashing</h2>
+
+<p>Rehashing is a very expensive operation, the running time is O(N), since there are N elements to rehash and the table size is roughly 2N, but it actually not all that bad, because it happens very infrequently. Rehashing can be implemented in several ways with quadratic probing. One alternative is to rehash as soon as the table is half full. The other extreme is to rehash only when an insertion fails. A third, middle-of-the-road strategy is to rehash when the table reaches a certain load factor.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Rehashing for both separate chaining and probing hash tables</span>
+
+<span class="c1">// Rehashing for quadratic probing hash table</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">rehash</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">HashEntry</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="o">[]</span> <span class="n">oldArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">;</span>
+    <span class="c1">// Create a new double-sized,empty table</span>
+    <span class="n">allocateArray</span><span class="o">(</span><span class="n">nextPrime</span><span class="o">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">oldArray</span><span class="o">.</span><span class="na">length</span><span class="o">));</span>
+    <span class="n">currentSize</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    
+    <span class="c1">// Copy table over</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">oldArray</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">oldArray</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">oldArray</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">isActive</span><span class="o">)</span>
+            <span class="n">insert</span><span class="o">(</span><span class="n">oldArray</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">element</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// Rehashing for separate chaining hash table</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">rehash</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="o">[]</span> <span class="n">oldLists</span> <span class="o">=</span> <span class="n">theLists</span><span class="o">;</span>
+    <span class="c1">// Create new double-sized, empty table</span>
+    <span class="n">theLists</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">List</span><span class="o">[</span><span class="n">nextPrime</span><span class="o">(</span><span class="mi">2</span><span class="o">*</span><span class="n">theLists</span><span class="o">.</span><span class="na">length</span><span class="o">)];</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">oldLists</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">AnyType</span> <span class="nl">item:</span> <span class="n">oldLists</span><span class="o">[</span><span class="n">i</span><span class="o">])</span>
+            <span class="n">insert</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="hash-tables-in-the-standard-library">Hash Tables in the Standard Library</h2>
+
+<p>The Standard Library includes hash table implementations of Set and Map, namely HashSet and HashMap. The items in the HashSet (or the keys in the HashMap) must provide an equals and hashCode method. The HashSet and HashMap are currently implemented using separate chaining hashing.</p>
+
+<p>In Java, library types that can be reasonably inserted into a HashSet or as keys into a HashMap already have equals and hashCode defined. Because the expensive part of the hash table operations is computing the hashCode, the hashCode method in the String class contains an important optimization: Each String object stores internally the value of its hashCode. Initially it is 0, but if hashCode is invoked, the value is remembered. Thus if hashCode is computed on the same String object a second time, we can avoid the expensive recomputation. This technique is called caching the hash code. Caching the hash code works only because Strings are immutable.</p>
+
+<h2 id="hash-tables-with-worst-case-o1-access">Hash Tables with Worst-Case O(1) Access</h2>
+
+<h3 id="perfect-hashing">Perfect Hashing</h3>
+
+<p><strong>Theorem 5.2.</strong></p>
+
+<p>If N balls are placed into $M = N^2$ bins, the probability that no bin has more than one ball is less than $\frac12$.</p>
+
+<p><strong>Proof.</strong></p>
+
+<p>If a pair (i, j) of balls are placed in the same bin, we call that a collision. Let $C_{i,j}$ be the expected number of collisions produced by any two balls $(i, j)$. Clearly the probability that any two specified balls collide is $\frac1M$, since the number of collisions that involve the pair $(i, j)$ is either 0 or 1. Thus the expected number of collisions in the entire table is $\sum_{(i, j), i &lt; j} C_{i, j}$. Since there are $N(N-1)/2$ pairs, this sum is $N(N-1)/(2M) = N(N-1)/(2N^2) &lt; \frac12$. Since the expected number of collisions is below $\frac12$, the probability that there is even one collision must also be below $\frac12$.</p>
+
+<p>Theorem 5.3.</p>
+
+<p>If N items are placed into a primary hash table containing N bins, then the total size of the secondary hash tables has expected value at most 2N.</p>
+
+<p>Proof</p>
+
+<p>Using the same logic as in the proof of Theorem 5.2, the expected number of pairwise collisions is at most $N(N-1)/2N$, or $(N-1)/2$. Let $b_i$ be the number of items that hash to position i in the primary hash table; observe that $b_i^2$ space is used for this cell in the secondary hash table, and that this accounts for $b_i(b_i-1)/2$ pairwise collisions, which we will call $c_i$. Thus the amount of space used for the ith secondary hash table is $2c_i + b_i$. The total space is then $2\sum c_i + \sum b_i$. The total number of collisions is $\frac{N-1}{2}$ (from the first sentence of this proof); the total number of items is of course N, so we obtain a total secondary space requirement of $\frac{2(N-1)}{2} + N &lt; 2N$.</p>
+
+<h3 id="cuckoo-hashing">Cuckoo Hashing</h3>
+
+<p>In cuckoo hashing, suppose we have N items. We maintain two tables each more than half empty, and we have two independent hash functions that can assign each item to a position in each table. Cuckoo hashing maintains the invariant that an item is always stored in one of these two locations.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Generic HashFamily interface for cuckoo hashing</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HashFamily</span><span class="o">&lt;</span><span class="nc">AnyType</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="nf">getNumberOfFunctions</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">generateNewFunctions</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Class skeleton for cuckoo hashing</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CuckooHashTable</span><span class="o">&lt;</span><span class="nc">AnyTable</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">CuckooHashTable</span><span class="o">(</span><span class="nc">HashFamily</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="nc">AnyType</span><span class="o">&gt;</span> <span class="n">hf</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">hf</span><span class="o">,</span> <span class="no">DEFAULT_TABLE_SIZE</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">CuckooHashTable</span><span class="o">(</span> <span class="nc">HashFamily</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="nc">AnyType</span><span class="o">&gt;</span> <span class="n">hf</span><span class="o">,</span> <span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">allocateArray</span><span class="o">(</span><span class="n">nextPrime</span><span class="o">(</span><span class="n">size</span><span class="o">));</span>
+        <span class="n">doClear</span><span class="o">();</span>
+        <span class="n">hashFunctions</span> <span class="o">=</span> <span class="n">hf</span><span class="o">;</span>
+        <span class="n">numHashFunctions</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="na">getNumberOfFunctions</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeEmpty</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">doClear</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">findPos</span><span class="o">(</span><span class="n">x</span><span class="o">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">myhash</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">hashVal</span> <span class="o">=</span> <span class="n">hashFunctions</span><span class="o">.</span><span class="na">hash</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">which</span><span class="o">);</span>
+        <span class="n">hashVal</span> <span class="o">%=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">hashVal</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">hashVal</span> <span class="o">+=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">hashVal</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">findPos</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numHashFunctions</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">myhash</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">pos</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="o">[</span><span class="n">pos</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
+                <span class="k">return</span> <span class="n">pos</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">remove</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">findPos</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">pos</span><span class="o">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">currentSize</span><span class="o">--;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">insert</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">contains</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">currenSize</span> <span class="o">&gt;=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="no">MAX_LOAD</span><span class="o">)</span>
+            <span class="n">expand</span><span class="o">();</span>
+        <span class="k">return</span> <span class="nf">insertHelper1</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">expand</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">rehash</span><span class="o">((</span><span class="kt">int</span><span class="o">)(</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">/</span><span class="no">MAX_LOAD</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">rehash</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">hashFunctions</span><span class="o">.</span><span class="na">generateNewFunctions</span><span class="o">();</span>
+        <span class="n">rehash</span><span class="o">(</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">rehash</span><span class="o">(</span><span class="kt">int</span> <span class="n">newLength</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">AnyType</span> <span class="o">[]</span> <span class="n">oldArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">;</span>
+        <span class="n">allocateArray</span><span class="o">(</span><span class="n">nextPrime</span><span class="o">(</span><span class="n">newLength</span><span class="o">));</span>
+        <span class="n">currentSize</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="c1">// Copy table over</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">AnyType</span> <span class="nl">str:</span> <span class="n">oldArray</span><span class="o">)</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                <span class="n">insert</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doClear</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">currentSize</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">allocateArray</span><span class="o">(</span><span class="kt">int</span> <span class="n">arraySize</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="o">(</span><span class="nc">AnyType</span><span class="o">[])</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">[</span><span class="n">arraySize</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">Max_LOAD</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">ALLOWED_REHASHES</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">DEFAULT_TABLE_SIZE</span> <span class="o">=</span> <span class="mi">101</span><span class="o">;</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">HashFamily</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="nc">AnyType</span><span class="o">&gt;</span> <span class="n">hashFunctions</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">numHashFunctions</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">AnyType</span><span class="o">[]</span> <span class="n">array</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">currentSize</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Insertion routine for cuckoo hashing uses a different algorithm that chooses the item to evict randomly, attempting not to re-evict the last item. The table will attempt to select nre hash functions (rehash) if there are too many evictions and will expand if there are too many rehashes. </span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">rehashes</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kd">private</span> <span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">insertHelper1</span><span class="o">(</span><span class="nc">AnyType</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="kt">int</span> <span class="no">COUNT_LIMIT</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">lastPos</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">pos</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="no">COUNT_LIMIT</span><span class="o">;</span> <span class="n">count</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numHashFunctions</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">myhash</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">pos</span><span class="o">]</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">arry</span><span class="o">[</span><span class="n">pos</span><span class="o">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+                    <span class="n">currentSize</span><span class="o">++;</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="c1">//none of the spots are available. Evict out a random one</span>
+            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="k">do</span> <span class="o">{</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">myhash</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">numHashFunctions</span><span class="o">));</span>
+            <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">pos</span> <span class="o">==</span> <span class="n">loastPos</span> <span class="o">&amp;&amp;</span> <span class="n">i</span><span class="o">++</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">);</span>
+            <span class="nc">AnyType</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">lastPos</span> <span class="o">=</span> <span class="n">pos</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">pos</span><span class="o">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span><span class="o">(++</span><span class="n">rehashes</span> <span class="o">&gt;</span> <span class="no">ALLOWED_REHASHES</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">expand</span><span class="o">();</span> <span class="c1">// Make the table bigger</span>
+            <span class="n">rehashes</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">// Reset the # of rehashes</span>
+        <span class="o">}</span>
+        <span class="k">else</span>
+            <span class="nf">rehash</span><span class="o">();</span> <span class="c1">// Same table size, new hash functions</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StringHashFamily</span> <span class="kd">implements</span> <span class="nc">HashFamily</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="o">[]</span> <span class="no">MULTIPLERS</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Random</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nf">StringHashFamily</span><span class="o">(</span><span class="kt">int</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+        <span class="no">MULTIPLERS</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">d</span><span class="o">];</span>
+        <span class="n">generateNewFunctions</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNumberOfFunctions</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="no">MULTIPLIERS</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">generateNewFunctions</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="no">MULTIPLIERS</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        	<span class="no">MULTIPLERS</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="nc">String</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="kt">int</span> <span class="n">multipler</span> <span class="o">=</span> <span class="no">MULTIPLERS</span><span class="o">[</span><span class="n">which</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">hashVal</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
 </div>
   <div class="share-page">
   <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
@@ -258,6 +659,36 @@
 </div>
 
 
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
   
     
       
@@ -337,6 +768,8 @@
   
     <a class="prev" href="/data%20structure/tree/2020/04/11/Trees.html">&laquo; Trees</a>
   
+  
+    <a class="next" href="/java/collections/2020/04/29/Java-Collections-Framework.html">Java - Collections Framework &raquo;</a>
   
 </div>
 

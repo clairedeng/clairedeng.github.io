@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <title>Sets and Strings - Study Notes</title>
+    <meta name="author" content="Claire Deng" />
+    <meta name="description" content="Sets and Strings" />
+    <meta name="keywords" content="Sets and Strings, Study Notes, CS360, Lecture1" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="1749788565247320" property="fb:app_id">
+    <meta content="Study Notes" property="og:site_name">
+
+    
+
+    
+      <meta content="Sets and Strings" property="og:title">
+      <meta content="article" property="og:type">
+    
+
+    
+      <meta content="My Personal Study Notes" property="og:description">
+    
+
+    
+      <meta content="https://clairedeng.github.io/cs360/lecture1/2020/05/12/Sets-and-Strings.html" property="og:url">
+    
+
+    
+      <meta content="2020-05-12T21:45:00-04:00" property="article:published_time">
+      <meta content="https://clairedeng.github.io/about/" property="article:author">
+    
+
+    
+
+    
+      
+        <meta content="CS360" property="article:section">
+      
+    
+
+    
+      
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@github.io">
+    <meta name="twitter:creator" content="@github.io">
+
+    
+      <meta name="twitter:title" content="Sets and Strings">
+    
+
+    
+      <meta name="twitter:url" content="https://clairedeng.github.io/cs360/lecture1/2020/05/12/Sets-and-Strings.html">
+    
+
+    
+      <meta name="twitter:description" content="My Personal Study Notes">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-3">
+        <div class="fixed-condition">
+          <a href="/">Home</a>
+          <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#sets">Sets</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#infinite-sets">Infinite Sets</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+        <!-- end /.fixed-condition -->
+      </div>
+      <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Sets and Strings</h1>
+</header>
+
+<div class="info">
+  <span class="time">12 May 2020</span>
+  
+    <span class="categories">
+      &raquo; <a href="/category/CS360">CS360</a>, <a href="/category/Lecture1">Lecture1</a>
+    </span>
+  
+</div>
+
+<div class="content">
+  <div class="post"><h2 id="sets">Sets</h2>
+
+<p>A <strong>set</strong> is a collection of distinct elements. eg. $A = {2,3,5}$.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>The <strong>size</strong> or <strong>cardinality</strong> of a set is the number of elements it contains, denoted as $$</td>
+      <td>A</td>
+      <td>$$. eg. $</td>
+      <td>A</td>
+      <td>= 3$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>elements</strong> in a set are <strong>unordered</strong> and must all be <strong>distinct</strong>. eg. ${3} \ne 3, {{3}} \ne {3}$</p>
+
+<p>The <strong>empty set</strong> is a set with no elements, denoted as $\phi$ or ${}$. The cardinality of the empty set is 0: $\phi = 0$.</p>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>Question 1</strong>: What is $</td>
+        <td>{\phi}</td>
+        <td>$?</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>$</td>
+        <td>{\phi}</td>
+        <td>=</td>
+        <td>{{}}</td>
+        <td>= 1$. It is the set containing the empty set.</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>If an object $x$ is an element of a set $A$, we write $ x \in A$. Otherwise, we write $x \notin A$.</p>
+
+<p>If $A$ and $B$ are sets, we say $A$ is a <strong>subset</strong> of $B$ if all the elements of $A$ are also elements of $B$, denoted as $A\subseteq B$. In this situation, $B$ is a <strong>superset</strong> of $A$. $A\subseteq A$ for all sets $A$. $\phi \subseteq A $ for all sets A.</p>
+
+<p>If $A \subseteq B$ but $A\neq B$, we say $A$ is a <strong>proper subset</strong> of $B$, denoted as $A \subsetneq B$.</p>
+
+<p>The <strong>intersection</strong> of set $A$ and $B$ is denoted by $A\cap B$, the set which contains all elements $A$ and $B$ have in common.</p>
+
+<p>The <strong>union</strong> of set $A$ and $B$ is denoted by $A\cup B$, the set which contains all objects that are elements of <em>either</em> A or B.</p>
+
+<p>For all sets $A$ and $B$, we have $A\cap B \subseteq A$ and $A\subseteq A\cup B$, $A\cap \phi = \phi$ and $A\cup \phi = A$.</p>
+
+<blockquote>
+  <p><strong>Question 2</strong>: What is $\phi \cup {\phi} \cup {{\phi}}$?</p>
+
+  <p>$\phi \cup {\phi} \cup {{\phi}} =  {\phi, {\phi}}$</p>
+</blockquote>
+
+<table>
+  <tbody>
+    <tr>
+      <td>The <strong>set subtraction</strong> of set $A$ and $B$ is denoted by $A \setminus B$, the set of all elements which are in $A$ but not in $B$. $</td>
+      <td>A\setminus B</td>
+      <td>$ does not have to equal $</td>
+      <td>A</td>
+      <td>-</td>
+      <td>B</td>
+      <td>$. eg. if $A = {2,3,5}$ and $B = {1,2,3}$, then $A\setminus B = {5}$ and $</td>
+      <td>A\setminus B</td>
+      <td>= 1\neq</td>
+      <td>A</td>
+      <td>-</td>
+      <td>B</td>
+      <td>= 3-3=0$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>complement</strong> of set $A$ is denoted by $\overline{A}$, the set of all things not in $A$. $\overline{A}$ is only defined with respect to some universe set $U$ which is a superset of $A$. This way, $\overline{A}$ will be equal to $U\setminus A$.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>If $A$ is a set, then the set of all subsets of $A$ is denoted by $P(A)$ or $2^A$, the power set of $A$. eg. $P({2,3,5}) = {\phi, {2}, {3}, {5}, {2,3}, {2, 5}, {3, 5}, {2,3,5}}$. $P(\phi) = {\phi}$. If $A$ is a finite set, then the size of $P(A)$ will always be exactly $2^{</td>
+      <td>A</td>
+      <td>}$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="infinite-sets">Infinite Sets</h3>
+
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="github.io">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  <!-- Facebook -->
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/cs360/lecture1/2020/05/12/Sets-and-Strings.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1749788565247320";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+  
+
+<div class="PageNavigation">
+  
+    <a class="prev" href="/java/collections/2020/04/29/Java-Collections-Framework.html">&laquo; Java - Collections Framework</a>
+  
+  
+</div>
+
+<div class="disqus-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var disqus_shortname = "stackproblems";
+    var disqus_identifier = "https://clairedeng.github.io_Sets and Strings";
+    var disqus_title = "Sets and Strings";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    /* ]]> */
+  </script>
+</div>
+
+
+        <footer>
+          &copy; Claire Deng
+          
+            - <a href="https://github.com/clairedeng">https://github.com/clairedeng</a> - Powered by Jekyll.
+          
+          <div class="btn-github" style="float:right;">
+            <iframe src="https://ghbtns.com/github-btn.html?user=clairedeng&repo=clairedeng.github.io&type=star&count=true" frameborder="0" scrolling="0" width="100" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=clairedeng&repo=clairedeng.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="100" height="20px"></iframe>
+          </div>
+        </footer>
+      </div>
+      <!-- end /.col-sm-8 -->
+    </div>
+    <!-- end /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/super-search.js"></script>
+    <script src="/static/js/thickbox-compressed.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  </body>
+</html>
+

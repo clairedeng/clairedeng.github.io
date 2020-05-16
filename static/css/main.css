@@ -107,8 +107,8 @@ h4 {
   margin-bottom: 10px;
 }
 p {
-  margin-block-start: 1.6em;
-  margin-block-end: 1.6em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
 }
 
 a, a:link, a:active {
@@ -247,8 +247,8 @@ div.col-sm-3 div.profile-about {
 }
 
 pre.highlight, table  {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .info {
