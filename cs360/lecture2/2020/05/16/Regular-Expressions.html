@@ -117,8 +117,8 @@
 <p>The regular languages over an alphabet $\sum$ are defined recursively:</p>
 
 <ol>
-  <li>$\phi$ and ${\epsilon}$ are regular.</li>
-  <li>${c}$ is regular for each character $c \in \sum$.</li>
+  <li>$\phi$ and <script type="math/tex">\{\epsilon\}</script> are regular.</li>
+  <li><script type="math/tex">\{c\}</script> is regular for each character $c \in \sum$.</li>
   <li>If $A$ and $B$ are regular, then $A\cup B$ is regular.</li>
   <li>If $A$ and $B$ are regular, then $AB$ is regular.</li>
   <li>If $A$ is regular, then $A^*$ is regular.</li>
@@ -143,7 +143,7 @@
 <p>The formal definition of a regular expression over $\sum$ is recursive:</p>
 
 <ol>
-  <li>The <strong>symbol</strong> <strong>$\phi$</strong> is a regular expression.</li>
+  <li>The <strong>symbol</strong> $\phi$ is a regular expression.</li>
   <li>The symbol $\epsilon$ is a regular expression.</li>
   <li>For each $c\in \sum$, the symbol c is a regular expression.</li>
   <li>If $R_1$ and $R_2$ are regular expressions, then the string $(R_1\cup R_2)$ is a regular expression.</li>
@@ -155,11 +155,11 @@
 
 <ol>
   <li>If $R = \phi$, then $L(R) = \phi$.</li>
-  <li>If $R = \epsilon$, then $L(R) = {\epsilon}$.</li>
-  <li>If $R = c$ for some $c \in \sum$, then $L(R) = {c}$.</li>
+  <li>If $R = \epsilon$, then <script type="math/tex">L(R) = \{\epsilon\}</script>.</li>
+  <li>If $R = c$ for some $c \in \sum$, then <script type="math/tex">L(R) = \{c\}</script>.</li>
   <li>If $R = (R_1\cup R_2)$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1) \cup L(R_2)$.</li>
   <li>If $R = R_1R_2$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1)L(R_2)$.</li>
-  <li>If $R = (R_1^<em>)$ for some regular expression $R_1$, then $L(R) = L(R_1)^</em>$.</li>
+  <li>If $R = (R_1^{*})$ for some regular expressions $R_1$, then $L(R) = L(R_1)^{*}$.</li>
 </ol>
 
 <p>Order of operations for regular expressions:</p>
@@ -174,19 +174,19 @@
 <blockquote>
   <p><strong>Question 2</strong>: Let $A$ be the language over ${0, 1}$ consisting of all strings with an even number of ones. What is a regular expression for A?</p>
 
-  <p>$0^<em>\cup (0^</em>10^<em>10^</em>)^*$ or <strong>$0^<em>(10^</em>10^<em>)^</em>$</strong></p>
+  <p>$0^{*}\cup (0^{*}10^{*}10^{*})^{*}$ or $0^{*}(10^{*}10^{*})^{*}$</p>
 </blockquote>
 
 <blockquote>
   <p><strong>Question 3</strong>: Let $B$ be the language over ${0,1,2}$ consisting of all strings which contain the pattern 012 inside of them. What is a regular expression for $B$?</p>
 
-  <p>$(0\cup 1\cup 2)^<em>012(0\cup 1\cup 2)^</em>$</p>
+  <p>$(0\cup 1\cup 2)^{*}012(0\cup 1\cup 2)^{*}$</p>
 </blockquote>
 
 <blockquote>
   <p><strong>Question 4</strong>: Let $C$ be the language over ${0, 1}$ consisting of all strings $x$ with an even number of 0s and an even number of 1s. What is a regular expression for C?</p>
 
-  <p>$(00\cup 11)^<em>((01\cup 10)(00\cup11)^</em>(01\cup 10)(00\cup 11)^<em>)^</em>$</p>
+  <p>$(00\cup 11)^{*}((01\cup 10)(00\cup11)^{*}(01\cup 10)(00\cup 11)^{*})^{*}$</p>
 </blockquote>
 
 <h2 id="are-all-languages-regular">Are All Languages Regular?</h2>
@@ -200,13 +200,12 @@
 <blockquote>
   <p>Irregular languages must exist.</p>
 
-  <p>proof: Each regular language over $\sum$ can be represented by a regular expression over $\sum$. A regular expression is just a string whose alphabet is $\sum \cup {\phi, \epsilon, (,), \cup, <em>}$. Let’s call this expanded alphabet $\sum^{‘}$. Then  $\sum^{‘}$ is also finite. Since regular expressions are strings over $\sum^{‘}$, each regular expression is in $(\sum^{‘})^</em>$. Now, as mentioned (without proof) in the previous class, the set $(\sum^{‘})^*$ is infinite but countable, since $\sum^{‘}$ is finite. This means there are only countably many regular expressions over $\sum$.</p>
+  <p>proof: Each regular language over $\sum$ can be represented by a regular expression over $\sum$. A regular expression is just a string whose alphabet is <script type="math/tex">\sum \cup \{\phi, \epsilon, (,), \cup, *\}</script>. Let’s call this expanded alphabet $\sum^{'}$. Then  $\sum^{'}$ is also finite. Since regular expressions are strings over $\sum^{'}$, each regular expression is in $(\sum^{'})^{*}$. Now, as mentioned (without proof) in the previous class, the set $(\sum^{'})^{*}$ is infinite but countable, since $\sum^{'}$ is finite. This means there are only countably many regular expressions over $\sum$.</p>
 
-  <p>On the other hand, how many languages over $\sum$ are there? Recall that each language is a subset of $\sum^<em>$. Hence the set of all languages over $\sum$ is exactly the set of all subsets of $\sum^</em>$, i.e. the set $P(\sum^<em>)$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\sum^</em>)$ has cardinality larger than that of $\sum^<em>$. Since $\sum^</em>$ is countable infinite, it follows that $P(\sum^*)$ must be uncountable. In other words, while there are countably many regular expressions over $\sum$, there are uncountably many language over $\sum$!</p>
+  <p>On the other hand, how many languages over $\sum$ are there? Recall that each language is a subset of $\sum^{*}$. Hence the set of all languages over $\sum$ is exactly the set of all subsets of $\sum^{*}$, i.e. the set $P(\sum^{*})$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\sum^{*})$ has cardinality larger than that of $\sum^{*}$. Since $\sum^{*}$ is countable infinite, it follows that $P(\sum^{*})$ must be uncountable. In other words, while there are countably many regular expressions over $\sum$, there are uncountably many language over $\sum$!</p>
 
   <p>This means that regular expressions cannot be matched up to the languages without there being languages “left over”. In particular, there cannot be a regular expression for each language. This argument actually implies that there are uncountably infinity irregular languages.</p>
 </blockquote>
-
 </div>
   <div class="share-page">
   <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>

@@ -113,46 +113,18 @@
 <div class="content">
   <div class="post"><h2 id="sets">Sets</h2>
 
-<p>A <strong>set</strong> is a collection of distinct elements. eg. $A = {2,3,5}$.</p>
+<p>A <strong>set</strong> is a collection of distinct elements. eg. <script type="math/tex">A = \{2,3,5\}</script>.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>The <strong>size</strong> or <strong>cardinality</strong> of a set is the number of elements it contains, denoted as $$</td>
-      <td>A</td>
-      <td>$$. eg. $</td>
-      <td>A</td>
-      <td>= 3$</td>
-    </tr>
-  </tbody>
-</table>
+<p>The <strong>size</strong> or <strong>cardinality</strong> of a set is the number of elements it contains, denoted as $|A|$. eg. $|A| = 3$</p>
 
-<p>The <strong>elements</strong> in a set are <strong>unordered</strong> and must all be <strong>distinct</strong>. eg. ${3} \ne 3, {{3}} \ne {3}$</p>
+<p>The <strong>elements</strong> in a set are <strong>unordered</strong> and must all be <strong>distinct</strong>. eg. <script type="math/tex">\{3\} \ne 3, \{\{3\}\} \ne \{3\}</script></p>
 
 <p>The <strong>empty set</strong> is a set with no elements, denoted as $\phi$ or ${}$. The cardinality of the empty set is 0: $\phi = 0$.</p>
 
 <blockquote>
-  <table>
-    <tbody>
-      <tr>
-        <td><strong>Question 1</strong>: What is $</td>
-        <td>{\phi}</td>
-        <td>$?</td>
-      </tr>
-    </tbody>
-  </table>
+  <p><strong>Question 1</strong>: What is |<script type="math/tex">\{\phi\}</script>|?</p>
 
-  <table>
-    <tbody>
-      <tr>
-        <td>$</td>
-        <td>{\phi}</td>
-        <td>=</td>
-        <td>{{}}</td>
-        <td>= 1$. It is the set containing the empty set.</td>
-      </tr>
-    </tbody>
-  </table>
+  <p>|<script type="math/tex">\{\phi\}</script>| = |<script type="math/tex">\{\{\}\}</script>|= 1. It is the set containing the empty set.</p>
 </blockquote>
 
 <p>If an object $x$ is an element of a set $A$, we write $ x \in A$. Otherwise, we write $x \notin A$.</p>
@@ -168,76 +140,32 @@
 <p>For all sets $A$ and $B$, we have $A\cap B \subseteq A$ and $A\subseteq A\cup B$, $A\cap \phi = \phi$ and $A\cup \phi = A$.</p>
 
 <blockquote>
-  <p><strong>Question 2</strong>: What is $\phi \cup {\phi} \cup {{\phi}}$?</p>
+  <p><strong>Question 2</strong>: What is <script type="math/tex">\phi \cup \{\phi\} \cup \{\{\phi\}\}</script>?</p>
 
-  <p>$\phi \cup {\phi} \cup {{\phi}} =  {\phi, {\phi}}$</p>
+  <script type="math/tex; mode=display">\phi \cup \{\phi\} \cup \{\{\phi\}\} =  \{\phi, \{\phi\}\}</script>
 </blockquote>
 
-<table>
-  <tbody>
-    <tr>
-      <td>The <strong>set subtraction</strong> of set $A$ and $B$ is denoted by $A \setminus B$, the set of all elements which are in $A$ but not in $B$. $</td>
-      <td>A\setminus B</td>
-      <td>$ does not have to equal $</td>
-      <td>A</td>
-      <td>-</td>
-      <td>B</td>
-      <td>$. eg. if $A = {2,3,5}$ and $B = {1,2,3}$, then $A\setminus B = {5}$ and $</td>
-      <td>A\setminus B</td>
-      <td>= 1\neq</td>
-      <td>A</td>
-      <td>-</td>
-      <td>B</td>
-      <td>= 3-3=0$.</td>
-    </tr>
-  </tbody>
-</table>
+<p>The <strong>set subtraction</strong> of set $A$ and $B$ is denoted by $A \setminus B$, the set of all elements which are in $A$ but not in $B$. $|A\setminus B|$ does not have to equal $|A| - |B|$. eg. if <script type="math/tex">A = \{2,3,5\}</script> and <script type="math/tex">B = \{1,2,3\}</script>, then <script type="math/tex">A\setminus B = \{5\}</script> and $|A\setminus B| = 1\neq |A| - |B| = 3-3=0$.</p>
 
 <p>The <strong>complement</strong> of set $A$ is denoted by $\overline{A}$, the set of all things not in $A$. $\overline{A}$ is only defined with respect to some universe set $U$ which is a superset of $A$. This way, $\overline{A}$ will be equal to $U\setminus A$.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>If $A$ is a set, then the set of all subsets of $A$ is denoted by $P(A)$ or $2^A$, the <strong>power set</strong> of $A$. eg. $P({2,3,5}) = {\phi, {2}, {3}, {5}, {2,3}, {2, 5}, {3, 5}, {2,3,5}}$. $P(\phi) = {\phi}$. If $A$ is a finite set, then the size of $P(A)$ will always be exactly $2^{</td>
-      <td>A</td>
-      <td>}$.</td>
-    </tr>
-  </tbody>
-</table>
+<p>If $A$ is a set, then the set of all subsets of $A$ is denoted by $P(A)$ or $2^A$, the <strong>power set</strong> of $A$. eg. <script type="math/tex">P(\{2,3,5\}) = \{\phi, \{2\}, \{3\}, \{5\}, \{2,3\}, \{2, 5\}, \{3, 5\}, \{2,3,5\}\}</script>. <script type="math/tex">P(\phi) = \{\phi\}</script>. If $A$ is a finite set, then the size of $P(A)$ will always be exactly $2^{|A|}$.</p>
 
 <h3 id="infinite-sets">Infinite Sets</h3>
 
-<p>The set of all <strong>natural numbers</strong> $\N = {0,1,2,…}$ is a valid <strong>infinite set</strong>.</p>
+<p>The set of all <strong>natural numbers</strong> <script type="math/tex">N = \{0,1,2,...\}</script> is a valid <strong>infinite set</strong>.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>A set $A$ is <strong>finite</strong> if $</td>
-      <td>A</td>
-      <td>\in \N$, and otherwise we say $A$ is <strong>infinite</strong>.</td>
-    </tr>
-  </tbody>
-</table>
+<p>A set $A$ is <strong>finite</strong> if $|A| \in N$, and otherwise we say $A$ is <strong>infinite</strong>.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>The <strong>cardinality</strong> of two infinite sets $A = {2,3,4,…}$ and $B = {1,2,3,…}$ is the same, $</td>
-      <td>A</td>
-      <td>=</td>
-      <td>B</td>
-      <td>$, even though $A \subsetneq B$. The reason is that $A$ and $B$ can be put in one-to-one correspondence: for each element $x$ in $A$, we can find a match for it in $B$, which will be $x-1$.</td>
-    </tr>
-  </tbody>
-</table>
+<p>The <strong>cardinality</strong> of two infinite sets <script type="math/tex">A = \{2,3,4,...\}</script> and <script type="math/tex">B = \{1,2,3,...\}</script> is the same, $|A|=|B|$, even though $A \subsetneq B$. The reason is that $A$ and $B$ can be put in one-to-one correspondence: for each element $x$ in $A$, we can find a match for it in $B$, which will be $x-1$.</p>
 
 <p>Not all pairs of infinite sets can be put in one-to-one correspondence with each other: there are different cardinalities of infinite sets.</p>
 
 <p>The smallest infinite cardinality is the cardinality of the natural numbers.</p>
 
-<p>A set whose cardinality is equal to or smaller than that of $\N$ is called <strong>countable</strong>.</p>
+<p>A set whose cardinality is equal to or smaller than that of $N$ is called <strong>countable</strong>.</p>
 
-<p>A set which is not countable is called <strong>uncountable</strong>. eg. the set of real numbers $\R$</p>
+<p>A set which is not countable is called <strong>uncountable</strong>. eg. the set of real numbers $R$</p>
 
 <h2 id="strings">Strings</h2>
 
@@ -247,33 +175,13 @@
 
 <p>A <strong>string</strong> is a finite sequence of elements of $\sum$.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>The <strong>length of a string</strong> $x$, denoted $</td>
-      <td>x</td>
-      <td>$, is the number of characters in the sequence $x$.</td>
-    </tr>
-  </tbody>
-</table>
+<p>The <strong>length of a string</strong> $x$, denoted $|x|$, is the number of characters in the sequence $x$.</p>
 
 <p>Strings are not allowed to be infinite.</p>
 
 <p>The string which contains zero characters is called the <strong>empty string</strong>, denoted by $\epsilon $. The length of $\epsilon$ is 0. $\epsilon$ is a string over every alphabet $\sum$.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>If $x$ and $y$ are two strings over the same alphabet $\sum$, the <strong>concatenation</strong> of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $</td>
-      <td>xy</td>
-      <td>$ of the concatenation of $x$ and $y$ equals $</td>
-      <td>x</td>
-      <td>+</td>
-      <td>y</td>
-      <td>$.</td>
-    </tr>
-  </tbody>
-</table>
+<p>If $x$ and $y$ are two strings over the same alphabet $\sum$, the <strong>concatenation</strong> of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $|xy|$ of the concatenation of $x$ and $y$ equals $|x|+|y|$.</p>
 
 <h2 id="languages">Languages</h2>
 
@@ -283,7 +191,7 @@
 
 <p>Since $\epsilon$ is a valid string, languages may contain $\epsilon$. The empty language is $\phi$, the empty string is $\epsilon$.</p>
 
-<p>If $A$ and $B$ are languages over $\sum$, we define $AB$ to be ${xy: x\in A, y\in B}$. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.</p>
+<p>If $A$ and $B$ are languages over $\sum$, we define $AB$ to be <script type="math/tex">\{xy: x\in A, y\in B\}</script>. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.</p>
 
 <blockquote>
   <p><strong>Question 3</strong>: Let $A$ be a language. What is the concatenation $A\phi$? What about $A{\epsilon}$?</p>
@@ -295,13 +203,13 @@
 
 <p>We define $A^n$ to be the language $A$ concatenated with itself $n$ times.</p>
 
-<p>$A^0 = {\epsilon}$ for all $A$. $A^0 = {\epsilon}$ for all $A$, even when $A = \phi$. $\phi^n = \phi$ for $n \ge 1$.</p>
+<p><script type="math/tex">A^0 = \{\epsilon\}</script> for all $A$. <script type="math/tex">A^0 = \{\epsilon\}</script> for all $A$, even when $A = \phi$. $\phi^n = \phi$ for $n \ge 1$.</p>
 
-<p>$A^* = A^0\cup A^1\cup A^2\cup…$ is called Kleene star. It is the union of $A^n$ over all $n \in \N$ and it’s an infinite set.</p>
+<p>$A^* = A^0\cup A^1\cup A^2\cup…$ is called Kleene star. It is the union of $A^n$ over all $n \in N$ and it’s an infinite set.</p>
 
-<p>If $\sum$ is an alphabet, then $\sum^<em>$ is the set of all strings over that alphabet, since every string over $\sum$ can be formed by concatenating  characters of $\sum$ together. Any language $A$ over $\sum$ must be a subset of $\sum^</em>$. The set $\sum^<em>$ is countable. Since all language over $\sum$ are subsets of $\sum^</em>$, all languages are countable.</p>
+<p>If $\sum$ is an alphabet, then $\sum^{*}$ is the set of all strings over that alphabet, since every string over $\sum$ can be formed by concatenating  characters of $\sum$ together. Any language $A$ over $\sum$ must be a subset of $\sum^{*}$. The set $\sum^{*}$ is countable. Since all language over $\sum$ are subsets of $\sum^{*}$, all languages are countable.</p>
 
-<p>When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\sum^<em>$, $\sum$ is the alphabet of $A$. , $\overline{A} = \sum^</em>\setminus A$, the set of all strings over $\sum$ that are not in $A$.</p>
+<p>When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\sum^{*}$, $\sum$ is the alphabet of $A$. , $\overline{A} = \sum^{*}\setminus A$, the set of all strings over $\sum$ that are not in $A$.</p>
 
 </div>
   <div class="share-page">

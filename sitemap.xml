@@ -5,8 +5,8 @@
     <description>My Personal Study Notes</description>
     <link>https://clairedeng.github.io/</link>
     <atom:link href="https://clairedeng.github.io/sitemap.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 May 2020 17:46:14 -0400</pubDate>
-    <lastBuildDate>Sun, 17 May 2020 17:46:14 -0400</lastBuildDate>
+    <pubDate>Sun, 17 May 2020 19:51:32 -0400</pubDate>
+    <lastBuildDate>Sun, 17 May 2020 19:51:32 -0400</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -20,8 +20,8 @@
 &lt;p&gt;The regular languages over an alphabet $\sum$ are defined recursively:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;$\phi$ and ${\epsilon}$ are regular.&lt;/li&gt;
-  &lt;li&gt;${c}$ is regular for each character $c \in \sum$.&lt;/li&gt;
+  &lt;li&gt;$\phi$ and &lt;script type=&quot;math/tex&quot;&gt;\{\epsilon\}&lt;/script&gt; are regular.&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\{c\}&lt;/script&gt; is regular for each character $c \in \sum$.&lt;/li&gt;
   &lt;li&gt;If $A$ and $B$ are regular, then $A\cup B$ is regular.&lt;/li&gt;
   &lt;li&gt;If $A$ and $B$ are regular, then $AB$ is regular.&lt;/li&gt;
   &lt;li&gt;If $A$ is regular, then $A^*$ is regular.&lt;/li&gt;
@@ -46,7 +46,7 @@
 &lt;p&gt;The formal definition of a regular expression over $\sum$ is recursive:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;The &lt;strong&gt;symbol&lt;/strong&gt; &lt;strong&gt;$\phi$&lt;/strong&gt; is a regular expression.&lt;/li&gt;
+  &lt;li&gt;The &lt;strong&gt;symbol&lt;/strong&gt; $\phi$ is a regular expression.&lt;/li&gt;
   &lt;li&gt;The symbol $\epsilon$ is a regular expression.&lt;/li&gt;
   &lt;li&gt;For each $c\in \sum$, the symbol c is a regular expression.&lt;/li&gt;
   &lt;li&gt;If $R_1$ and $R_2$ are regular expressions, then the string $(R_1\cup R_2)$ is a regular expression.&lt;/li&gt;
@@ -58,11 +58,11 @@
 
 &lt;ol&gt;
   &lt;li&gt;If $R = \phi$, then $L(R) = \phi$.&lt;/li&gt;
-  &lt;li&gt;If $R = \epsilon$, then $L(R) = {\epsilon}$.&lt;/li&gt;
-  &lt;li&gt;If $R = c$ for some $c \in \sum$, then $L(R) = {c}$.&lt;/li&gt;
+  &lt;li&gt;If $R = \epsilon$, then &lt;script type=&quot;math/tex&quot;&gt;L(R) = \{\epsilon\}&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;If $R = c$ for some $c \in \sum$, then &lt;script type=&quot;math/tex&quot;&gt;L(R) = \{c\}&lt;/script&gt;.&lt;/li&gt;
   &lt;li&gt;If $R = (R_1\cup R_2)$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1) \cup L(R_2)$.&lt;/li&gt;
   &lt;li&gt;If $R = R_1R_2$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1)L(R_2)$.&lt;/li&gt;
-  &lt;li&gt;If $R = (R_1^&lt;em&gt;)$ for some regular expression $R_1$, then $L(R) = L(R_1)^&lt;/em&gt;$.&lt;/li&gt;
+  &lt;li&gt;If $R = (R_1^{*})$ for some regular expressions $R_1$, then $L(R) = L(R_1)^{*}$.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Order of operations for regular expressions:&lt;/p&gt;
@@ -77,19 +77,19 @@
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Question 2&lt;/strong&gt;: Let $A$ be the language over ${0, 1}$ consisting of all strings with an even number of ones. What is a regular expression for A?&lt;/p&gt;
 
-  &lt;p&gt;$0^&lt;em&gt;\cup (0^&lt;/em&gt;10^&lt;em&gt;10^&lt;/em&gt;)^*$ or &lt;strong&gt;$0^&lt;em&gt;(10^&lt;/em&gt;10^&lt;em&gt;)^&lt;/em&gt;$&lt;/strong&gt;&lt;/p&gt;
+  &lt;p&gt;$0^{*}\cup (0^{*}10^{*}10^{*})^{*}$ or $0^{*}(10^{*}10^{*})^{*}$&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Question 3&lt;/strong&gt;: Let $B$ be the language over ${0,1,2}$ consisting of all strings which contain the pattern 012 inside of them. What is a regular expression for $B$?&lt;/p&gt;
 
-  &lt;p&gt;$(0\cup 1\cup 2)^&lt;em&gt;012(0\cup 1\cup 2)^&lt;/em&gt;$&lt;/p&gt;
+  &lt;p&gt;$(0\cup 1\cup 2)^{*}012(0\cup 1\cup 2)^{*}$&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Question 4&lt;/strong&gt;: Let $C$ be the language over ${0, 1}$ consisting of all strings $x$ with an even number of 0s and an even number of 1s. What is a regular expression for C?&lt;/p&gt;
 
-  &lt;p&gt;$(00\cup 11)^&lt;em&gt;((01\cup 10)(00\cup11)^&lt;/em&gt;(01\cup 10)(00\cup 11)^&lt;em&gt;)^&lt;/em&gt;$&lt;/p&gt;
+  &lt;p&gt;$(00\cup 11)^{*}((01\cup 10)(00\cup11)^{*}(01\cup 10)(00\cup 11)^{*})^{*}$&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;are-all-languages-regular&quot;&gt;Are All Languages Regular?&lt;/h2&gt;
@@ -103,13 +103,12 @@
 &lt;blockquote&gt;
   &lt;p&gt;Irregular languages must exist.&lt;/p&gt;
 
-  &lt;p&gt;proof: Each regular language over $\sum$ can be represented by a regular expression over $\sum$. A regular expression is just a string whose alphabet is $\sum \cup {\phi, \epsilon, (,), \cup, &lt;em&gt;}$. Let’s call this expanded alphabet $\sum^{‘}$. Then  $\sum^{‘}$ is also finite. Since regular expressions are strings over $\sum^{‘}$, each regular expression is in $(\sum^{‘})^&lt;/em&gt;$. Now, as mentioned (without proof) in the previous class, the set $(\sum^{‘})^*$ is infinite but countable, since $\sum^{‘}$ is finite. This means there are only countably many regular expressions over $\sum$.&lt;/p&gt;
+  &lt;p&gt;proof: Each regular language over $\sum$ can be represented by a regular expression over $\sum$. A regular expression is just a string whose alphabet is &lt;script type=&quot;math/tex&quot;&gt;\sum \cup \{\phi, \epsilon, (,), \cup, *\}&lt;/script&gt;. Let’s call this expanded alphabet $\sum^{'}$. Then  $\sum^{'}$ is also finite. Since regular expressions are strings over $\sum^{'}$, each regular expression is in $(\sum^{'})^{*}$. Now, as mentioned (without proof) in the previous class, the set $(\sum^{'})^{*}$ is infinite but countable, since $\sum^{'}$ is finite. This means there are only countably many regular expressions over $\sum$.&lt;/p&gt;
 
-  &lt;p&gt;On the other hand, how many languages over $\sum$ are there? Recall that each language is a subset of $\sum^&lt;em&gt;$. Hence the set of all languages over $\sum$ is exactly the set of all subsets of $\sum^&lt;/em&gt;$, i.e. the set $P(\sum^&lt;em&gt;)$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\sum^&lt;/em&gt;)$ has cardinality larger than that of $\sum^&lt;em&gt;$. Since $\sum^&lt;/em&gt;$ is countable infinite, it follows that $P(\sum^*)$ must be uncountable. In other words, while there are countably many regular expressions over $\sum$, there are uncountably many language over $\sum$!&lt;/p&gt;
+  &lt;p&gt;On the other hand, how many languages over $\sum$ are there? Recall that each language is a subset of $\sum^{*}$. Hence the set of all languages over $\sum$ is exactly the set of all subsets of $\sum^{*}$, i.e. the set $P(\sum^{*})$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\sum^{*})$ has cardinality larger than that of $\sum^{*}$. Since $\sum^{*}$ is countable infinite, it follows that $P(\sum^{*})$ must be uncountable. In other words, while there are countably many regular expressions over $\sum$, there are uncountably many language over $\sum$!&lt;/p&gt;
 
   &lt;p&gt;This means that regular expressions cannot be matched up to the languages without there being languages “left over”. In particular, there cannot be a regular expression for each language. This argument actually implies that there are uncountably infinity irregular languages.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 </description>
         <pubDate>Sat, 16 May 2020 10:20:00 -0400</pubDate>
         <link>https://clairedeng.github.io/cs360/lecture2/2020/05/16/Regular-Expressions.html</link>
@@ -126,46 +125,18 @@
         <title>Sets and Strings</title>
         <description>&lt;h2 id=&quot;sets&quot;&gt;Sets&lt;/h2&gt;
 
-&lt;p&gt;A &lt;strong&gt;set&lt;/strong&gt; is a collection of distinct elements. eg. $A = {2,3,5}$.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;set&lt;/strong&gt; is a collection of distinct elements. eg. &lt;script type=&quot;math/tex&quot;&gt;A = \{2,3,5\}&lt;/script&gt;.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;The &lt;strong&gt;size&lt;/strong&gt; or &lt;strong&gt;cardinality&lt;/strong&gt; of a set is the number of elements it contains, denoted as $$&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;$$. eg. $&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;= 3$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;The &lt;strong&gt;size&lt;/strong&gt; or &lt;strong&gt;cardinality&lt;/strong&gt; of a set is the number of elements it contains, denoted as $|A|$. eg. $|A| = 3$&lt;/p&gt;
 
-&lt;p&gt;The &lt;strong&gt;elements&lt;/strong&gt; in a set are &lt;strong&gt;unordered&lt;/strong&gt; and must all be &lt;strong&gt;distinct&lt;/strong&gt;. eg. ${3} \ne 3, {{3}} \ne {3}$&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;elements&lt;/strong&gt; in a set are &lt;strong&gt;unordered&lt;/strong&gt; and must all be &lt;strong&gt;distinct&lt;/strong&gt;. eg. &lt;script type=&quot;math/tex&quot;&gt;\{3\} \ne 3, \{\{3\}\} \ne \{3\}&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;The &lt;strong&gt;empty set&lt;/strong&gt; is a set with no elements, denoted as $\phi$ or ${}$. The cardinality of the empty set is 0: $\phi = 0$.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;table&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;
-        &lt;td&gt;&lt;strong&gt;Question 1&lt;/strong&gt;: What is $&lt;/td&gt;
-        &lt;td&gt;{\phi}&lt;/td&gt;
-        &lt;td&gt;$?&lt;/td&gt;
-      &lt;/tr&gt;
-    &lt;/tbody&gt;
-  &lt;/table&gt;
+  &lt;p&gt;&lt;strong&gt;Question 1&lt;/strong&gt;: What is |&lt;script type=&quot;math/tex&quot;&gt;\{\phi\}&lt;/script&gt;|?&lt;/p&gt;
 
-  &lt;table&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;
-        &lt;td&gt;$&lt;/td&gt;
-        &lt;td&gt;{\phi}&lt;/td&gt;
-        &lt;td&gt;=&lt;/td&gt;
-        &lt;td&gt;{{}}&lt;/td&gt;
-        &lt;td&gt;= 1$. It is the set containing the empty set.&lt;/td&gt;
-      &lt;/tr&gt;
-    &lt;/tbody&gt;
-  &lt;/table&gt;
+  &lt;p&gt;|&lt;script type=&quot;math/tex&quot;&gt;\{\phi\}&lt;/script&gt;| = |&lt;script type=&quot;math/tex&quot;&gt;\{\{\}\}&lt;/script&gt;|= 1. It is the set containing the empty set.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;If an object $x$ is an element of a set $A$, we write $ x \in A$. Otherwise, we write $x \notin A$.&lt;/p&gt;
@@ -181,76 +152,32 @@
 &lt;p&gt;For all sets $A$ and $B$, we have $A\cap B \subseteq A$ and $A\subseteq A\cup B$, $A\cap \phi = \phi$ and $A\cup \phi = A$.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Question 2&lt;/strong&gt;: What is $\phi \cup {\phi} \cup {{\phi}}$?&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Question 2&lt;/strong&gt;: What is &lt;script type=&quot;math/tex&quot;&gt;\phi \cup \{\phi\} \cup \{\{\phi\}\}&lt;/script&gt;?&lt;/p&gt;
 
-  &lt;p&gt;$\phi \cup {\phi} \cup {{\phi}} =  {\phi, {\phi}}$&lt;/p&gt;
+  &lt;script type=&quot;math/tex; mode=display&quot;&gt;\phi \cup \{\phi\} \cup \{\{\phi\}\} =  \{\phi, \{\phi\}\}&lt;/script&gt;
 &lt;/blockquote&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;The &lt;strong&gt;set subtraction&lt;/strong&gt; of set $A$ and $B$ is denoted by $A \setminus B$, the set of all elements which are in $A$ but not in $B$. $&lt;/td&gt;
-      &lt;td&gt;A\setminus B&lt;/td&gt;
-      &lt;td&gt;$ does not have to equal $&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;B&lt;/td&gt;
-      &lt;td&gt;$. eg. if $A = {2,3,5}$ and $B = {1,2,3}$, then $A\setminus B = {5}$ and $&lt;/td&gt;
-      &lt;td&gt;A\setminus B&lt;/td&gt;
-      &lt;td&gt;= 1\neq&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;B&lt;/td&gt;
-      &lt;td&gt;= 3-3=0$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;The &lt;strong&gt;set subtraction&lt;/strong&gt; of set $A$ and $B$ is denoted by $A \setminus B$, the set of all elements which are in $A$ but not in $B$. $|A\setminus B|$ does not have to equal $|A| - |B|$. eg. if &lt;script type=&quot;math/tex&quot;&gt;A = \{2,3,5\}&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;B = \{1,2,3\}&lt;/script&gt;, then &lt;script type=&quot;math/tex&quot;&gt;A\setminus B = \{5\}&lt;/script&gt; and $|A\setminus B| = 1\neq |A| - |B| = 3-3=0$.&lt;/p&gt;
 
 &lt;p&gt;The &lt;strong&gt;complement&lt;/strong&gt; of set $A$ is denoted by $\overline{A}$, the set of all things not in $A$. $\overline{A}$ is only defined with respect to some universe set $U$ which is a superset of $A$. This way, $\overline{A}$ will be equal to $U\setminus A$.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;If $A$ is a set, then the set of all subsets of $A$ is denoted by $P(A)$ or $2^A$, the &lt;strong&gt;power set&lt;/strong&gt; of $A$. eg. $P({2,3,5}) = {\phi, {2}, {3}, {5}, {2,3}, {2, 5}, {3, 5}, {2,3,5}}$. $P(\phi) = {\phi}$. If $A$ is a finite set, then the size of $P(A)$ will always be exactly $2^{&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;}$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;If $A$ is a set, then the set of all subsets of $A$ is denoted by $P(A)$ or $2^A$, the &lt;strong&gt;power set&lt;/strong&gt; of $A$. eg. &lt;script type=&quot;math/tex&quot;&gt;P(\{2,3,5\}) = \{\phi, \{2\}, \{3\}, \{5\}, \{2,3\}, \{2, 5\}, \{3, 5\}, \{2,3,5\}\}&lt;/script&gt;. &lt;script type=&quot;math/tex&quot;&gt;P(\phi) = \{\phi\}&lt;/script&gt;. If $A$ is a finite set, then the size of $P(A)$ will always be exactly $2^{|A|}$.&lt;/p&gt;
 
 &lt;h3 id=&quot;infinite-sets&quot;&gt;Infinite Sets&lt;/h3&gt;
 
-&lt;p&gt;The set of all &lt;strong&gt;natural numbers&lt;/strong&gt; $\N = {0,1,2,…}$ is a valid &lt;strong&gt;infinite set&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The set of all &lt;strong&gt;natural numbers&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;N = \{0,1,2,...\}&lt;/script&gt; is a valid &lt;strong&gt;infinite set&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;A set $A$ is &lt;strong&gt;finite&lt;/strong&gt; if $&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;\in \N$, and otherwise we say $A$ is &lt;strong&gt;infinite&lt;/strong&gt;.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;A set $A$ is &lt;strong&gt;finite&lt;/strong&gt; if $|A| \in N$, and otherwise we say $A$ is &lt;strong&gt;infinite&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;The &lt;strong&gt;cardinality&lt;/strong&gt; of two infinite sets $A = {2,3,4,…}$ and $B = {1,2,3,…}$ is the same, $&lt;/td&gt;
-      &lt;td&gt;A&lt;/td&gt;
-      &lt;td&gt;=&lt;/td&gt;
-      &lt;td&gt;B&lt;/td&gt;
-      &lt;td&gt;$, even though $A \subsetneq B$. The reason is that $A$ and $B$ can be put in one-to-one correspondence: for each element $x$ in $A$, we can find a match for it in $B$, which will be $x-1$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;The &lt;strong&gt;cardinality&lt;/strong&gt; of two infinite sets &lt;script type=&quot;math/tex&quot;&gt;A = \{2,3,4,...\}&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;B = \{1,2,3,...\}&lt;/script&gt; is the same, $|A|=|B|$, even though $A \subsetneq B$. The reason is that $A$ and $B$ can be put in one-to-one correspondence: for each element $x$ in $A$, we can find a match for it in $B$, which will be $x-1$.&lt;/p&gt;
 
 &lt;p&gt;Not all pairs of infinite sets can be put in one-to-one correspondence with each other: there are different cardinalities of infinite sets.&lt;/p&gt;
 
 &lt;p&gt;The smallest infinite cardinality is the cardinality of the natural numbers.&lt;/p&gt;
 
-&lt;p&gt;A set whose cardinality is equal to or smaller than that of $\N$ is called &lt;strong&gt;countable&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;A set whose cardinality is equal to or smaller than that of $N$ is called &lt;strong&gt;countable&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;A set which is not countable is called &lt;strong&gt;uncountable&lt;/strong&gt;. eg. the set of real numbers $\R$&lt;/p&gt;
+&lt;p&gt;A set which is not countable is called &lt;strong&gt;uncountable&lt;/strong&gt;. eg. the set of real numbers $R$&lt;/p&gt;
 
 &lt;h2 id=&quot;strings&quot;&gt;Strings&lt;/h2&gt;
 
@@ -260,33 +187,13 @@
 
 &lt;p&gt;A &lt;strong&gt;string&lt;/strong&gt; is a finite sequence of elements of $\sum$.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;The &lt;strong&gt;length of a string&lt;/strong&gt; $x$, denoted $&lt;/td&gt;
-      &lt;td&gt;x&lt;/td&gt;
-      &lt;td&gt;$, is the number of characters in the sequence $x$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;The &lt;strong&gt;length of a string&lt;/strong&gt; $x$, denoted $|x|$, is the number of characters in the sequence $x$.&lt;/p&gt;
 
 &lt;p&gt;Strings are not allowed to be infinite.&lt;/p&gt;
 
 &lt;p&gt;The string which contains zero characters is called the &lt;strong&gt;empty string&lt;/strong&gt;, denoted by $\epsilon $. The length of $\epsilon$ is 0. $\epsilon$ is a string over every alphabet $\sum$.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;If $x$ and $y$ are two strings over the same alphabet $\sum$, the &lt;strong&gt;concatenation&lt;/strong&gt; of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $&lt;/td&gt;
-      &lt;td&gt;xy&lt;/td&gt;
-      &lt;td&gt;$ of the concatenation of $x$ and $y$ equals $&lt;/td&gt;
-      &lt;td&gt;x&lt;/td&gt;
-      &lt;td&gt;+&lt;/td&gt;
-      &lt;td&gt;y&lt;/td&gt;
-      &lt;td&gt;$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;If $x$ and $y$ are two strings over the same alphabet $\sum$, the &lt;strong&gt;concatenation&lt;/strong&gt; of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $|xy|$ of the concatenation of $x$ and $y$ equals $|x|+|y|$.&lt;/p&gt;
 
 &lt;h2 id=&quot;languages&quot;&gt;Languages&lt;/h2&gt;
 
@@ -296,7 +203,7 @@
 
 &lt;p&gt;Since $\epsilon$ is a valid string, languages may contain $\epsilon$. The empty language is $\phi$, the empty string is $\epsilon$.&lt;/p&gt;
 
-&lt;p&gt;If $A$ and $B$ are languages over $\sum$, we define $AB$ to be ${xy: x\in A, y\in B}$. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.&lt;/p&gt;
+&lt;p&gt;If $A$ and $B$ are languages over $\sum$, we define $AB$ to be &lt;script type=&quot;math/tex&quot;&gt;\{xy: x\in A, y\in B\}&lt;/script&gt;. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Question 3&lt;/strong&gt;: Let $A$ be a language. What is the concatenation $A\phi$? What about $A{\epsilon}$?&lt;/p&gt;
@@ -308,13 +215,13 @@
 
 &lt;p&gt;We define $A^n$ to be the language $A$ concatenated with itself $n$ times.&lt;/p&gt;
 
-&lt;p&gt;$A^0 = {\epsilon}$ for all $A$. $A^0 = {\epsilon}$ for all $A$, even when $A = \phi$. $\phi^n = \phi$ for $n \ge 1$.&lt;/p&gt;
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;A^0 = \{\epsilon\}&lt;/script&gt; for all $A$. &lt;script type=&quot;math/tex&quot;&gt;A^0 = \{\epsilon\}&lt;/script&gt; for all $A$, even when $A = \phi$. $\phi^n = \phi$ for $n \ge 1$.&lt;/p&gt;
 
-&lt;p&gt;$A^* = A^0\cup A^1\cup A^2\cup…$ is called Kleene star. It is the union of $A^n$ over all $n \in \N$ and it’s an infinite set.&lt;/p&gt;
+&lt;p&gt;$A^* = A^0\cup A^1\cup A^2\cup…$ is called Kleene star. It is the union of $A^n$ over all $n \in N$ and it’s an infinite set.&lt;/p&gt;
 
-&lt;p&gt;If $\sum$ is an alphabet, then $\sum^&lt;em&gt;$ is the set of all strings over that alphabet, since every string over $\sum$ can be formed by concatenating  characters of $\sum$ together. Any language $A$ over $\sum$ must be a subset of $\sum^&lt;/em&gt;$. The set $\sum^&lt;em&gt;$ is countable. Since all language over $\sum$ are subsets of $\sum^&lt;/em&gt;$, all languages are countable.&lt;/p&gt;
+&lt;p&gt;If $\sum$ is an alphabet, then $\sum^{*}$ is the set of all strings over that alphabet, since every string over $\sum$ can be formed by concatenating  characters of $\sum$ together. Any language $A$ over $\sum$ must be a subset of $\sum^{*}$. The set $\sum^{*}$ is countable. Since all language over $\sum$ are subsets of $\sum^{*}$, all languages are countable.&lt;/p&gt;
 
-&lt;p&gt;When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\sum^&lt;em&gt;$, $\sum$ is the alphabet of $A$. , $\overline{A} = \sum^&lt;/em&gt;\setminus A$, the set of all strings over $\sum$ that are not in $A$.&lt;/p&gt;
+&lt;p&gt;When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\sum^{*}$, $\sum$ is the alphabet of $A$. , $\overline{A} = \sum^{*}\setminus A$, the set of all strings over $\sum$ that are not in $A$.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 12 May 2020 21:45:00 -0400</pubDate>
