@@ -5,8 +5,8 @@
     <description>My Personal Study Notes</description>
     <link>https://clairedeng.github.io/</link>
     <atom:link href="https://clairedeng.github.io/sitemap.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 May 2020 22:38:14 -0400</pubDate>
-    <lastBuildDate>Sat, 16 May 2020 22:38:14 -0400</lastBuildDate>
+    <pubDate>Sun, 17 May 2020 17:46:14 -0400</pubDate>
+    <lastBuildDate>Sun, 17 May 2020 17:46:14 -0400</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -73,6 +73,42 @@
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;examples-of-regular-expressions&quot;&gt;Examples of Regular Expressions&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Question 2&lt;/strong&gt;: Let $A$ be the language over ${0, 1}$ consisting of all strings with an even number of ones. What is a regular expression for A?&lt;/p&gt;
+
+  &lt;p&gt;$0^&lt;em&gt;\cup (0^&lt;/em&gt;10^&lt;em&gt;10^&lt;/em&gt;)^*$ or &lt;strong&gt;$0^&lt;em&gt;(10^&lt;/em&gt;10^&lt;em&gt;)^&lt;/em&gt;$&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Question 3&lt;/strong&gt;: Let $B$ be the language over ${0,1,2}$ consisting of all strings which contain the pattern 012 inside of them. What is a regular expression for $B$?&lt;/p&gt;
+
+  &lt;p&gt;$(0\cup 1\cup 2)^&lt;em&gt;012(0\cup 1\cup 2)^&lt;/em&gt;$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Question 4&lt;/strong&gt;: Let $C$ be the language over ${0, 1}$ consisting of all strings $x$ with an even number of 0s and an even number of 1s. What is a regular expression for C?&lt;/p&gt;
+
+  &lt;p&gt;$(00\cup 11)^&lt;em&gt;((01\cup 10)(00\cup11)^&lt;/em&gt;(01\cup 10)(00\cup 11)^&lt;em&gt;)^&lt;/em&gt;$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;are-all-languages-regular&quot;&gt;Are All Languages Regular?&lt;/h2&gt;
+
+&lt;p&gt;A: No.&lt;/p&gt;
+
+&lt;p&gt;A union of regular language is regular, but it’s not true for infinite unions.&lt;/p&gt;
+
+&lt;p&gt;A subset of a regular language need not be regular.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Irregular languages must exist.&lt;/p&gt;
+
+  &lt;p&gt;proof: Each regular language over $\sum$ can be represented by a regular expression over $\sum$. A regular expression is just a string whose alphabet is $\sum \cup {\phi, \epsilon, (,), \cup, &lt;em&gt;}$. Let’s call this expanded alphabet $\sum^{‘}$. Then  $\sum^{‘}$ is also finite. Since regular expressions are strings over $\sum^{‘}$, each regular expression is in $(\sum^{‘})^&lt;/em&gt;$. Now, as mentioned (without proof) in the previous class, the set $(\sum^{‘})^*$ is infinite but countable, since $\sum^{‘}$ is finite. This means there are only countably many regular expressions over $\sum$.&lt;/p&gt;
+
+  &lt;p&gt;On the other hand, how many languages over $\sum$ are there? Recall that each language is a subset of $\sum^&lt;em&gt;$. Hence the set of all languages over $\sum$ is exactly the set of all subsets of $\sum^&lt;/em&gt;$, i.e. the set $P(\sum^&lt;em&gt;)$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\sum^&lt;/em&gt;)$ has cardinality larger than that of $\sum^&lt;em&gt;$. Since $\sum^&lt;/em&gt;$ is countable infinite, it follows that $P(\sum^*)$ must be uncountable. In other words, while there are countably many regular expressions over $\sum$, there are uncountably many language over $\sum$!&lt;/p&gt;
+
+  &lt;p&gt;This means that regular expressions cannot be matched up to the languages without there being languages “left over”. In particular, there cannot be a regular expression for each language. This argument actually implies that there are uncountably infinity irregular languages.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 </description>
         <pubDate>Sat, 16 May 2020 10:20:00 -0400</pubDate>
@@ -175,7 +211,7 @@
 &lt;table&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;If $A$ is a set, then the set of all subsets of $A$ is denoted by $P(A)$ or $2^A$, the power set of $A$. eg. $P({2,3,5}) = {\phi, {2}, {3}, {5}, {2,3}, {2, 5}, {3, 5}, {2,3,5}}$. $P(\phi) = {\phi}$. If $A$ is a finite set, then the size of $P(A)$ will always be exactly $2^{&lt;/td&gt;
+      &lt;td&gt;If $A$ is a set, then the set of all subsets of $A$ is denoted by $P(A)$ or $2^A$, the &lt;strong&gt;power set&lt;/strong&gt; of $A$. eg. $P({2,3,5}) = {\phi, {2}, {3}, {5}, {2,3}, {2, 5}, {3, 5}, {2,3,5}}$. $P(\phi) = {\phi}$. If $A$ is a finite set, then the size of $P(A)$ will always be exactly $2^{&lt;/td&gt;
       &lt;td&gt;A&lt;/td&gt;
       &lt;td&gt;}$.&lt;/td&gt;
     &lt;/tr&gt;
