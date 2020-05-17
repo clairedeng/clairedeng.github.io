@@ -5,9 +5,86 @@
     <description>My Personal Study Notes</description>
     <link>https://clairedeng.github.io/</link>
     <atom:link href="https://clairedeng.github.io/sitemap.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 May 2020 15:41:18 -0400</pubDate>
-    <lastBuildDate>Sat, 16 May 2020 15:41:18 -0400</lastBuildDate>
+    <pubDate>Sat, 16 May 2020 22:38:14 -0400</pubDate>
+    <lastBuildDate>Sat, 16 May 2020 22:38:14 -0400</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Regular Expressions</title>
+        <description>&lt;h2 id=&quot;regular-language&quot;&gt;Regular Language&lt;/h2&gt;
+
+&lt;p&gt;Union, concatenation, and star are called &lt;strong&gt;regular operations&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;A language is called &lt;strong&gt;regular&lt;/strong&gt; if it can be defined using only the regular operations, starting from only the individual characters in the alphabet $\sum$.&lt;/p&gt;
+
+&lt;p&gt;The regular languages over an alphabet $\sum$ are defined recursively:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;$\phi$ and ${\epsilon}$ are regular.&lt;/li&gt;
+  &lt;li&gt;${c}$ is regular for each character $c \in \sum$.&lt;/li&gt;
+  &lt;li&gt;If $A$ and $B$ are regular, then $A\cup B$ is regular.&lt;/li&gt;
+  &lt;li&gt;If $A$ and $B$ are regular, then $AB$ is regular.&lt;/li&gt;
+  &lt;li&gt;If $A$ is regular, then $A^*$ is regular.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt;: Every finite language is regular.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Question 1&lt;/strong&gt;: Let $A$ be the language of all strings in $\sum^*$ of even length. Is $A$ regular?&lt;/p&gt;
+
+  &lt;p&gt;Yes. $A$ can be rewritten as $(\sum\sum)^*$, and is therefore regular.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;regular-expressions&quot;&gt;Regular Expressions&lt;/h2&gt;
+
+&lt;p&gt;To show that a language is regular, all we need to do is to show how to decompose it into the elementary pieces ($\epsilon$ and characters in $\sum$) using the operations union, concatenation, and star.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Regular expressions&lt;/strong&gt; are a notation for such decompositions which is a little bit cleaner, removing  clutter from excess brackets.&lt;/p&gt;
+
+&lt;p&gt;If the alphabet is $\sum$, a &lt;strong&gt;regular expression&lt;/strong&gt; over $\sum$ is a string over an expanded alphabet: in addition to the characters in $\sum$, a regular expression can also include the characters $\phi, \epsilon, \cup, *, (, )$.&lt;/p&gt;
+
+&lt;p&gt;The formal definition of a regular expression over $\sum$ is recursive:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The &lt;strong&gt;symbol&lt;/strong&gt; &lt;strong&gt;$\phi$&lt;/strong&gt; is a regular expression.&lt;/li&gt;
+  &lt;li&gt;The symbol $\epsilon$ is a regular expression.&lt;/li&gt;
+  &lt;li&gt;For each $c\in \sum$, the symbol c is a regular expression.&lt;/li&gt;
+  &lt;li&gt;If $R_1$ and $R_2$ are regular expressions, then the string $(R_1\cup R_2)$ is a regular expression.&lt;/li&gt;
+  &lt;li&gt;If $R_1$ and $R_2$ are regular expressions, then the string $(R_1R_2)$ is a regular expression.&lt;/li&gt;
+  &lt;li&gt;If $R$ is a regular expression, then the string $(R^*)$ is a regular expression.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If $R$ is a regular expression over $\sum$, we denote the language of $R$ by $L(R)$, which we define as follows.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;If $R = \phi$, then $L(R) = \phi$.&lt;/li&gt;
+  &lt;li&gt;If $R = \epsilon$, then $L(R) = {\epsilon}$.&lt;/li&gt;
+  &lt;li&gt;If $R = c$ for some $c \in \sum$, then $L(R) = {c}$.&lt;/li&gt;
+  &lt;li&gt;If $R = (R_1\cup R_2)$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1) \cup L(R_2)$.&lt;/li&gt;
+  &lt;li&gt;If $R = R_1R_2$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1)L(R_2)$.&lt;/li&gt;
+  &lt;li&gt;If $R = (R_1^&lt;em&gt;)$ for some regular expression $R_1$, then $L(R) = L(R_1)^&lt;/em&gt;$.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Order of operations for regular expressions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Star is applied before concatenation and union&lt;/li&gt;
+  &lt;li&gt;Concatenation is applied before union&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;examples-of-regular-expressions&quot;&gt;Examples of Regular Expressions&lt;/h2&gt;
+
+</description>
+        <pubDate>Sat, 16 May 2020 10:20:00 -0400</pubDate>
+        <link>https://clairedeng.github.io/cs360/lecture2/2020/05/16/Regular-Expressions.html</link>
+        <guid isPermaLink="true">https://clairedeng.github.io/cs360/lecture2/2020/05/16/Regular-Expressions.html</guid>
+        
+        
+        <category>CS360</category>
+        
+        <category>Lecture2</category>
+        
+      </item>
     
       <item>
         <title>Sets and Strings</title>
@@ -106,6 +183,102 @@
 &lt;/table&gt;
 
 &lt;h3 id=&quot;infinite-sets&quot;&gt;Infinite Sets&lt;/h3&gt;
+
+&lt;p&gt;The set of all &lt;strong&gt;natural numbers&lt;/strong&gt; $\N = {0,1,2,…}$ is a valid &lt;strong&gt;infinite set&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;A set $A$ is &lt;strong&gt;finite&lt;/strong&gt; if $&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt;\in \N$, and otherwise we say $A$ is &lt;strong&gt;infinite&lt;/strong&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;The &lt;strong&gt;cardinality&lt;/strong&gt; of two infinite sets $A = {2,3,4,…}$ and $B = {1,2,3,…}$ is the same, $&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt;=&lt;/td&gt;
+      &lt;td&gt;B&lt;/td&gt;
+      &lt;td&gt;$, even though $A \subsetneq B$. The reason is that $A$ and $B$ can be put in one-to-one correspondence: for each element $x$ in $A$, we can find a match for it in $B$, which will be $x-1$.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Not all pairs of infinite sets can be put in one-to-one correspondence with each other: there are different cardinalities of infinite sets.&lt;/p&gt;
+
+&lt;p&gt;The smallest infinite cardinality is the cardinality of the natural numbers.&lt;/p&gt;
+
+&lt;p&gt;A set whose cardinality is equal to or smaller than that of $\N$ is called &lt;strong&gt;countable&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;A set which is not countable is called &lt;strong&gt;uncountable&lt;/strong&gt;. eg. the set of real numbers $\R$&lt;/p&gt;
+
+&lt;h2 id=&quot;strings&quot;&gt;Strings&lt;/h2&gt;
+
+&lt;p&gt;An &lt;strong&gt;alphabet&lt;/strong&gt; is a nonempty finite set, denoted by $\sum$. It is the set of symbols that a program needs to recognize.&lt;/p&gt;
+
+&lt;p&gt;Elements of an alphabet $\sum$ are called &lt;strong&gt;characters&lt;/strong&gt; or &lt;strong&gt;symbols&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;string&lt;/strong&gt; is a finite sequence of elements of $\sum$.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;The &lt;strong&gt;length of a string&lt;/strong&gt; $x$, denoted $&lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+      &lt;td&gt;$, is the number of characters in the sequence $x$.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Strings are not allowed to be infinite.&lt;/p&gt;
+
+&lt;p&gt;The string which contains zero characters is called the &lt;strong&gt;empty string&lt;/strong&gt;, denoted by $\epsilon $. The length of $\epsilon$ is 0. $\epsilon$ is a string over every alphabet $\sum$.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;If $x$ and $y$ are two strings over the same alphabet $\sum$, the &lt;strong&gt;concatenation&lt;/strong&gt; of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $&lt;/td&gt;
+      &lt;td&gt;xy&lt;/td&gt;
+      &lt;td&gt;$ of the concatenation of $x$ and $y$ equals $&lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+      &lt;td&gt;+&lt;/td&gt;
+      &lt;td&gt;y&lt;/td&gt;
+      &lt;td&gt;$.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;languages&quot;&gt;Languages&lt;/h2&gt;
+
+&lt;p&gt;Given an alphabet $\sum$, a &lt;strong&gt;language&lt;/strong&gt; over $\sum$ is a set of strings over $\sum$.&lt;/p&gt;
+
+&lt;p&gt;A language can only contain finite strings, but the language itself may be infinite.&lt;/p&gt;
+
+&lt;p&gt;Since $\epsilon$ is a valid string, languages may contain $\epsilon$. The empty language is $\phi$, the empty string is $\epsilon$.&lt;/p&gt;
+
+&lt;p&gt;If $A$ and $B$ are languages over $\sum$, we define $AB$ to be ${xy: x\in A, y\in B}$. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Question 3&lt;/strong&gt;: Let $A$ be a language. What is the concatenation $A\phi$? What about $A{\epsilon}$?&lt;/p&gt;
+
+  &lt;p&gt;$A\phi = \phi$&lt;/p&gt;
+
+  &lt;p&gt;$A{\epsilon} = A$&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We define $A^n$ to be the language $A$ concatenated with itself $n$ times.&lt;/p&gt;
+
+&lt;p&gt;$A^0 = {\epsilon}$ for all $A$. $A^0 = {\epsilon}$ for all $A$, even when $A = \phi$. $\phi^n = \phi$ for $n \ge 1$.&lt;/p&gt;
+
+&lt;p&gt;$A^* = A^0\cup A^1\cup A^2\cup…$ is called Kleene star. It is the union of $A^n$ over all $n \in \N$ and it’s an infinite set.&lt;/p&gt;
+
+&lt;p&gt;If $\sum$ is an alphabet, then $\sum^&lt;em&gt;$ is the set of all strings over that alphabet, since every string over $\sum$ can be formed by concatenating  characters of $\sum$ together. Any language $A$ over $\sum$ must be a subset of $\sum^&lt;/em&gt;$. The set $\sum^&lt;em&gt;$ is countable. Since all language over $\sum$ are subsets of $\sum^&lt;/em&gt;$, all languages are countable.&lt;/p&gt;
+
+&lt;p&gt;When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\sum^&lt;em&gt;$, $\sum$ is the alphabet of $A$. , $\overline{A} = \sum^&lt;/em&gt;\setminus A$, the set of all strings over $\sum$ that are not in $A$.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 12 May 2020 21:45:00 -0400</pubDate>

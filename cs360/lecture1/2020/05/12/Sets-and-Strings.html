@@ -90,6 +90,8 @@
 <li class="toc-entry toc-h3"><a href="#infinite-sets">Infinite Sets</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h2"><a href="#strings">Strings</a></li>
+<li class="toc-entry toc-h2"><a href="#languages">Languages</a></li>
 </ul>
         </div>
         <!-- end /.fixed-condition -->
@@ -205,6 +207,102 @@
 
 <h3 id="infinite-sets">Infinite Sets</h3>
 
+<p>The set of all <strong>natural numbers</strong> $\N = {0,1,2,…}$ is a valid <strong>infinite set</strong>.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>A set $A$ is <strong>finite</strong> if $</td>
+      <td>A</td>
+      <td>\in \N$, and otherwise we say $A$ is <strong>infinite</strong>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>The <strong>cardinality</strong> of two infinite sets $A = {2,3,4,…}$ and $B = {1,2,3,…}$ is the same, $</td>
+      <td>A</td>
+      <td>=</td>
+      <td>B</td>
+      <td>$, even though $A \subsetneq B$. The reason is that $A$ and $B$ can be put in one-to-one correspondence: for each element $x$ in $A$, we can find a match for it in $B$, which will be $x-1$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Not all pairs of infinite sets can be put in one-to-one correspondence with each other: there are different cardinalities of infinite sets.</p>
+
+<p>The smallest infinite cardinality is the cardinality of the natural numbers.</p>
+
+<p>A set whose cardinality is equal to or smaller than that of $\N$ is called <strong>countable</strong>.</p>
+
+<p>A set which is not countable is called <strong>uncountable</strong>. eg. the set of real numbers $\R$</p>
+
+<h2 id="strings">Strings</h2>
+
+<p>An <strong>alphabet</strong> is a nonempty finite set, denoted by $\sum$. It is the set of symbols that a program needs to recognize.</p>
+
+<p>Elements of an alphabet $\sum$ are called <strong>characters</strong> or <strong>symbols</strong>.</p>
+
+<p>A <strong>string</strong> is a finite sequence of elements of $\sum$.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>The <strong>length of a string</strong> $x$, denoted $</td>
+      <td>x</td>
+      <td>$, is the number of characters in the sequence $x$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Strings are not allowed to be infinite.</p>
+
+<p>The string which contains zero characters is called the <strong>empty string</strong>, denoted by $\epsilon $. The length of $\epsilon$ is 0. $\epsilon$ is a string over every alphabet $\sum$.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>If $x$ and $y$ are two strings over the same alphabet $\sum$, the <strong>concatenation</strong> of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $</td>
+      <td>xy</td>
+      <td>$ of the concatenation of $x$ and $y$ equals $</td>
+      <td>x</td>
+      <td>+</td>
+      <td>y</td>
+      <td>$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="languages">Languages</h2>
+
+<p>Given an alphabet $\sum$, a <strong>language</strong> over $\sum$ is a set of strings over $\sum$.</p>
+
+<p>A language can only contain finite strings, but the language itself may be infinite.</p>
+
+<p>Since $\epsilon$ is a valid string, languages may contain $\epsilon$. The empty language is $\phi$, the empty string is $\epsilon$.</p>
+
+<p>If $A$ and $B$ are languages over $\sum$, we define $AB$ to be ${xy: x\in A, y\in B}$. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.</p>
+
+<blockquote>
+  <p><strong>Question 3</strong>: Let $A$ be a language. What is the concatenation $A\phi$? What about $A{\epsilon}$?</p>
+
+  <p>$A\phi = \phi$</p>
+
+  <p>$A{\epsilon} = A$</p>
+</blockquote>
+
+<p>We define $A^n$ to be the language $A$ concatenated with itself $n$ times.</p>
+
+<p>$A^0 = {\epsilon}$ for all $A$. $A^0 = {\epsilon}$ for all $A$, even when $A = \phi$. $\phi^n = \phi$ for $n \ge 1$.</p>
+
+<p>$A^* = A^0\cup A^1\cup A^2\cup…$ is called Kleene star. It is the union of $A^n$ over all $n \in \N$ and it’s an infinite set.</p>
+
+<p>If $\sum$ is an alphabet, then $\sum^<em>$ is the set of all strings over that alphabet, since every string over $\sum$ can be formed by concatenating  characters of $\sum$ together. Any language $A$ over $\sum$ must be a subset of $\sum^</em>$. The set $\sum^<em>$ is countable. Since all language over $\sum$ are subsets of $\sum^</em>$, all languages are countable.</p>
+
+<p>When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\sum^<em>$, $\sum$ is the alphabet of $A$. , $\overline{A} = \sum^</em>\setminus A$, the set of all strings over $\sum$ that are not in $A$.</p>
+
 </div>
   <div class="share-page">
   <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
@@ -234,6 +332,20 @@
       
         
           
+            
+            <div class="panel-body">
+              <h4>Related Posts</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/cs360/lecture2/2020/05/16/Regular-Expressions.html">Regular Expressions</a>
+                  
+                    (Categories: <a href="/category/CS360">CS360</a>, <a href="/category/Lecture2">Lecture2</a>)
+                  
+                </li>
+          
+          
+        
       
           
       
@@ -305,12 +417,32 @@
       
     
   
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
   
+  
+  </ul>
+</div>
+
 
 <div class="PageNavigation">
   
     <a class="prev" href="/java/collections/2020/04/29/Java-Collections-Framework.html">&laquo; Java - Collections Framework</a>
   
+  
+    <a class="next" href="/cs360/lecture2/2020/05/16/Regular-Expressions.html">Regular Expressions &raquo;</a>
   
 </div>
 
