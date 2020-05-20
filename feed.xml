@@ -5,9 +5,229 @@
     <description>My Personal Study Notes</description>
     <link>https://clairedeng.github.io/</link>
     <atom:link href="https://clairedeng.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 May 2020 19:51:32 -0400</pubDate>
-    <lastBuildDate>Sun, 17 May 2020 19:51:32 -0400</lastBuildDate>
+    <pubDate>Wed, 20 May 2020 15:12:40 -0400</pubDate>
+    <lastBuildDate>Wed, 20 May 2020 15:12:40 -0400</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Finite Automata</title>
+        <description>&lt;h2 id=&quot;deterministic-finite-automatadfa&quot;&gt;Deterministic finite automata(DFA)&lt;/h2&gt;
+
+&lt;p&gt;A deterministic finite automaton(DFA) is a tuple $(Q, \Sigma, \delta, q_0, F)$ where&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;$Q$ is a finite nonempty set, representing the set of internal states of the automaton.&lt;/li&gt;
+  &lt;li&gt;$\Sigma$ is a finite nonempty set, representing the alphabet of the input strings the DFA can receive.&lt;/li&gt;
+  &lt;li&gt;$\delta$ is a function $\delta : Q \times \Sigma \rightarrow Q$ called the transition function of the DFA (the interpretation of this function is that if the automaton has internal state $q$ and reads the symbol $a$, it will move to the internal state $\delta(q,a)$)&lt;/li&gt;
+  &lt;li&gt;$q_0$ is an element of $Q$ called the initial state or start state, representing the internal state of the DFA before it reads any input symbols&lt;/li&gt;
+  &lt;li&gt;$F$ is a subset of $Q$, representing the set of accept states of the automaton.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;E.g.&lt;/p&gt;
+
+&lt;p&gt;Taking a Boolean string as input, accepting it if its parity is 1(that is, if the number of 1 symbols in the string is odd).&lt;/p&gt;
+
+&lt;p&gt;$Q = {q_0, q_1}$ where $q_0$ represents “parity has been 0 so far” and $q_1$ represents “parity has been 1 so far”.&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\Sigma = \{0,1\}&lt;/script&gt; since we are going to receive Boolean strings as input.&lt;/p&gt;
+
+&lt;p&gt;$\delta(q_0, 0) = q_0, \delta(q_0, 1) = q_1, \delta(q_1, 0) = q_1, \delta(q_1, 1) = q_0$&lt;/p&gt;
+
+&lt;p&gt;The start state will be $q_0$.&lt;/p&gt;
+
+&lt;p&gt;$F = {q_1}$.&lt;/p&gt;
+
+&lt;p&gt;State diagram of the example:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/clairedeng/clairedeng.github.io/master/static/img/_posts/1589987415696.png&quot; alt=&quot;1589987415696&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Question 1&lt;/strong&gt;: What does the DFA in following figure do?&lt;/p&gt;
+
+  &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/clairedeng/clairedeng.github.io/master/static/img/_posts/1589987679063.png&quot; alt=&quot;1589987679063&quot; /&gt;&lt;/p&gt;
+
+  &lt;p&gt;The only way to reach $q_1$ is to see a 1, which means the only way to reach $q_2$ is to see the symbols 10 in a row, and so the only way to reach $q_3$ for the first time is to see the sequence 101. In conclusion, this DFA accepts all strings which do not contain 101 as a substring.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Definition 3.2: Let $M$ be a DFA. The language recognized by $M$, denoted $L(M)$, is the set of all strings in $\Sigma^{*}$ accepted by $M$, where $\Sigma$ is the alphabet of $M$.&lt;/p&gt;
+
+&lt;h2 id=&quot;nondeterministic-finite-automata&quot;&gt;Nondeterministic finite automata&lt;/h2&gt;
+
+&lt;p&gt;An NFA is like a DFA, except that a state q may have multiple outgoing arcs with the same label. An NFA accepts a string x if some path it can follow for x leads it to an accept state. If an NFA is at a state $q$ and there is an $\epsilon$-transition from $q$ to $q’$, then the NFA is allowed to go from q to $q’$, or remain at $q$. NFAs need not always have an allowed transition. If the NFA is at state $q$ and sees a 0(no arc going out of q with the label 0), it must reject the entire string.&lt;/p&gt;
+
+&lt;p&gt;An NFA will be a tuple $(Q, \Sigma, \delta, q_0, F)$ where&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;$Q$ is a finite nonempty set, representing the set of internal states of the automaton.&lt;/li&gt;
+  &lt;li&gt;$\Sigma$ is a finite nonempty set, representing the alphabet of the input strings the  NFA can receive.&lt;/li&gt;
+  &lt;li&gt;$\delta$ is a function &lt;script type=&quot;math/tex&quot;&gt;\delta: Q \times (\Sigma \cup \{\epsilon\})&lt;/script&gt; which takes in a state $q\in Q$ and either a symbol in $\Sigma$ or $\epsilon$, and outputs a set of states to which the NFA may transition.&lt;/li&gt;
+  &lt;li&gt;$q_0$ is an element of $Q$ called the initial state or start state, representing the internal state of the DFA before it reads any input symbols&lt;/li&gt;
+  &lt;li&gt;$F$ is a subset of $Q$, representing the set of accept states of the automaton.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Q = \{q_0, q_1, q_2,q_3\}&lt;/script&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\Sigma = \{0,1\}&lt;/script&gt; since we are going to receive Boolean strings as input.&lt;/p&gt;
+
+&lt;p&gt;$\delta(q_0, 0) = {q_0}, \delta(q_0, 1) = {q_1, q_3}, \delta(q_0, \epsilon) = \phi$&lt;/p&gt;
+
+&lt;p&gt;$\delta(q_1, 0) = {q_2}, \delta(q_1, 1) = \phi, \delta(q_1, \epsilon) = \phi$&lt;/p&gt;
+
+&lt;p&gt;$\delta(q_2, 0) = \phi, \delta(q_2, 1) = \phi, \delta(q_2, \epsilon) = q_1$&lt;/p&gt;
+
+&lt;p&gt;$\delta(q_3, 0) = \phi, \delta(q_3, 1) = \phi, \delta(q_3, \epsilon) = \phi$&lt;/p&gt;
+
+&lt;p&gt;The start state will be $q_0$.&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;F = \{q_2, q_3\}&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;State diagram of the example:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/clairedeng/clairedeng.github.io/master/static/img/_posts/1590000631728.png&quot; alt=&quot;1590000631728&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 19 May 2020 23:45:00 -0400</pubDate>
+        <link>https://clairedeng.github.io/cs360/lecture3/2020/05/19/Finite-Automata.html</link>
+        <guid isPermaLink="true">https://clairedeng.github.io/cs360/lecture3/2020/05/19/Finite-Automata.html</guid>
+        
+        
+        <category>CS360</category>
+        
+        <category>Lecture3</category>
+        
+      </item>
+    
+      <item>
+        <title>Moments and Deviations</title>
+        <description>
+</description>
+        <pubDate>Mon, 18 May 2020 06:22:00 -0400</pubDate>
+        <link>https://clairedeng.github.io/cs466/probabilityandcomputing/chapter3/2020/05/18/Moments-and-Deviations.html</link>
+        <guid isPermaLink="true">https://clairedeng.github.io/cs466/probabilityandcomputing/chapter3/2020/05/18/Moments-and-Deviations.html</guid>
+        
+        
+        <category>CS466</category>
+        
+        <category>ProbabilityAndComputing</category>
+        
+        <category>Chapter3</category>
+        
+      </item>
+    
+      <item>
+        <title>Discrete Random Variables and Expectation</title>
+        <description>&lt;h2 id=&quot;random-variables-and-expectation&quot;&gt;Random Variables and Expectation&lt;/h2&gt;
+
+&lt;h2 id=&quot;the-bernoulli-and-binomial-random&quot;&gt;The Bernoulli and Binomial Random&lt;/h2&gt;
+
+&lt;h2 id=&quot;conditional-expectation&quot;&gt;Conditional Expectation&lt;/h2&gt;
+
+&lt;h2 id=&quot;the-geometric-distribution&quot;&gt;The Geometric Distribution&lt;/h2&gt;
+
+&lt;h2 id=&quot;application-the-expected-run-time-of-quicksort&quot;&gt;Application: The Expected Run-Time of Quicksort&lt;/h2&gt;
+
+</description>
+        <pubDate>Mon, 18 May 2020 02:48:00 -0400</pubDate>
+        <link>https://clairedeng.github.io/cs466/probabilityandcomputing/chapter2/2020/05/18/Discrete-Random-Variables-and-Expectation.html</link>
+        <guid isPermaLink="true">https://clairedeng.github.io/cs466/probabilityandcomputing/chapter2/2020/05/18/Discrete-Random-Variables-and-Expectation.html</guid>
+        
+        
+        <category>CS466</category>
+        
+        <category>ProbabilityAndComputing</category>
+        
+        <category>Chapter2</category>
+        
+      </item>
+    
+      <item>
+        <title>Events and Probability</title>
+        <description>&lt;h2 id=&quot;application-verifying-polynomial-identities&quot;&gt;Application: Verifying Polynomial Identities&lt;/h2&gt;
+
+&lt;p&gt;Suppose we have program that multiplies together monomials. e.g. $(x+1)(x-2)(x+3)(x-4)(x+5)(x-6) \stackrel{?}{\equiv} x^6 - 7x^3 + 25$&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;One easy way to verify whether the identity is correct: multiply together the terms on the left-hand side and see if the resulting polynomial matches the right-hand side. Write a second program that does the same thing. and make sure they agree.&lt;/p&gt;
+
+  &lt;p&gt;Problems&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;If there is a bug in the program that multiplies monomials, the same bug may occur in the checking program.&lt;/li&gt;
+    &lt;li&gt;We would like to check the answer in less time than it takes to try to solve the original problem all over again.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A faster method to verify the identity by utilize randomness&lt;/p&gt;
+
+  &lt;p&gt;Assume that the maximum degree, or the largest exponent of $x$, in $F(x)$ and $G(x)$ is $d$. We choose and integer $r$ uniformly at random in the range {1, …, 100d}.&lt;/p&gt;
+
+  &lt;p&gt;If $F(x) \equiv G(x)$, then the algorithm gives the correct answer, since it will find that $F(r) = G(r)$ for any value of $r$.&lt;/p&gt;
+
+  &lt;p&gt;If $F(x) \not\equiv G(x)$ and $F(r) \ne G(r)$, then the algorithm gives the correct answer since it has found a case where $F(x)$ and $G(x)$ disagree.&lt;/p&gt;
+
+  &lt;p&gt;If $F(x) \not\equiv G(x)$ and $F(r) = G(r)$, the algorithm gives the wrong answer. For this error occur, $r$ must be a root of the equation $F(x) - G(x) = 0$. The degree of the polynomial $F(x) - G(x)$ is no larger than $d$, and by the fundamental theorem of algebra, a polynomial of degree up to $d$ has no more than $d$ roots. SO the chance that the algorithm chooses such a value and returns a wrong answer is no more than $\frac{d}{100d} = \frac 1{100}$.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;axioms-of-probability&quot;&gt;Axioms of Probability&lt;/h2&gt;
+
+&lt;p&gt;Definition 1.1: A probability space has three components&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;a sample space $\Omega$, which is the set of all possible outcomes of the random process modeled by the probability space&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;a family of sets $F$ representing the allowable events, where each set in $F$ is a subset of the sample space $\Omega$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;a probability function $Pr: F \rightarrow R$ satisfying the following conditions:&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;p&gt;for any event E, $0\le Pr(E)\le 1$&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;$Pr(\Omega) = 1$&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;for any finite or countable infinite sequence of pairwise mutually disjoint events $E_1, E_2, E_3, …​$&lt;/p&gt;
+
+        &lt;p&gt;$Pr(\cup_{i\ge 1} E_i) = \sum_{i\ge 1} Pr(E_i)$&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Lemma 1.1: For any two events $E_1$ and $E_2$, $Pr(E_1\cup E_2) = Pr(E_1) +Pr(E_2)-Pr(E_1\cap E_2)$&lt;/p&gt;
+
+&lt;p&gt;Lemma 1.2: For any finite or countably infinite sequence of events $E_1, E_2, …$, $Pr(\cup_{i\ge 1} E_i) \le \sum_{i\ge 1} Pr(E_i)$&lt;/p&gt;
+
+&lt;p&gt;Lemma 1.3: Let $E_1, …, E_n$ be any $n$ events. Then $Pr(\cup_{i\ge 1} E_i) = \sum_{i\ge 1} Pr(E_i) - \sum_{i &amp;lt; j} Pr(E_i\cap E_j) + \sum_{i&amp;lt;j&amp;lt;k} Pr(E_i\cap E_j\cap E_k)$&lt;/p&gt;
+
+&lt;p&gt;​			   $-… + (-1)^{l+1}\sum_{i1&amp;lt;i2&amp;lt;…&amp;lt;il} Pr(\cap_{r=1}^l E_{i_r}) + …$&lt;/p&gt;
+
+&lt;p&gt;Definition 1.2: Two events $E$ and $F$ are independent if and only if $Pr(E\cap F) = Pr(E)Pr(F)$. More generally, events $E_1,E_2, …, E_k$ are mutually independent if and only if, for any subset $1\subseteq [1, k]$, $Pr(\cap_{1\in l} E_i) = \Pi_{i\in l}Pr(E_i)$&lt;/p&gt;
+
+&lt;p&gt;Definition 1.3: The conditional probability that event $E$ occurs given that event $F$ occurs  is $Pr(E|F) = \frac{Pr(E\cap F)}{Pr(F)}$. The conditional probability is well-defined only if $Pr(F)&amp;gt;0$&lt;/p&gt;
+
+&lt;h2 id=&quot;application-verifying-matrix-multiplication&quot;&gt;Application: Verifying Matrix Multiplication&lt;/h2&gt;
+
+&lt;h2 id=&quot;application-a-randomized-min-cut-algorithm&quot;&gt;Application: A Randomized Min-Cut Algorithm&lt;/h2&gt;
+
+</description>
+        <pubDate>Sun, 17 May 2020 21:25:00 -0400</pubDate>
+        <link>https://clairedeng.github.io/cs466/probabilityandcomputing/chapter1/2020/05/17/Events-and-Probability.html</link>
+        <guid isPermaLink="true">https://clairedeng.github.io/cs466/probabilityandcomputing/chapter1/2020/05/17/Events-and-Probability.html</guid>
+        
+        
+        <category>CS466</category>
+        
+        <category>ProbabilityAndComputing</category>
+        
+        <category>Chapter1</category>
+        
+      </item>
     
       <item>
         <title>Regular Expressions</title>
@@ -15,13 +235,13 @@
 
 &lt;p&gt;Union, concatenation, and star are called &lt;strong&gt;regular operations&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;A language is called &lt;strong&gt;regular&lt;/strong&gt; if it can be defined using only the regular operations, starting from only the individual characters in the alphabet $\sum$.&lt;/p&gt;
+&lt;p&gt;A language is called &lt;strong&gt;regular&lt;/strong&gt; if it can be defined using only the regular operations, starting from only the individual characters in the alphabet $\Sigma$.&lt;/p&gt;
 
-&lt;p&gt;The regular languages over an alphabet $\sum$ are defined recursively:&lt;/p&gt;
+&lt;p&gt;The regular languages over an alphabet $\Sigma$ are defined recursively:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;$\phi$ and &lt;script type=&quot;math/tex&quot;&gt;\{\epsilon\}&lt;/script&gt; are regular.&lt;/li&gt;
-  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\{c\}&lt;/script&gt; is regular for each character $c \in \sum$.&lt;/li&gt;
+  &lt;li&gt;$\phi​$ and &lt;script type=&quot;math/tex&quot;&gt;\{\epsilon\}​&lt;/script&gt; are regular.&lt;/li&gt;
+  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;\{c\}&lt;/script&gt; is regular for each character $c \in \Sigma$.&lt;/li&gt;
   &lt;li&gt;If $A$ and $B$ are regular, then $A\cup B$ is regular.&lt;/li&gt;
   &lt;li&gt;If $A$ and $B$ are regular, then $AB$ is regular.&lt;/li&gt;
   &lt;li&gt;If $A$ is regular, then $A^*$ is regular.&lt;/li&gt;
@@ -30,36 +250,36 @@
 &lt;p&gt;&lt;strong&gt;Theorem 1&lt;/strong&gt;: Every finite language is regular.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Question 1&lt;/strong&gt;: Let $A$ be the language of all strings in $\sum^*$ of even length. Is $A$ regular?&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Question 1&lt;/strong&gt;: Let $A$ be the language of all strings in $\Sigma^*$ of even length. Is $A$ regular?&lt;/p&gt;
 
-  &lt;p&gt;Yes. $A$ can be rewritten as $(\sum\sum)^*$, and is therefore regular.&lt;/p&gt;
+  &lt;p&gt;Yes. $A$ can be rewritten as $(\Sigma\Sigma)^*$, and is therefore regular.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;regular-expressions&quot;&gt;Regular Expressions&lt;/h2&gt;
 
-&lt;p&gt;To show that a language is regular, all we need to do is to show how to decompose it into the elementary pieces ($\epsilon$ and characters in $\sum$) using the operations union, concatenation, and star.&lt;/p&gt;
+&lt;p&gt;To show that a language is regular, all we need to do is to show how to decompose it into the elementary pieces ($\epsilon$ and characters in $\Sigma$) using the operations union, concatenation, and star.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Regular expressions&lt;/strong&gt; are a notation for such decompositions which is a little bit cleaner, removing  clutter from excess brackets.&lt;/p&gt;
 
-&lt;p&gt;If the alphabet is $\sum$, a &lt;strong&gt;regular expression&lt;/strong&gt; over $\sum$ is a string over an expanded alphabet: in addition to the characters in $\sum$, a regular expression can also include the characters $\phi, \epsilon, \cup, *, (, )$.&lt;/p&gt;
+&lt;p&gt;If the alphabet is $\Sigma$, a &lt;strong&gt;regular expression&lt;/strong&gt; over $\Sigma$ is a string over an expanded alphabet: in addition to the characters in $\Sigma$, a regular expression can also include the characters $\phi, \epsilon, \cup, *, (, )$.&lt;/p&gt;
 
-&lt;p&gt;The formal definition of a regular expression over $\sum$ is recursive:&lt;/p&gt;
+&lt;p&gt;The formal definition of a regular expression over $\Sigma$ is recursive:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;The &lt;strong&gt;symbol&lt;/strong&gt; $\phi$ is a regular expression.&lt;/li&gt;
   &lt;li&gt;The symbol $\epsilon$ is a regular expression.&lt;/li&gt;
-  &lt;li&gt;For each $c\in \sum$, the symbol c is a regular expression.&lt;/li&gt;
+  &lt;li&gt;For each $c\in \Sigma$, the symbol c is a regular expression.&lt;/li&gt;
   &lt;li&gt;If $R_1$ and $R_2$ are regular expressions, then the string $(R_1\cup R_2)$ is a regular expression.&lt;/li&gt;
   &lt;li&gt;If $R_1$ and $R_2$ are regular expressions, then the string $(R_1R_2)$ is a regular expression.&lt;/li&gt;
   &lt;li&gt;If $R$ is a regular expression, then the string $(R^*)$ is a regular expression.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;If $R$ is a regular expression over $\sum$, we denote the language of $R$ by $L(R)$, which we define as follows.&lt;/p&gt;
+&lt;p&gt;If $R$ is a regular expression over $\Sigma$, we denote the language of $R$ by $L(R)$, which we define as follows.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;If $R = \phi$, then $L(R) = \phi$.&lt;/li&gt;
   &lt;li&gt;If $R = \epsilon$, then &lt;script type=&quot;math/tex&quot;&gt;L(R) = \{\epsilon\}&lt;/script&gt;.&lt;/li&gt;
-  &lt;li&gt;If $R = c$ for some $c \in \sum$, then &lt;script type=&quot;math/tex&quot;&gt;L(R) = \{c\}&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;If $R = c$ for some $c \in \Sigma$, then &lt;script type=&quot;math/tex&quot;&gt;L(R) = \{c\}&lt;/script&gt;.&lt;/li&gt;
   &lt;li&gt;If $R = (R_1\cup R_2)$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1) \cup L(R_2)$.&lt;/li&gt;
   &lt;li&gt;If $R = R_1R_2$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1)L(R_2)$.&lt;/li&gt;
   &lt;li&gt;If $R = (R_1^{*})$ for some regular expressions $R_1$, then $L(R) = L(R_1)^{*}$.&lt;/li&gt;
@@ -103,9 +323,9 @@
 &lt;blockquote&gt;
   &lt;p&gt;Irregular languages must exist.&lt;/p&gt;
 
-  &lt;p&gt;proof: Each regular language over $\sum$ can be represented by a regular expression over $\sum$. A regular expression is just a string whose alphabet is &lt;script type=&quot;math/tex&quot;&gt;\sum \cup \{\phi, \epsilon, (,), \cup, *\}&lt;/script&gt;. Let’s call this expanded alphabet $\sum^{'}$. Then  $\sum^{'}$ is also finite. Since regular expressions are strings over $\sum^{'}$, each regular expression is in $(\sum^{'})^{*}$. Now, as mentioned (without proof) in the previous class, the set $(\sum^{'})^{*}$ is infinite but countable, since $\sum^{'}$ is finite. This means there are only countably many regular expressions over $\sum$.&lt;/p&gt;
+  &lt;p&gt;proof: Each regular language over $\Sigma$ can be represented by a regular expression over $\Sigma$. A regular expression is just a string whose alphabet is &lt;script type=&quot;math/tex&quot;&gt;\Sigma \cup \{\phi, \epsilon, (,), \cup, *\}&lt;/script&gt;. Let’s call this expanded alphabet $\Sigma^{'}$. Then  $\Sigma^{'}$ is also finite. Since regular expressions are strings over $\Sigma^{'}$, each regular expression is in $(\Sigma^{'})^{*}$. Now, as mentioned (without proof) in the previous class, the set $(\Sigma^{'})^{*}$ is infinite but countable, since $\Sigma^{'}$ is finite. This means there are only countably many regular expressions over $\Sigma$.&lt;/p&gt;
 
-  &lt;p&gt;On the other hand, how many languages over $\sum$ are there? Recall that each language is a subset of $\sum^{*}$. Hence the set of all languages over $\sum$ is exactly the set of all subsets of $\sum^{*}$, i.e. the set $P(\sum^{*})$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\sum^{*})$ has cardinality larger than that of $\sum^{*}$. Since $\sum^{*}$ is countable infinite, it follows that $P(\sum^{*})$ must be uncountable. In other words, while there are countably many regular expressions over $\sum$, there are uncountably many language over $\sum$!&lt;/p&gt;
+  &lt;p&gt;On the other hand, how many languages over $\Sigma$ are there? Recall that each language is a subset of $\Sigma^{*}$. Hence the set of all languages over $\Sigma$ is exactly the set of all subsets of $\Sigma^{*}$, i.e. the set $P(\Sigma^{*})$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\Sigma^{*})$ has cardinality larger than that of $\Sigma^{*}$. Since $\Sigma^{*}$ is countable infinite, it follows that $P(\Sigma^{*})$ must be uncountable. In other words, while there are countably many regular expressions over $\Sigma$, there are uncountably many language over $\Sigma$!&lt;/p&gt;
 
   &lt;p&gt;This means that regular expressions cannot be matched up to the languages without there being languages “left over”. In particular, there cannot be a regular expression for each language. This argument actually implies that there are uncountably infinity irregular languages.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -181,29 +401,29 @@
 
 &lt;h2 id=&quot;strings&quot;&gt;Strings&lt;/h2&gt;
 
-&lt;p&gt;An &lt;strong&gt;alphabet&lt;/strong&gt; is a nonempty finite set, denoted by $\sum$. It is the set of symbols that a program needs to recognize.&lt;/p&gt;
+&lt;p&gt;An &lt;strong&gt;alphabet&lt;/strong&gt; is a nonempty finite set, denoted by $\Sigma$. It is the set of symbols that a program needs to recognize.&lt;/p&gt;
 
-&lt;p&gt;Elements of an alphabet $\sum$ are called &lt;strong&gt;characters&lt;/strong&gt; or &lt;strong&gt;symbols&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Elements of an alphabet $\Sigma$ are called &lt;strong&gt;characters&lt;/strong&gt; or &lt;strong&gt;symbols&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;A &lt;strong&gt;string&lt;/strong&gt; is a finite sequence of elements of $\sum$.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;string&lt;/strong&gt; is a finite sequence of elements of $\Sigma$.&lt;/p&gt;
 
 &lt;p&gt;The &lt;strong&gt;length of a string&lt;/strong&gt; $x$, denoted $|x|$, is the number of characters in the sequence $x$.&lt;/p&gt;
 
 &lt;p&gt;Strings are not allowed to be infinite.&lt;/p&gt;
 
-&lt;p&gt;The string which contains zero characters is called the &lt;strong&gt;empty string&lt;/strong&gt;, denoted by $\epsilon $. The length of $\epsilon$ is 0. $\epsilon$ is a string over every alphabet $\sum$.&lt;/p&gt;
+&lt;p&gt;The string which contains zero characters is called the &lt;strong&gt;empty string&lt;/strong&gt;, denoted by $\epsilon $. The length of $\epsilon$ is 0. $\epsilon$ is a string over every alphabet $\Sigma$.&lt;/p&gt;
 
-&lt;p&gt;If $x$ and $y$ are two strings over the same alphabet $\sum$, the &lt;strong&gt;concatenation&lt;/strong&gt; of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $|xy|$ of the concatenation of $x$ and $y$ equals $|x|+|y|$.&lt;/p&gt;
+&lt;p&gt;If $x$ and $y$ are two strings over the same alphabet $\Sigma$, the &lt;strong&gt;concatenation&lt;/strong&gt; of $x$ and $y$ is the string $xy$ consisting of the sequence of characters in $x$ followed by the sequence of characters in $y$. The concatenation of $\epsilon$ with any string $x$ equals $x$: we have $\epsilon x = x\epsilon = x$. The length $|xy|$ of the concatenation of $x$ and $y$ equals $|x|+|y|$.&lt;/p&gt;
 
 &lt;h2 id=&quot;languages&quot;&gt;Languages&lt;/h2&gt;
 
-&lt;p&gt;Given an alphabet $\sum$, a &lt;strong&gt;language&lt;/strong&gt; over $\sum$ is a set of strings over $\sum$.&lt;/p&gt;
+&lt;p&gt;Given an alphabet $\Sigma$, a &lt;strong&gt;language&lt;/strong&gt; over $\Sigma$ is a set of strings over $\Sigma$.&lt;/p&gt;
 
 &lt;p&gt;A language can only contain finite strings, but the language itself may be infinite.&lt;/p&gt;
 
-&lt;p&gt;Since $\epsilon$ is a valid string, languages may contain $\epsilon$. The empty language is $\phi$, the empty string is $\epsilon$.&lt;/p&gt;
+&lt;p&gt;Since $\epsilon​$ is a valid string, languages may contain $\epsilon​$. The empty language is $\phi​$, the empty string is $\epsilon​$.&lt;/p&gt;
 
-&lt;p&gt;If $A$ and $B$ are languages over $\sum$, we define $AB$ to be &lt;script type=&quot;math/tex&quot;&gt;\{xy: x\in A, y\in B\}&lt;/script&gt;. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.&lt;/p&gt;
+&lt;p&gt;If $A$ and $B$ are languages over $\Sigma$, we define $AB$ to be &lt;script type=&quot;math/tex&quot;&gt;\{xy: x\in A, y\in B\}&lt;/script&gt;. This is the set of all strings we can form by concatenating some string in $A$ with some string in $B$.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Question 3&lt;/strong&gt;: Let $A$ be a language. What is the concatenation $A\phi$? What about $A{\epsilon}$?&lt;/p&gt;
@@ -219,9 +439,9 @@
 
 &lt;p&gt;$A^* = A^0\cup A^1\cup A^2\cup…$ is called Kleene star. It is the union of $A^n$ over all $n \in N$ and it’s an infinite set.&lt;/p&gt;
 
-&lt;p&gt;If $\sum$ is an alphabet, then $\sum^{*}$ is the set of all strings over that alphabet, since every string over $\sum$ can be formed by concatenating  characters of $\sum$ together. Any language $A$ over $\sum$ must be a subset of $\sum^{*}$. The set $\sum^{*}$ is countable. Since all language over $\sum$ are subsets of $\sum^{*}$, all languages are countable.&lt;/p&gt;
+&lt;p&gt;If $\Sigma$ is an alphabet, then $\Sigma^{*}$ is the set of all strings over that alphabet, since every string over $\Sigma$ can be formed by concatenating  characters of $\Sigma$ together. Any language $A$ over $\Sigma$ must be a subset of $\Sigma^{*}$. The set $\Sigma^{*}$ is countable. Since all language over $\Sigma$ are subsets of $\Sigma^{*}$, all languages are countable.&lt;/p&gt;
 
-&lt;p&gt;When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\sum^{*}$, $\sum$ is the alphabet of $A$. , $\overline{A} = \sum^{*}\setminus A$, the set of all strings over $\sum$ that are not in $A$.&lt;/p&gt;
+&lt;p&gt;When $A$ is a language, we take the complement $\overline{A}$ to be with respect to the universe $\Sigma^{*}$, $\Sigma$ is the alphabet of $A$. , $\overline{A} = \Sigma^{*}\setminus A$, the set of all strings over $\Sigma$ that are not in $A$.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 12 May 2020 21:45:00 -0400</pubDate>

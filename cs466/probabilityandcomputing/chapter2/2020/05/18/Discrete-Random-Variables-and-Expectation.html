@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <title>Java - Collections Framework - Study Notes</title>
+    <title>Discrete Random Variables and Expectation - Study Notes</title>
     <meta name="author" content="Claire Deng" />
-    <meta name="description" content="Java - Collections Framework" />
-    <meta name="keywords" content="Java - Collections Framework, Study Notes, Java, Collections" />
+    <meta name="description" content="Discrete Random Variables and Expectation" />
+    <meta name="keywords" content="Discrete Random Variables and Expectation, Study Notes, CS466, ProbabilityAndComputing, Chapter2" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
     <meta content="1749788565247320" property="fb:app_id">
     <meta content="Study Notes" property="og:site_name">
@@ -16,7 +16,7 @@
     
 
     
-      <meta content="Java - Collections Framework" property="og:title">
+      <meta content="Discrete Random Variables and Expectation" property="og:title">
       <meta content="article" property="og:type">
     
 
@@ -25,11 +25,11 @@
     
 
     
-      <meta content="https://clairedeng.github.io/java/collections/2020/04/29/Java-Collections-Framework.html" property="og:url">
+      <meta content="https://clairedeng.github.io/cs466/probabilityandcomputing/chapter2/2020/05/18/Discrete-Random-Variables-and-Expectation.html" property="og:url">
     
 
     
-      <meta content="2020-04-29T21:45:00-04:00" property="article:published_time">
+      <meta content="2020-05-18T02:48:00-04:00" property="article:published_time">
       <meta content="https://clairedeng.github.io/about/" property="article:author">
     
 
@@ -37,7 +37,7 @@
 
     
       
-        <meta content="Java" property="article:section">
+        <meta content="CS466" property="article:section">
       
     
 
@@ -50,11 +50,11 @@
     <meta name="twitter:creator" content="@github.io">
 
     
-      <meta name="twitter:title" content="Java - Collections Framework">
+      <meta name="twitter:title" content="Discrete Random Variables and Expectation">
     
 
     
-      <meta name="twitter:url" content="https://clairedeng.github.io/java/collections/2020/04/29/Java-Collections-Framework.html">
+      <meta name="twitter:url" content="https://clairedeng.github.io/cs466/probabilityandcomputing/chapter2/2020/05/18/Discrete-Random-Variables-and-Expectation.html">
     
 
     
@@ -85,167 +85,39 @@
         <div class="fixed-condition">
           <a href="/">Home</a>
           <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#java---collections-framework">Java - Collections Framework</a></li>
+<li class="toc-entry toc-h2"><a href="#random-variables-and-expectation">Random Variables and Expectation</a></li>
+<li class="toc-entry toc-h2"><a href="#the-bernoulli-and-binomial-random">The Bernoulli and Binomial Random</a></li>
+<li class="toc-entry toc-h2"><a href="#conditional-expectation">Conditional Expectation</a></li>
+<li class="toc-entry toc-h2"><a href="#the-geometric-distribution">The Geometric Distribution</a></li>
+<li class="toc-entry toc-h2"><a href="#application-the-expected-run-time-of-quicksort">Application: The Expected Run-Time of Quicksort</a></li>
 </ul>
         </div>
         <!-- end /.fixed-condition -->
       </div>
       <div class="col-sm-8 col-offset-1 main-layout">
         <header class="post-header">
-  <h1 class="post-title">Java - Collections Framework</h1>
+  <h1 class="post-title">Discrete Random Variables and Expectation</h1>
 </header>
 
 <div class="info">
-  <span class="time">29 Apr 2020</span>
+  <span class="time">18 May 2020</span>
   
     <span class="categories">
-      &raquo; <a href="/category/Java">Java</a>, <a href="/category/Collections">Collections</a>
+      &raquo; <a href="/category/CS466">CS466</a>, <a href="/category/ProbabilityAndComputing">ProbabilityAndComputing</a>, <a href="/category/Chapter2">Chapter2</a>
     </span>
   
 </div>
 
 <div class="content">
-  <div class="post"><h1 id="java---collections-framework">Java - Collections Framework</h1>
+  <div class="post"><h2 id="random-variables-and-expectation">Random Variables and Expectation</h2>
 
-<p>The collections framework was designed to meet several goals, such as:</p>
+<h2 id="the-bernoulli-and-binomial-random">The Bernoulli and Binomial Random</h2>
 
-<ul>
-  <li>the framework had to be high-performance. The implementations for the fundamental collections (dynamic arrays, linked lists, trees, and hashtables) were to be highly efficient.</li>
-  <li>The framework had to allow different types of collections to work in a similar manner and with a high degree of interoperability.\</li>
-  <li>The framework had to extend and/or adapt a collection easily.</li>
-</ul>
+<h2 id="conditional-expectation">Conditional Expectation</h2>
 
-<p>A collections framework is a unified architecture for representing and manipulating collections. All collections frameworks contain the following:</p>
+<h2 id="the-geometric-distribution">The Geometric Distribution</h2>
 
-<ul>
-  <li>interfaces - These are abstract data types that represent collections. Interfaces allow collections to be manipulated independently of the detail of their representation. In object-oriented languages, interfaces generally form a hierarchy.</li>
-  <li>Implementations, i.e., Classes - These are the concrete implementations of the collection interfaces. In essence, they are reusable data structures.</li>
-  <li>Algorithms - These are the methods that perform useful computations, such as searching and sorting, on objects that implement collection interfaces. The algorithms are said to be polymorphic: that is, the same method can be used on many different implementations of the appropriate collection interface.</li>
-</ul>
-
-<p>The Collection Interface</p>
-
-<ul>
-  <li>The List interface</li>
-  <li>The Set Interface
-    <ul>
-      <li>The SortedSet</li>
-    </ul>
-  </li>
-  <li>The Map
-    <ul>
-      <li>The Map.Entry</li>
-      <li>The SortedMap</li>
-    </ul>
-  </li>
-  <li>The Enumeration</li>
-</ul>
-
-<p>AbstractCollection</p>
-
-<p>Implements most of the Collection interface</p>
-
-<ul>
-  <li>
-    <p>AbstractList</p>
-
-    <p>Extends AbstractCollection and implements most of the List interface</p>
-
-    <ul>
-      <li>
-        <p>ArrayLsit</p>
-
-        <p>Implements a dynamic array by extending AbstractList</p>
-      </li>
-      <li>
-        <p>AbstractSequentialList</p>
-
-        <p>Extends AbstractList for use by a collection that uses sequential rather than random access of its elements.</p>
-
-        <ul>
-          <li>
-            <p>LinkedList</p>
-
-            <p>Implements a linked list by extending AbstractSequentialList.</p>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>AbstractSet</p>
-
-    <p>Extends AbstractCollection and implements most of the Set interface.</p>
-
-    <ul>
-      <li>
-        <p>HashSet</p>
-
-        <p>Extends AbstractSet for use with a hash table</p>
-
-        <ul>
-          <li>
-            <p>LinkedHashSet</p>
-
-            <p>Extends HashSet to allow insertion-order iterations</p>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <p>TreeSet</p>
-
-        <p>Implements a set stored in a tree. Extends AbstractSet.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>AbstractMap</p>
-
-    <p>Impements most of the Map interface</p>
-
-    <ul>
-      <li>
-        <p>HashMap</p>
-
-        <p>Extends AbstractMap to use a hash table.</p>
-
-        <ul>
-          <li>
-            <p>LinkedHashMap</p>
-
-            <p>Extends HashMap to allow insertion-order iterations.</p>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <p>TreeMap</p>
-
-        <p>Extends AbstractMap to use a tree.</p>
-      </li>
-      <li>
-        <p>WeakHashMap</p>
-
-        <p>Extends AbstractMap to use a hash table with weak keys.</p>
-      </li>
-      <li>
-        <p>IdentityHashMap</p>
-
-        <p>Extends AbstractMap and uses reference equality when comparing documents.</p>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<p>Legacy classes:</p>
-
-<ul>
-  <li>Vector</li>
-  <li>Stack</li>
-  <li>Dictionary</li>
-  <li>Hashtable</li>
-  <li>Properties</li>
-  <li>BitSet</li>
-</ul>
+<h2 id="application-the-expected-run-time-of-quicksort">Application: The Expected Run-Time of Quicksort</h2>
 
 </div>
   <div class="share-page">
@@ -256,7 +128,7 @@
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
   <!-- Facebook -->
-  <div class="fb-share-button" data-href="https://clairedeng.github.io/java/collections/2020/04/29/Java-Collections-Framework.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/cs466/probabilityandcomputing/chapter2/2020/05/18/Discrete-Random-Variables-and-Expectation.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
 </div>
 
 <div id="fb-root"></div>
@@ -279,8 +151,53 @@
       
           
       
+          
+      
     
         
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+            <div class="panel-body">
+              <h4>Related Posts</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/cs466/probabilityandcomputing/chapter3/2020/05/18/Moments-and-Deviations.html">Moments and Deviations</a>
+                  
+                    (Categories: <a href="/category/CS466">CS466</a>, <a href="/category/ProbabilityAndComputing">ProbabilityAndComputing</a>, <a href="/category/Chapter3">Chapter3</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
           
       
           
@@ -294,14 +211,57 @@
       
           
       
+          
+      
     
         
           
       
           
       
+          
+      
     
         
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/cs466/probabilityandcomputing/chapter1/2020/05/17/Events-and-Probability.html">Events and Probability</a>
+                  
+                    (Categories: <a href="/category/CS466">CS466</a>, <a href="/category/ProbabilityAndComputing">ProbabilityAndComputing</a>, <a href="/category/Chapter1">Chapter1</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
           
       
           
@@ -315,14 +275,12 @@
       
           
       
-    
-        
-          
-      
           
       
     
         
+          
+      
           
       
           
@@ -336,14 +294,12 @@
       
           
       
-    
-        
-          
-      
           
       
     
         
+          
+      
           
       
           
@@ -357,8 +313,12 @@
       
           
       
+          
+      
     
         
+          
+      
           
       
           
@@ -372,8 +332,12 @@
       
           
       
+          
+      
     
         
+          
+      
           
       
           
@@ -387,8 +351,12 @@
       
           
       
+          
+      
     
         
+          
+      
           
       
           
@@ -402,38 +370,12 @@
       
           
       
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
           
       
     
         
           
       
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
           
       
           
@@ -441,13 +383,16 @@
     
   
   
+  </ul>
+</div>
+
 
 <div class="PageNavigation">
   
-    <a class="prev" href="/data%20structure/hash/2020/04/26/Hash.html">&laquo; Hash</a>
+    <a class="prev" href="/cs466/probabilityandcomputing/chapter1/2020/05/17/Events-and-Probability.html">&laquo; Events and Probability</a>
   
   
-    <a class="next" href="/cs360/lecture1/2020/05/12/Sets-and-Strings.html">Sets and Strings &raquo;</a>
+    <a class="next" href="/cs466/probabilityandcomputing/chapter3/2020/05/18/Moments-and-Deviations.html">Moments and Deviations &raquo;</a>
   
 </div>
 
@@ -456,8 +401,8 @@
   <script type="text/javascript">
     /* <![CDATA[ */
     var disqus_shortname = "stackproblems";
-    var disqus_identifier = "https://clairedeng.github.io_Java - Collections Framework";
-    var disqus_title = "Java - Collections Framework";
+    var disqus_identifier = "https://clairedeng.github.io_Discrete Random Variables and Expectation";
+    var disqus_title = "Discrete Random Variables and Expectation";
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {

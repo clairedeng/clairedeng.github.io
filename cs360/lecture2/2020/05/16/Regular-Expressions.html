@@ -112,13 +112,13 @@
 
 <p>Union, concatenation, and star are called <strong>regular operations</strong>.</p>
 
-<p>A language is called <strong>regular</strong> if it can be defined using only the regular operations, starting from only the individual characters in the alphabet $\sum$.</p>
+<p>A language is called <strong>regular</strong> if it can be defined using only the regular operations, starting from only the individual characters in the alphabet $\Sigma$.</p>
 
-<p>The regular languages over an alphabet $\sum$ are defined recursively:</p>
+<p>The regular languages over an alphabet $\Sigma$ are defined recursively:</p>
 
 <ol>
-  <li>$\phi$ and <script type="math/tex">\{\epsilon\}</script> are regular.</li>
-  <li><script type="math/tex">\{c\}</script> is regular for each character $c \in \sum$.</li>
+  <li>$\phi​$ and <script type="math/tex">\{\epsilon\}​</script> are regular.</li>
+  <li><script type="math/tex">\{c\}</script> is regular for each character $c \in \Sigma$.</li>
   <li>If $A$ and $B$ are regular, then $A\cup B$ is regular.</li>
   <li>If $A$ and $B$ are regular, then $AB$ is regular.</li>
   <li>If $A$ is regular, then $A^*$ is regular.</li>
@@ -127,36 +127,36 @@
 <p><strong>Theorem 1</strong>: Every finite language is regular.</p>
 
 <blockquote>
-  <p><strong>Question 1</strong>: Let $A$ be the language of all strings in $\sum^*$ of even length. Is $A$ regular?</p>
+  <p><strong>Question 1</strong>: Let $A$ be the language of all strings in $\Sigma^*$ of even length. Is $A$ regular?</p>
 
-  <p>Yes. $A$ can be rewritten as $(\sum\sum)^*$, and is therefore regular.</p>
+  <p>Yes. $A$ can be rewritten as $(\Sigma\Sigma)^*$, and is therefore regular.</p>
 </blockquote>
 
 <h2 id="regular-expressions">Regular Expressions</h2>
 
-<p>To show that a language is regular, all we need to do is to show how to decompose it into the elementary pieces ($\epsilon$ and characters in $\sum$) using the operations union, concatenation, and star.</p>
+<p>To show that a language is regular, all we need to do is to show how to decompose it into the elementary pieces ($\epsilon$ and characters in $\Sigma$) using the operations union, concatenation, and star.</p>
 
 <p><strong>Regular expressions</strong> are a notation for such decompositions which is a little bit cleaner, removing  clutter from excess brackets.</p>
 
-<p>If the alphabet is $\sum$, a <strong>regular expression</strong> over $\sum$ is a string over an expanded alphabet: in addition to the characters in $\sum$, a regular expression can also include the characters $\phi, \epsilon, \cup, *, (, )$.</p>
+<p>If the alphabet is $\Sigma$, a <strong>regular expression</strong> over $\Sigma$ is a string over an expanded alphabet: in addition to the characters in $\Sigma$, a regular expression can also include the characters $\phi, \epsilon, \cup, *, (, )$.</p>
 
-<p>The formal definition of a regular expression over $\sum$ is recursive:</p>
+<p>The formal definition of a regular expression over $\Sigma$ is recursive:</p>
 
 <ol>
   <li>The <strong>symbol</strong> $\phi$ is a regular expression.</li>
   <li>The symbol $\epsilon$ is a regular expression.</li>
-  <li>For each $c\in \sum$, the symbol c is a regular expression.</li>
+  <li>For each $c\in \Sigma$, the symbol c is a regular expression.</li>
   <li>If $R_1$ and $R_2$ are regular expressions, then the string $(R_1\cup R_2)$ is a regular expression.</li>
   <li>If $R_1$ and $R_2$ are regular expressions, then the string $(R_1R_2)$ is a regular expression.</li>
   <li>If $R$ is a regular expression, then the string $(R^*)$ is a regular expression.</li>
 </ol>
 
-<p>If $R$ is a regular expression over $\sum$, we denote the language of $R$ by $L(R)$, which we define as follows.</p>
+<p>If $R$ is a regular expression over $\Sigma$, we denote the language of $R$ by $L(R)$, which we define as follows.</p>
 
 <ol>
   <li>If $R = \phi$, then $L(R) = \phi$.</li>
   <li>If $R = \epsilon$, then <script type="math/tex">L(R) = \{\epsilon\}</script>.</li>
-  <li>If $R = c$ for some $c \in \sum$, then <script type="math/tex">L(R) = \{c\}</script>.</li>
+  <li>If $R = c$ for some $c \in \Sigma$, then <script type="math/tex">L(R) = \{c\}</script>.</li>
   <li>If $R = (R_1\cup R_2)$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1) \cup L(R_2)$.</li>
   <li>If $R = R_1R_2$ for some regular expressions $R_1$ and $R_2$, then $L(R) = L(R_1)L(R_2)$.</li>
   <li>If $R = (R_1^{*})$ for some regular expressions $R_1$, then $L(R) = L(R_1)^{*}$.</li>
@@ -200,9 +200,9 @@
 <blockquote>
   <p>Irregular languages must exist.</p>
 
-  <p>proof: Each regular language over $\sum$ can be represented by a regular expression over $\sum$. A regular expression is just a string whose alphabet is <script type="math/tex">\sum \cup \{\phi, \epsilon, (,), \cup, *\}</script>. Let’s call this expanded alphabet $\sum^{'}$. Then  $\sum^{'}$ is also finite. Since regular expressions are strings over $\sum^{'}$, each regular expression is in $(\sum^{'})^{*}$. Now, as mentioned (without proof) in the previous class, the set $(\sum^{'})^{*}$ is infinite but countable, since $\sum^{'}$ is finite. This means there are only countably many regular expressions over $\sum$.</p>
+  <p>proof: Each regular language over $\Sigma$ can be represented by a regular expression over $\Sigma$. A regular expression is just a string whose alphabet is <script type="math/tex">\Sigma \cup \{\phi, \epsilon, (,), \cup, *\}</script>. Let’s call this expanded alphabet $\Sigma^{'}$. Then  $\Sigma^{'}$ is also finite. Since regular expressions are strings over $\Sigma^{'}$, each regular expression is in $(\Sigma^{'})^{*}$. Now, as mentioned (without proof) in the previous class, the set $(\Sigma^{'})^{*}$ is infinite but countable, since $\Sigma^{'}$ is finite. This means there are only countably many regular expressions over $\Sigma$.</p>
 
-  <p>On the other hand, how many languages over $\sum$ are there? Recall that each language is a subset of $\sum^{*}$. Hence the set of all languages over $\sum$ is exactly the set of all subsets of $\sum^{*}$, i.e. the set $P(\sum^{*})$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\sum^{*})$ has cardinality larger than that of $\sum^{*}$. Since $\sum^{*}$ is countable infinite, it follows that $P(\sum^{*})$ must be uncountable. In other words, while there are countably many regular expressions over $\sum$, there are uncountably many language over $\sum$!</p>
+  <p>On the other hand, how many languages over $\Sigma$ are there? Recall that each language is a subset of $\Sigma^{*}$. Hence the set of all languages over $\Sigma$ is exactly the set of all subsets of $\Sigma^{*}$, i.e. the set $P(\Sigma^{*})$. The power set of a set $S$ always has strictly larger cardinality . This means that $P(\Sigma^{*})$ has cardinality larger than that of $\Sigma^{*}$. Since $\Sigma^{*}$ is countable infinite, it follows that $P(\Sigma^{*})$ must be uncountable. In other words, while there are countably many regular expressions over $\Sigma$, there are uncountably many language over $\Sigma$!</p>
 
   <p>This means that regular expressions cannot be matched up to the languages without there being languages “left over”. In particular, there cannot be a regular expression for each language. This argument actually implies that there are uncountably infinity irregular languages.</p>
 </blockquote>
@@ -235,6 +235,20 @@
       
         
           
+            
+            <div class="panel-body">
+              <h4>Related Posts</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/cs360/lecture3/2020/05/19/Finite-Automata.html">Finite Automata</a>
+                  
+                    (Categories: <a href="/category/CS360">CS360</a>, <a href="/category/Lecture3">Lecture3</a>)
+                  
+                </li>
+          
+          
+        
       
           
       
@@ -250,10 +264,84 @@
       
         
           
-            
-            <div class="panel-body">
-              <h4>Related Posts</h4>
-              <ul>
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
             
                 <li class="relatedPost">
                   <a href="https://clairedeng.github.io/cs360/lecture1/2020/05/12/Sets-and-Strings.html">Sets and Strings</a>
@@ -344,6 +432,8 @@
   
     <a class="prev" href="/cs360/lecture1/2020/05/12/Sets-and-Strings.html">&laquo; Sets and Strings</a>
   
+  
+    <a class="next" href="/cs466/probabilityandcomputing/chapter1/2020/05/17/Events-and-Probability.html">Events and Probability &raquo;</a>
   
 </div>
 
