@@ -134,17 +134,17 @@
 
 <h2 id="regular-expressions">Regular Expressions</h2>
 
-<p>To show that a language is regular, all we need to do is to show how to decompose it into the elementary pieces ($\epsilon$ and characters in $\Sigma$) using the operations union, concatenation, and star.</p>
+<p><strong>To show that a language is regular</strong>, all we need to do is to <em>show how to decompose it into the elementary pieces</em> ($\epsilon$ and characters in $\Sigma$) using the operations union, concatenation, and star.</p>
 
 <p><strong>Regular expressions</strong> are a notation for such decompositions which is a little bit cleaner, removing  clutter from excess brackets.</p>
 
-<p>If the alphabet is $\Sigma$, a <strong>regular expression</strong> over $\Sigma$ is a string over an expanded alphabet: in addition to the characters in $\Sigma$, a regular expression can also include the characters $\phi, \epsilon, \cup, *, (, )$.</p>
+<p>A <strong>regular expression</strong> is a <strong>string</strong>. If the alphabet is $\Sigma$, a <strong>regular expression</strong> over $\Sigma$ is a string over an expanded alphabet: in addition to the characters in $\Sigma$, a regular expression can also include the characters $\phi, \epsilon, \cup, *, (, )$.</p>
 
 <p>The formal definition of a regular expression over $\Sigma$ is recursive:</p>
 
 <ol>
   <li>The <strong>symbol</strong> $\phi$ is a regular expression.</li>
-  <li>The symbol $\epsilon$ is a regular expression.</li>
+  <li>The <strong>symbol</strong> $\epsilon$ is a regular expression.</li>
   <li>For each $c\in \Sigma$, the symbol c is a regular expression.</li>
   <li>If $R_1$ and $R_2$ are regular expressions, then the string $(R_1\cup R_2)$ is a regular expression.</li>
   <li>If $R_1$ and $R_2$ are regular expressions, then the string $(R_1R_2)$ is a regular expression.</li>
@@ -174,7 +174,7 @@
 <blockquote>
   <p><strong>Question 2</strong>: Let $A$ be the language over ${0, 1}$ consisting of all strings with an even number of ones. What is a regular expression for A?</p>
 
-  <p>$0^{*}\cup (0^{*}10^{*}10^{*})^{*}$ or $0^{*}(10^{*}10^{*})^{*}$</p>
+  <p>$0^{*}\cup (0^{*}10^{*}10^{*})^{*}​$ or $0^{*}(10^{*}10^{*})^{*}​$</p>
 </blockquote>
 
 <blockquote>
@@ -193,7 +193,9 @@
 
 <p>A: No.</p>
 
-<p>A union of regular language is regular, but it’s not true for infinite unions.</p>
+<p>A union of regular language is regular, but it’s <strong>not true</strong> for <strong>infinite unions</strong>.</p>
+
+<p>A union of any finite number of regular languages is regular.</p>
 
 <p>A subset of a regular language need not be regular.</p>
 
@@ -235,10 +237,324 @@
       
         
           
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
             
             <div class="panel-body">
               <h4>Related Posts</h4>
               <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/06/Context-free-grammars-and-languages.html">Context-free grammars and languages</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
             
                 <li class="relatedPost">
                   <a href="https://clairedeng.github.io/cs360/lecture3/2020/05/19/Finite-Automata.html">Finite Automata</a>

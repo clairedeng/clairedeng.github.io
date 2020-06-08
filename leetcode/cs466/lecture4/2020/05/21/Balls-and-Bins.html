@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <title>Balls and Bins - Study Notes</title>
+    <meta name="author" content="Claire Deng" />
+    <meta name="description" content="Balls and Bins" />
+    <meta name="keywords" content="Balls and Bins, Study Notes, Leetcode, CS466, Lecture4" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="1749788565247320" property="fb:app_id">
+    <meta content="Study Notes" property="og:site_name">
+
+    
+
+    
+      <meta content="Balls and Bins" property="og:title">
+      <meta content="article" property="og:type">
+    
+
+    
+      <meta content="My Personal Study Notes" property="og:description">
+    
+
+    
+      <meta content="https://clairedeng.github.io/leetcode/cs466/lecture4/2020/05/21/Balls-and-Bins.html" property="og:url">
+    
+
+    
+      <meta content="2020-05-21T05:00:00-04:00" property="article:published_time">
+      <meta content="https://clairedeng.github.io/about/" property="article:author">
+    
+
+    
+
+    
+      
+        <meta content="Leetcode" property="article:section">
+      
+    
+
+    
+      
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@github.io">
+    <meta name="twitter:creator" content="@github.io">
+
+    
+      <meta name="twitter:title" content="Balls and Bins">
+    
+
+    
+      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/cs466/lecture4/2020/05/21/Balls-and-Bins.html">
+    
+
+    
+      <meta name="twitter:description" content="My Personal Study Notes">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-3">
+        <div class="fixed-condition">
+          <a href="/">Home</a>
+          <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#expected-number-of-balls-in-a-bin">Expected Number of Balls in a Bin</a></li>
+<li class="toc-entry toc-h2"><a href="#expected-number-of-empty-bins">Expected number of empty bins</a></li>
+<li class="toc-entry toc-h2"><a href="#maximum-load---what-is-the-maximum-number-of-balls-in-a-bin">Maximum Load - What is the maximum number of balls in a bin?</a></li>
+<li class="toc-entry toc-h2"><a href="#coupon-collector---what-m-do-we-expect-to-have-no-empty-bins">Coupon Collector - What m do we expect to have no empty bins?</a></li>
+</ul>
+        </div>
+        <!-- end /.fixed-condition -->
+      </div>
+      <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Balls and Bins</h1>
+</header>
+
+<div class="info">
+  <span class="time">21 May 2020</span>
+  
+    <span class="categories">
+      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS466">CS466</a>, <a href="/category/Lecture4">Lecture4</a>
+    </span>
+  
+</div>
+
+<div class="content">
+  <div class="post"><p>We have $m$ balls and $n$ bins. Each ball is thrown to a uniformly random bin independently. We would like to study the distribution of the balls into the bins.</p>
+
+<h2 id="expected-number-of-balls-in-a-bin">Expected Number of Balls in a Bin</h2>
+
+<p>Let $B_{i, j}$ be the indicator variable that ball $j$ is in bin $i$.</p>
+
+<p>The $E[\text{# of balls in bin } i] = E[\sum_{j=1}^m B_{i,j}] = \sum_{j = 1}^mE[B_{i, j}] = \sum_{j = 1}^m Pr(\text{ball $j$ in bin $i$}) = \sum_{j=1}^m \frac1n = \frac mn$.</p>
+
+<p>When $m = n$, the expected number of balls in a bin is $1$.</p>
+
+<h2 id="expected-number-of-empty-bins">Expected number of empty bins</h2>
+
+<p>Let $Y_i$ be the indicator variable that bin $i$ is empty.</p>
+
+<p>Then, $E[Y_i] = Pr(\text{bin $i$ is empty}) = (1-\frac1n)^m \approx e^{-\frac mn}$using $1-x \le e^{-x}$ and $1-x\approx e^{-x}$ for small $x$.</p>
+
+<p>So, $E[\text{# of empty bins}] = E[\sum_{i=1}^n Y_i] = \sum_{i=1}^nE[Y_i] = ne^{-\frac mn}$.</p>
+
+<p>When $m = n$, we expected to see a $\frac 1e n$ bins are empty.</p>
+
+<h2 id="maximum-load---what-is-the-maximum-number-of-balls-in-a-bin">Maximum Load - What is the maximum number of balls in a bin?</h2>
+
+<p><strong>A simpler question - what $m$ do we expect to see two balls in a bin (a collision occurs)?</strong></p>
+
+<p>The probability that there are no collision in the first $m$ balls is:
+$$
+\begin{align*}</p>
+
+<p>Pr(\text{no collision in first $m$ balls}) &amp; = (1-\frac1n)(1-\frac2n)…(1-\frac{m-1}{n}) <br />
+&amp;\le e^{-\frac1n}e^{-\frac2n}…e^{-\frac{m-1}{n}} <br />
+&amp;= e^{-\frac{m(m-1)}{2n}} <br />
+&amp;\approx e^{-\frac{m^2}{2n}}</p>
+
+<p>\end{align*}
+$$</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+Pr(\text{no collision in first $m$ balls})&  \le \frac12 \\
+e^{-\frac{m^2}{2n}} & \le \frac12 \\ 
+m & \ge \sqrt{2n\ln2}
+\end{align*} %]]></script>
+
+<p>The probability would be smaller than $1/2$ when $m \ge \sqrt{2n\ln2}$.</p>
+
+<p>For $n = 365$, when $m \ge 22.49$, the probability that the maximum load is at least two is at least $\frac12$. This estimate is very close to the exact number.</p>
+
+<p><strong>We expect to see a collision when $m = \theta(\sqrt n)$</strong>.</p>
+
+<p><strong>The maximum load when $m = n$</strong></p>
+
+<p>The probability that a bin has at least $k$ balls is at most ${n\choose k}(\frac1n)^k &lt; (\frac{ne}{k})^k(\frac{1}{n})^k = \frac{e^k}{k^k}$.</p>
+
+<p>Some useful bounds are: $(\frac nk)^k&lt; {n \choose k} &lt; \frac{n^k}{k!} &lt; (\frac{ne}{k})^k$. 
+<script type="math/tex">% <![CDATA[
+\begin{align*}
+Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + k-k\ln k} \\ \text{Setting $k = \frac{3\ln n}{\ln\ln n}$} \\ & \le  n \left (\frac{e\ln\ln n}{3\ln n}\right )^\frac{3\ln n}{\ln\ln n} \\ & \le  n \left (\frac{\ln\ln n}{\ln n}\right )^\frac{3\ln n}{\ln\ln n} \\ & = e^{\ln n + \frac{3\ln n}{\ln\ln n}(\ln\ln\ln n - \ln\ln n)} \\ & = e^{\ln n + \frac{3\ln n\ln\ln\ln n - 3\ln n\ln\ln n)}{\ln\ln n}} \\ & = e^{\ln n - 3\ln n + \frac{3\ln n\ln\ln\ln n}{\ln\ln n}} \\ & = e^{- 2\ln n + \frac{3\ln n\ln\ln\ln n}{\ln\ln n}} \\ & \le \frac{1}{n}
+\end{align*} %]]></script></p>
+
+<h2 id="coupon-collector---what-m-do-we-expect-to-have-no-empty-bins">Coupon Collector - What m do we expect to have no empty bins?</h2>
+
+<p>Let $X$ be the number of balls thrown until there are no empty bins.</p>
+
+<p>Let $X_i$ be the number of balls thrown until there are exactly $i$ empty bins.</p>
+
+<p>Then $E[X] = E[\sum_{i=1}^n X_i] = \sum_{i=1}^n E[X_i]$.</p>
+
+<p>Each $X_i$ is a geometric random variable where $Pr(X_i = k) = (1-p)^{k-1}p$ with $p = \frac in$</p>
+
+<p>In words, $X_i$ is the number of trials until the first success, when the success probability is $p$.</p>
+
+<p>$E[X_i] = \frac1p$</p>
+
+<p>$E[X] = \sum_{i=1}^n E[X_i] = \sum_{i=1}^n \frac ni \approx n\ln n $ ($\sum_{i=1}^n \frac1i = H_n$, the n-th harmonic number).</p>
+
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="github.io">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  <!-- Facebook -->
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/cs466/lecture4/2020/05/21/Balls-and-Bins.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1749788565247320";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+
+  
+    
+      
+        
+          
+            
+            <div class="panel-body">
+              <h4>Related Posts</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/08/41.-First-Missing-Positive.html">41. First Missing Positive</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/06/Context-free-grammars-and-languages.html">Context-free grammars and languages</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">An Introduction to Robust Regression</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html">Weighted Least Squares</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html">Variable Selection in Least Square Regression</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+  
+  </ul>
+</div>
+
+
+<div class="PageNavigation">
+  
+    <a class="prev" href="/cs360/lecture3/2020/05/19/Finite-Automata.html">&laquo; Finite Automata</a>
+  
+  
+    <a class="next" href="/leetcode/array/two%20pointer/2020/05/29/27-Remove-Element.html">27 Remove Element &raquo;</a>
+  
+</div>
+
+<div class="disqus-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var disqus_shortname = "stackproblems";
+    var disqus_identifier = "https://clairedeng.github.io_Balls and Bins";
+    var disqus_title = "Balls and Bins";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    /* ]]> */
+  </script>
+</div>
+
+
+        <footer>
+          &copy; Claire Deng
+          
+            - <a href="https://github.com/clairedeng">https://github.com/clairedeng</a> - Powered by Jekyll.
+          
+          <div class="btn-github" style="float:right;">
+            <iframe src="https://ghbtns.com/github-btn.html?user=clairedeng&repo=clairedeng.github.io&type=star&count=true" frameborder="0" scrolling="0" width="100" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=clairedeng&repo=clairedeng.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="100" height="20px"></iframe>
+          </div>
+        </footer>
+      </div>
+      <!-- end /.col-sm-8 -->
+    </div>
+    <!-- end /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/super-search.js"></script>
+    <script src="/static/js/thickbox-compressed.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  </body>
+</html>
+

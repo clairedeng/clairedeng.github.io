@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <title>Weighted Least Squares - Study Notes</title>
+    <meta name="author" content="Claire Deng" />
+    <meta name="description" content="Weighted Least Squares" />
+    <meta name="keywords" content="Weighted Least Squares, Study Notes, Leetcode, STAT444" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="1749788565247320" property="fb:app_id">
+    <meta content="Study Notes" property="og:site_name">
+
+    
+
+    
+      <meta content="Weighted Least Squares" property="og:title">
+      <meta content="article" property="og:type">
+    
+
+    
+      <meta content="My Personal Study Notes" property="og:description">
+    
+
+    
+      <meta content="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html" property="og:url">
+    
+
+    
+      <meta content="2020-06-05T09:00:00-04:00" property="article:published_time">
+      <meta content="https://clairedeng.github.io/about/" property="article:author">
+    
+
+    
+
+    
+      
+        <meta content="Leetcode" property="article:section">
+      
+    
+
+    
+      
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@github.io">
+    <meta name="twitter:creator" content="@github.io">
+
+    
+      <meta name="twitter:title" content="Weighted Least Squares">
+    
+
+    
+      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html">
+    
+
+    
+      <meta name="twitter:description" content="My Personal Study Notes">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-3">
+        <div class="fixed-condition">
+          <a href="/">Home</a>
+          <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#introduction-and-derivation">Introduction and Derivation</a></li>
+<li class="toc-entry toc-h2"><a href="#choice-of-weights">Choice of weights</a></li>
+<li class="toc-entry toc-h2"><a href="#example-wls-vs-ols-fits">Example: WLS vs. OLS Fits</a></li>
+<li class="toc-entry toc-h2"><a href="#applications-of-wls">Applications of WLS</a></li>
+<li class="toc-entry toc-h2"><a href="#generalized-ls">Generalized LS</a></li>
+</ul>
+        </div>
+        <!-- end /.fixed-condition -->
+      </div>
+      <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Weighted Least Squares</h1>
+</header>
+
+<div class="info">
+  <span class="time">05 Jun 2020</span>
+  
+    <span class="categories">
+      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>
+    </span>
+  
+</div>
+
+<div class="content">
+  <div class="post"><h2 id="introduction-and-derivation">Introduction and Derivation</h2>
+
+<p>The regular least squares regression minimizes the mean squared error loss while giving equal importance to all observations.</p>
+
+<p>The circumstance to give more (or less) weights to different observations.</p>
+
+<ul>
+  <li>Heteroscedasticity(non-constant variance)</li>
+  <li>Outliers</li>
+</ul>
+
+<p>$\hat\beta_{WLS} = (X^TWX)^{-1}X^TWy$, $W$ is a diagonal matrix where $w_i \ge 0$ is the weight of observation $i$ (the higher $w_i$ the more “influence” on the observation $i$).</p>
+
+<h2 id="choice-of-weights">Choice of weights</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>If repeated measurements of $Y$ for each $X$ is available, then $Var(Y_i</td>
+      <td>X_i) = Var(\epsilon_i)$ can be estimated (the sample variance of multiple measurements a each $X$).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We may be able to justify distributional assumptions which impose functional forms on the variance. For example, the variance of the proportions we find, when taking pols or doing surveys, should be inversely proportional to the sample size. So a natural choice of weights is proportional to the sample size.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assumption</th>
+      <th>$w_i$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$Y_i$: average of $n_i$ repeated measurements</td>
+      <td>$w_i = n_i$</td>
+    </tr>
+    <tr>
+      <td>$Y_i \sim$ Binomial$(n_i, p_i)$</td>
+      <td>$w_i = \frac{1}{n_ip_i(1-p_i)}$</td>
+    </tr>
+    <tr>
+      <td>$Y_i$: proportions based on Binomial counts.</td>
+      <td>$w_i = \frac{n_i}{p_i(1-p_i)}$</td>
+    </tr>
+    <tr>
+      <td>$Y_i \sim$ Pois$(\lambda_i)$</td>
+      <td>$w_i = \frac{1}{\lambda_i}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="example-wls-vs-ols-fits">Example: WLS vs. OLS Fits</h2>
+
+<p>…</p>
+
+<h2 id="applications-of-wls">Applications of WLS</h2>
+
+<ul>
+  <li>Focused Accuracy: If the objective is to predict a subset of observations with higher accuracy, one can assign higher weights to these observations, down-weight the rest of observations(e.g. dealing with outliers).</li>
+  <li>Increased Precision: If we know $Var(\epsilon_i) = \sigma_i^2$, then setting $w_i = \frac{1}{\sigma_i^2}$ results in heteroscedastic MLS, $\hat\beta_{WLS} = \hat\beta_{ML}$.</li>
+  <li>To Solve Other Problems: A number of optimization problems translate to weighted least squares.</li>
+  <li>Correlated noise: One potential solution to correlated error terms in a regression model is to “de-correlate” the noise using WLS regression. Set $W = \Sigma^{-1}$</li>
+</ul>
+
+<h2 id="generalized-ls">Generalized LS</h2>
+
+<ul>
+  <li>WLS problem can be written as minimizing $(y-X\beta)^TW(y-X\beta)$ for a diagonal matrix $W$ where $diag(X) \ge 0$</li>
+  <li>Minimizing $(y-X\beta)^TW(y-X\beta)$ for a non-diagonal matrix W is called a generalized least squares(GLS) problem.</li>
+  <li>Since none of the steps in the derivation of $\hat\beta_{WLS}$ required $W$ to be diagonal, the same derivation is valid for GLS, $\hat\beta = (X^TWX)^{-1}X^TWy$.</li>
+</ul>
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="github.io">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  <!-- Facebook -->
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1749788565247320";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+
+  
+    
+      
+        
+          
+            
+            <div class="panel-body">
+              <h4>Related Posts</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/08/41.-First-Missing-Positive.html">41. First Missing Positive</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/06/Context-free-grammars-and-languages.html">Context-free grammars and languages</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">An Introduction to Robust Regression</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html">Variable Selection in Least Square Regression</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/04/56.-Merge-Intervals.html">56. Merge Intervals</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+  
+  </ul>
+</div>
+
+
+<div class="PageNavigation">
+  
+    <a class="prev" href="/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html">&laquo; Variable Selection in Least Square Regression</a>
+  
+  
+    <a class="next" href="/leetcode/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">An Introduction to Robust Regression &raquo;</a>
+  
+</div>
+
+<div class="disqus-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var disqus_shortname = "stackproblems";
+    var disqus_identifier = "https://clairedeng.github.io_Weighted Least Squares";
+    var disqus_title = "Weighted Least Squares";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    /* ]]> */
+  </script>
+</div>
+
+
+        <footer>
+          &copy; Claire Deng
+          
+            - <a href="https://github.com/clairedeng">https://github.com/clairedeng</a> - Powered by Jekyll.
+          
+          <div class="btn-github" style="float:right;">
+            <iframe src="https://ghbtns.com/github-btn.html?user=clairedeng&repo=clairedeng.github.io&type=star&count=true" frameborder="0" scrolling="0" width="100" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=clairedeng&repo=clairedeng.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="100" height="20px"></iframe>
+          </div>
+        </footer>
+      </div>
+      <!-- end /.col-sm-8 -->
+    </div>
+    <!-- end /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/super-search.js"></script>
+    <script src="/static/js/thickbox-compressed.js"></script>
+    <script src="/static/js/projects.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  </body>
+</html>
+
