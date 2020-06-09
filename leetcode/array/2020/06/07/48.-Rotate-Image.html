@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <title>245. Shortest Word Distance III - Study Notes</title>
+    <title>48. Rotate Image - Study Notes</title>
     <meta name="author" content="Claire Deng" />
-    <meta name="description" content="245. Shortest Word Distance III" />
-    <meta name="keywords" content="245. Shortest Word Distance III, Study Notes, Leetcode, Array, Two Pointer" />
+    <meta name="description" content="48. Rotate Image" />
+    <meta name="keywords" content="48. Rotate Image, Study Notes, Leetcode, Array" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
     <meta content="1749788565247320" property="fb:app_id">
     <meta content="Study Notes" property="og:site_name">
@@ -16,7 +16,7 @@
     
 
     
-      <meta content="245. Shortest Word Distance III" property="og:title">
+      <meta content="48. Rotate Image" property="og:title">
       <meta content="article" property="og:type">
     
 
@@ -25,11 +25,11 @@
     
 
     
-      <meta content="https://clairedeng.github.io/leetcode/array/two%20pointer/2020/06/03/245.-Shortest-Word-Distance-III.html" property="og:url">
+      <meta content="https://clairedeng.github.io/leetcode/array/2020/06/07/48.-Rotate-Image.html" property="og:url">
     
 
     
-      <meta content="2020-06-03T05:00:00-04:00" property="article:published_time">
+      <meta content="2020-06-07T23:00:00-04:00" property="article:published_time">
       <meta content="https://clairedeng.github.io/about/" property="article:author">
     
 
@@ -50,11 +50,11 @@
     <meta name="twitter:creator" content="@github.io">
 
     
-      <meta name="twitter:title" content="245. Shortest Word Distance III">
+      <meta name="twitter:title" content="48. Rotate Image">
     
 
     
-      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/array/two%20pointer/2020/06/03/245.-Shortest-Word-Distance-III.html">
+      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/array/2020/06/07/48.-Rotate-Image.html">
     
 
     
@@ -91,20 +91,90 @@
       </div>
       <div class="col-sm-8 col-offset-1 main-layout">
         <header class="post-header">
-  <h1 class="post-title">245. Shortest Word Distance III</h1>
+  <h1 class="post-title">48. Rotate Image</h1>
 </header>
 
 <div class="info">
-  <span class="time">03 Jun 2020</span>
+  <span class="time">07 Jun 2020</span>
   
     <span class="categories">
-      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>, <a href="/category/Two Pointer">Two Pointer</a>
+      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>
     </span>
   
 </div>
 
 <div class="content">
-  <div class="post">
+  <div class="post"><p>You are given an $n\times n$ 2D matrix representing an image.</p>
+
+<p>Rotate the image by 90 degrees(clockwise).</p>
+
+<p>Note: you have to rotate the image in-place, which means you have to modify the input 2D matrix directly. Do not allocate another 2D matrix and do the rotation.</p>
+
+<p>Test 1:</p>
+
+<blockquote>
+  <p>Input: []</p>
+
+  <p>Result: []</p>
+</blockquote>
+
+<p>Test 2:</p>
+
+<blockquote>
+  <p>Input: [[1,2,3],[4,5,6],[7,8,9]]</p>
+
+  <p>Result: [[7,4,1],[8,5,2],[9,6,3]]</p>
+</blockquote>
+
+<p>Test 3:</p>
+
+<blockquote>
+  <p>Input:[[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]</p>
+
+  <p>Result: [[10,11,12,1],[9,16,13,2],[8,15,14,3],[7,6,5,4]]</p>
+</blockquote>
+
+<p>Approach 1:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rotate</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="o">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span> <span class="n">r</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="o">;</span> <span class="n">c</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">c</span><span class="o">][</span><span class="n">r</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">c</span><span class="o">][</span><span class="n">r</span><span class="o">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="o">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">c</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="o">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">c</span><span class="o">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">c</span><span class="o">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">c</span><span class="o">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Approach 2:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rotate</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">/</span><span class="mi">2</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">i</span><span class="o">];</span>
+                <span class="n">matrix</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
 </div>
   <div class="share-page">
   <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
@@ -114,7 +184,7 @@
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
   <!-- Facebook -->
-  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/array/two%20pointer/2020/06/03/245.-Shortest-Word-Distance-III.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/array/2020/06/07/48.-Rotate-Image.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
 </div>
 
 <div id="fb-root"></div>
@@ -151,12 +221,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -180,12 +246,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -209,12 +271,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -238,41 +296,8 @@
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-            
-                <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/07/48.-Rotate-Image.html">48. Rotate Image</a>
-                  
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
-                  
-                </li>
-          
-          
-        
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -286,23 +311,8 @@
       
           
       
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-          
-      
     
         
-          
-      
           
       
           
@@ -316,6 +326,19 @@
       
           
       
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
           
       
     
@@ -327,8 +350,6 @@
       
           
       
-          
-      
     
   
     
@@ -336,6 +357,13 @@
         
           
       
+          
+      
+    
+  
+    
+      
+        
           
       
           
@@ -359,12 +387,39 @@
       
           
       
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/array/two%20pointer/2020/06/03/245.-Shortest-Word-Distance-III.html">245. Shortest Word Distance III</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>, <a href="/category/Two Pointer">Two Pointer</a>)
+                  
+                </li>
+          
+          
+        
+      
           
       
     
         
           
       
+          
+      
+    
+        
           
       
           
@@ -378,20 +433,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -405,20 +454,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -432,20 +475,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -459,20 +496,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -486,20 +517,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -513,20 +538,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -540,20 +559,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -567,20 +580,8 @@
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -594,12 +595,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -613,12 +610,14 @@
       
           
       
-          
-      
     
         
           
       
+          
+      
+    
+        
           
       
           
@@ -632,20 +631,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -659,20 +652,14 @@
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -686,20 +673,8 @@
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -713,12 +688,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -732,12 +703,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -751,12 +718,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -770,12 +733,8 @@
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -789,31 +748,8 @@
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -827,10 +763,10 @@
 
 <div class="PageNavigation">
   
-    <a class="prev" href="/leetcode/array/two%20pointer/2020/06/03/243.-Shortest-Word-Distance.html">&laquo; 243. Shortest Word Distance</a>
+    <a class="prev" href="/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">&laquo; The Myhill-Nerode Theorem</a>
   
   
-    <a class="next" href="/leetcode/array/2020/06/04/56.-Merge-Intervals.html">56. Merge Intervals &raquo;</a>
+    <a class="next" href="/leetcode/array/2020/06/08/54.-Spiral-Matrix.html">54. Spiral Matrix &raquo;</a>
   
 </div>
 
@@ -839,8 +775,8 @@
   <script type="text/javascript">
     /* <![CDATA[ */
     var disqus_shortname = "stackproblems";
-    var disqus_identifier = "https://clairedeng.github.io_245. Shortest Word Distance III";
-    var disqus_title = "245. Shortest Word Distance III";
+    var disqus_identifier = "https://clairedeng.github.io_48. Rotate Image";
+    var disqus_title = "48. Rotate Image";
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {

@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <title>Weighted Least Squares - Study Notes</title>
+    <title>Context-free grammars and languages - Study Notes</title>
     <meta name="author" content="Claire Deng" />
-    <meta name="description" content="Weighted Least Squares" />
-    <meta name="keywords" content="Weighted Least Squares, Study Notes, Leetcode, STAT444" />
+    <meta name="description" content="Context-free grammars and languages" />
+    <meta name="keywords" content="Context-free grammars and languages, Study Notes, CS360, lecture8" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
     <meta content="1749788565247320" property="fb:app_id">
     <meta content="Study Notes" property="og:site_name">
@@ -16,7 +16,7 @@
     
 
     
-      <meta content="Weighted Least Squares" property="og:title">
+      <meta content="Context-free grammars and languages" property="og:title">
       <meta content="article" property="og:type">
     
 
@@ -25,11 +25,11 @@
     
 
     
-      <meta content="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html" property="og:url">
+      <meta content="https://clairedeng.github.io/cs360/lecture8/2020/06/06/Context-free-grammars-and-languages.html" property="og:url">
     
 
     
-      <meta content="2020-06-05T09:00:00-04:00" property="article:published_time">
+      <meta content="2020-06-06T23:00:00-04:00" property="article:published_time">
       <meta content="https://clairedeng.github.io/about/" property="article:author">
     
 
@@ -37,7 +37,7 @@
 
     
       
-        <meta content="Leetcode" property="article:section">
+        <meta content="CS360" property="article:section">
       
     
 
@@ -50,11 +50,11 @@
     <meta name="twitter:creator" content="@github.io">
 
     
-      <meta name="twitter:title" content="Weighted Least Squares">
+      <meta name="twitter:title" content="Context-free grammars and languages">
     
 
     
-      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html">
+      <meta name="twitter:url" content="https://clairedeng.github.io/cs360/lecture8/2020/06/06/Context-free-grammars-and-languages.html">
     
 
     
@@ -85,103 +85,50 @@
         <div class="fixed-condition">
           <a href="/">Home</a>
           <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#introduction-and-derivation">Introduction and Derivation</a></li>
-<li class="toc-entry toc-h2"><a href="#choice-of-weights">Choice of weights</a></li>
-<li class="toc-entry toc-h2"><a href="#example-wls-vs-ols-fits">Example: WLS vs. OLS Fits</a></li>
-<li class="toc-entry toc-h2"><a href="#applications-of-wls">Applications of WLS</a></li>
-<li class="toc-entry toc-h2"><a href="#generalized-ls">Generalized LS</a></li>
 </ul>
         </div>
         <!-- end /.fixed-condition -->
       </div>
       <div class="col-sm-8 col-offset-1 main-layout">
         <header class="post-header">
-  <h1 class="post-title">Weighted Least Squares</h1>
+  <h1 class="post-title">Context-free grammars and languages</h1>
 </header>
 
 <div class="info">
-  <span class="time">05 Jun 2020</span>
+  <span class="time">06 Jun 2020</span>
   
     <span class="categories">
-      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>
+      &raquo; <a href="/category/CS360">CS360</a>, <a href="/category/lecture8">lecture8</a>
     </span>
   
 </div>
 
 <div class="content">
-  <div class="post"><h2 id="introduction-and-derivation">Introduction and Derivation</h2>
+  <div class="post"><p><strong>Definition 1</strong>: A <strong>context-free grammar (CFG)</strong> is a 4-tuple
+<script type="math/tex">G=(V,\Sigma, R, S)</script>
+where $V$ is a finite and non-empty set (whose element we will call variables), $\Sigma$ is an alphabet (disjoint from $V$), $R$ is a finite and nonempty set of rules, each of which takes the form
+<script type="math/tex">A\rightarrow w</script>
+for some choice of $A\in V$ and $w\in (V\cup \Sigma)^*$, and $S\in V$ is a variable called the start variable.</p>
 
-<p>The regular least squares regression minimizes the mean squared error loss while giving equal importance to all observations.</p>
+<p><strong>Definition 2</strong>: Let $G=(V,\Sigma, R, S)$ be a context-free grammar. The <strong>yields relation</strong> defined by G is  a relation defined for pairs of strings over the alphabet $V\cup \Sigma$ as follows:
+<script type="math/tex">uAv\rightarrow_G uwv</script>
+for every choice of strings $u,w,v \in (V\cup \Sigma)^*$ and a variable $A\in V$, provided that the rule $A\rightarrow w$ is included in $R$.</p>
 
-<p>The circumstance to give more (or less) weights to different observations.</p>
+<p><strong>Definition 3</strong>: Let $G=(V,\Sigma, R, S)$ be a context-free grammar. For any two strings $x, y\in (V\cup \Sigma)^<em>$ one has that
+<script type="math/tex">x\stackrel{*}\rightarrow_Gy</script>
+if there exists a positive integer $m$ and strings $z_1, …, z_m \in (V\cup \Sigma)^</em>$ such that</p>
 
-<ul>
-  <li>Heteroscedasticity(non-constant variance)</li>
-  <li>Outliers</li>
-</ul>
+<ol>
+  <li>$x=z_1$</li>
+  <li>$y=z_m$</li>
+  <li>$z_k\rightarrow_G z_{k+1}$ for every $k\in{1, …, m-1}$.</li>
+</ol>
 
-<p>$\hat\beta_{WLS} = (X^TWX)^{-1}X^TWy$, $W$ is a diagonal matrix where $w_i \ge 0$ is the weight of observation $i$ (the higher $w_i$ the more “influence” on the observation $i$).</p>
+<p><strong>Definition 4</strong>: Let $G = (V, \Sigma, R, S)$ be a context-free grammar. The <strong>language generated by G</strong> is 
+<script type="math/tex">L(G) = \{x\in\Sigma^*: S\stackrel{*}\rightarrow_G x\}</script></p>
 
-<h2 id="choice-of-weights">Choice of weights</h2>
+<p><strong>Definition 5</strong>: Let $\Sigma$ be an alphabet and let $A\sube \Sigma^<em>$ be a language. The language $A$ is *context-free</em> if there exists a context-free grammar $G$ such that $L(G) = A$.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>If repeated measurements of $Y$ for each $X$ is available, then $Var(Y_i</td>
-      <td>X_i) = Var(\epsilon_i)$ can be estimated (the sample variance of multiple measurements a each $X$).</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>We may be able to justify distributional assumptions which impose functional forms on the variance. For example, the variance of the proportions we find, when taking pols or doing surveys, should be inversely proportional to the sample size. So a natural choice of weights is proportional to the sample size.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Assumption</th>
-      <th>$w_i$</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>$Y_i$: average of $n_i$ repeated measurements</td>
-      <td>$w_i = n_i$</td>
-    </tr>
-    <tr>
-      <td>$Y_i \sim$ Binomial$(n_i, p_i)$</td>
-      <td>$w_i = \frac{1}{n_ip_i(1-p_i)}$</td>
-    </tr>
-    <tr>
-      <td>$Y_i$: proportions based on Binomial counts.</td>
-      <td>$w_i = \frac{n_i}{p_i(1-p_i)}$</td>
-    </tr>
-    <tr>
-      <td>$Y_i \sim$ Pois$(\lambda_i)$</td>
-      <td>$w_i = \frac{1}{\lambda_i}$</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="example-wls-vs-ols-fits">Example: WLS vs. OLS Fits</h2>
-
-<p>…</p>
-
-<h2 id="applications-of-wls">Applications of WLS</h2>
-
-<ul>
-  <li>Focused Accuracy: If the objective is to predict a subset of observations with higher accuracy, one can assign higher weights to these observations, down-weight the rest of observations(e.g. dealing with outliers).</li>
-  <li>Increased Precision: If we know $Var(\epsilon_i) = \sigma_i^2$, then setting $w_i = \frac{1}{\sigma_i^2}$ results in heteroscedastic MLS, $\hat\beta_{WLS} = \hat\beta_{ML}$.</li>
-  <li>To Solve Other Problems: A number of optimization problems translate to weighted least squares.</li>
-  <li>Correlated noise: One potential solution to correlated error terms in a regression model is to “de-correlate” the noise using WLS regression. Set $W = \Sigma^{-1}$</li>
-</ul>
-
-<h2 id="generalized-ls">Generalized LS</h2>
-
-<ul>
-  <li>WLS problem can be written as minimizing $(y-X\beta)^TW(y-X\beta)$ for a diagonal matrix $W$ where $diag(X) \ge 0$</li>
-  <li>Minimizing $(y-X\beta)^TW(y-X\beta)$ for a non-diagonal matrix W is called a generalized least squares(GLS) problem.</li>
-  <li>Since none of the steps in the derivation of $\hat\beta_{WLS}$ required $W$ to be diagonal, the same derivation is valid for GLS, $\hat\beta = (X^TWX)^{-1}X^TWy$.</li>
-</ul>
 </div>
   <div class="share-page">
   <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
@@ -191,7 +138,7 @@
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
   <!-- Facebook -->
-  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/cs360/lecture8/2020/06/06/Context-free-grammars-and-languages.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
 </div>
 
 <div id="fb-root"></div>
@@ -211,15 +158,437 @@
       
         
           
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
             
             <div class="panel-body">
               <h4>Related Posts</h4>
               <ul>
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/08/41.-First-Missing-Positive.html">41. First Missing Positive</a>
+                  <a href="https://clairedeng.github.io/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
+                    (Categories: <a href="/category/CS360">CS360</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/cs360/lecture3/2020/05/19/Finite-Automata.html">Finite Automata</a>
+                  
+                    (Categories: <a href="/category/CS360">CS360</a>, <a href="/category/Lecture3">Lecture3</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/cs360/lecture2/2020/05/16/Regular-Expressions.html">Regular Expressions</a>
+                  
+                    (Categories: <a href="/category/CS360">CS360</a>, <a href="/category/Lecture2">Lecture2</a>)
                   
                 </li>
           
@@ -242,426 +611,14 @@
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem</a>
+                  <a href="https://clairedeng.github.io/cs360/lecture1/2020/05/12/Sets-and-Strings.html">Sets and Strings</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
-                  
-                </li>
-          
-          
-        
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-            
-                <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/06/Context-free-grammars-and-languages.html">Context-free grammars and languages</a>
-                  
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                    (Categories: <a href="/category/CS360">CS360</a>, <a href="/category/Lecture1">Lecture1</a>)
                   
                 </li>
           
           
         
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-            
-                <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">An Introduction to Robust Regression</a>
-                  
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
-                  
-                </li>
-          
-          
-        
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-            
-                <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html">Variable Selection in Least Square Regression</a>
-                  
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
-                  
-                </li>
-          
-          
-        
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-            
-                <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/04/56.-Merge-Intervals.html">56. Merge Intervals</a>
-                  
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
-                  
-                </li>
-          
-          
-        
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
       
           
       
@@ -740,10 +697,10 @@
 
 <div class="PageNavigation">
   
-    <a class="prev" href="/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html">&laquo; Variable Selection in Least Square Regression</a>
+    <a class="prev" href="/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">&laquo; An Introduction to Robust Regression</a>
   
   
-    <a class="next" href="/leetcode/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">An Introduction to Robust Regression &raquo;</a>
+    <a class="next" href="/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem &raquo;</a>
   
 </div>
 
@@ -752,8 +709,8 @@
   <script type="text/javascript">
     /* <![CDATA[ */
     var disqus_shortname = "stackproblems";
-    var disqus_identifier = "https://clairedeng.github.io_Weighted Least Squares";
-    var disqus_title = "Weighted Least Squares";
+    var disqus_identifier = "https://clairedeng.github.io_Context-free grammars and languages";
+    var disqus_title = "Context-free grammars and languages";
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {

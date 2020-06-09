@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <title>Variable Selection in Least Square Regression - Study Notes</title>
+    <title>59. Spiral Matrix II - Study Notes</title>
     <meta name="author" content="Claire Deng" />
-    <meta name="description" content="Variable Selection in Least Square Regression" />
-    <meta name="keywords" content="Variable Selection in Least Square Regression, Study Notes, Leetcode, STAT444" />
+    <meta name="description" content="59. Spiral Matrix II" />
+    <meta name="keywords" content="59. Spiral Matrix II, Study Notes, Leetcode, Array" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
     <meta content="1749788565247320" property="fb:app_id">
     <meta content="Study Notes" property="og:site_name">
@@ -16,7 +16,7 @@
     
 
     
-      <meta content="Variable Selection in Least Square Regression" property="og:title">
+      <meta content="59. Spiral Matrix II" property="og:title">
       <meta content="article" property="og:type">
     
 
@@ -25,11 +25,11 @@
     
 
     
-      <meta content="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html" property="og:url">
+      <meta content="https://clairedeng.github.io/leetcode/array/2020/06/08/59.-Spiral-Matrix-II.html" property="og:url">
     
 
     
-      <meta content="2020-06-05T05:00:00-04:00" property="article:published_time">
+      <meta content="2020-06-08T01:00:00-04:00" property="article:published_time">
       <meta content="https://clairedeng.github.io/about/" property="article:author">
     
 
@@ -50,11 +50,11 @@
     <meta name="twitter:creator" content="@github.io">
 
     
-      <meta name="twitter:title" content="Variable Selection in Least Square Regression">
+      <meta name="twitter:title" content="59. Spiral Matrix II">
     
 
     
-      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html">
+      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/array/2020/06/08/59.-Spiral-Matrix-II.html">
     
 
     
@@ -85,131 +85,76 @@
         <div class="fixed-condition">
           <a href="/">Home</a>
           <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#best-subset-selection">Best-subset selection</a></li>
-<li class="toc-entry toc-h2"><a href="#forward-stepwise-selection">Forward-stepwise selection</a></li>
-<li class="toc-entry toc-h2"><a href="#backward-stepwise-selection">Backward-stepwise selection</a></li>
-<li class="toc-entry toc-h2"><a href="#a-hybrid-approach">A Hybrid Approach</a></li>
-<li class="toc-entry toc-h2"><a href="#shrinkage-methods-an-introduction-to-regularization">Shrinkage methods: an introduction to regularization</a></li>
 </ul>
         </div>
         <!-- end /.fixed-condition -->
       </div>
       <div class="col-sm-8 col-offset-1 main-layout">
         <header class="post-header">
-  <h1 class="post-title">Variable Selection in Least Square Regression</h1>
+  <h1 class="post-title">59. Spiral Matrix II</h1>
 </header>
 
 <div class="info">
-  <span class="time">05 Jun 2020</span>
+  <span class="time">08 Jun 2020</span>
   
     <span class="categories">
-      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>
+      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>
     </span>
   
 </div>
 
 <div class="content">
-  <div class="post"><p>Two Problems with the least square estimate $X\hat\beta = HY$:</p>
+  <div class="post"><p>Given a positive integer n, generate a square matrix filled with elements from 1 to $n^2$ in spiral order.</p>
 
-<ul>
-  <li>Prediction accuracy: LS has low bias, but if n is not much greater than p, then they have large variance. Multicollinearity also causes variance inflation in LS regression.</li>
-  <li>Model interpretability: Including irrelevant variables leads into unnecessary complexity in the model. One needs to sacrifice some small details to get the “big picture”.</li>
-</ul>
-
-<h2 id="best-subset-selection">Best-subset selection</h2>
-
-<p>Consider the model $Y = f(X_1, …, X_p) + \epsilon$. The subset selection is the process of selecting $q &lt; p$ explanatory variates in modelling the function f.</p>
-
-<p>To fit a separate least squares regression for each possible combination of the $p$ predictors, there is a total of ${p \choose 0} + {p\choose 1} + … + {p\choose p} = 2^p$ models to be fitted.</p>
-
-<p>When p greater than 30 to 40, we are unable to use the algorithm to compute the result.</p>
+<p>Test 1:</p>
 
 <blockquote>
-  <ol>
-    <li>
-      <p>Let $M_0$ denote the null model, which contains no predictor. This model simply predicts the sample mean for each observation.</p>
-    </li>
-    <li>
-      <p>For $k = 1, …, p$:</p>
-    </li>
-  </ol>
+  <p>Input: 1</p>
 
-  <p>a) Fit all $p\choose k$ models that contain exactly $k$ predictors.</p>
-
-  <p>b) Pick the best among these $p\choose k$ models, and call it $M_k$. Here best is identified as having the smallest RRS, or equivalently largest $R^2$.</p>
-
-  <ol>
-    <li>Select a single best model from among $M_0, …, M_p$ using cross-validated prediction error, Mallow’s $C_p$(AIC), BIC, or adjusted $R^2$.</li>
-  </ol>
+  <p>Output: [[1]]</p>
 </blockquote>
 
-<h2 id="forward-stepwise-selection">Forward-stepwise selection</h2>
+<p>Test 2:</p>
 
 <blockquote>
-  <ol>
-    <li>
-      <p>Let $M_0$ denote the null model, which contains no predictors. This model simply predicts the sample mean for each observation.</p>
-    </li>
-    <li>
-      <p>For $k = 0, …, p-1$:</p>
-    </li>
-  </ol>
+  <p>Input: 3</p>
 
-  <p>a) Consider all p-k models that augment the predictors in $M_k$ with $k$ additional predictor.</p>
-
-  <p>b) Choose the best among these p-k models, and call it $M_{k+1}$. Here best is identified as having the smallest RSS, or equivalently largest $R^2$.</p>
-
-  <ol>
-    <li>Select a single best model from among $M_0, …, M_p$ using cross-validated prediction error, Mallow’s $C_p$(AIC), BIC, or adjusted $R^2$.</li>
-  </ol>
+  <p>Output:[[1,2,3],[8,9,4],[7,6,5]]</p>
 </blockquote>
 
-<h2 id="backward-stepwise-selection">Backward-stepwise selection</h2>
+<p>Test 3:</p>
 
 <blockquote>
-  <ol>
-    <li>
-      <p>Let $M_0$ denote the null model, which contains  all  p predictors.</p>
-    </li>
-    <li>
-      <p>For $k = p, p-1, …, 1$:</p>
+  <p>Input: 4</p>
 
-      <p>a) Consider all k models that contain all but one of the predictors in $M_k$, for a total of $k-1$ additional predictors.</p>
-
-      <p>b) Choose the best among these $k$ models, and call it $M_{k-1}$. Here best is identified as having the smallest RSS, or equivalently largest $R^2$.</p>
-    </li>
-    <li>
-      <p>Select a single best model from among $M_0, …, M_p$ using cross-validated prediction error, Mallow’s $C_p$(AIC), BIC, or adjusted $R^2$.</p>
-    </li>
-  </ol>
+  <p>Output:[[1,2,3,4],[12,13,14,5],[11,16,15,6],[10,9,8,7]]</p>
 </blockquote>
 
-<h2 id="a-hybrid-approach">A Hybrid Approach</h2>
+<p>Approach 1:</p>
 
-<p>In the hybrid method, variables are added to the model sequentially, in analogy to forward selection. However, after adding each new variable, the method may also remove any variables that no longer provide an improvement in the model fit.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[][]</span> <span class="nf">generateMatrix</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[][]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">l</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> 
+                <span class="n">result</span><span class="o">[</span><span class="n">l</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">count</span><span class="o">++;</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+                <span class="n">result</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">r</span><span class="o">]</span> <span class="o">=</span> <span class="n">count</span><span class="o">++;</span>
+                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">l</span><span class="o">;</span> <span class="n">j</span><span class="o">--)</span>
+                    <span class="n">result</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">count</span><span class="o">++;</span>
+                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">r</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">l</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span>
+                    <span class="n">result</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">l</span><span class="o">]</span> <span class="o">=</span> <span class="n">count</span><span class="o">++;</span>
+            <span class="n">l</span><span class="o">++;</span>
+            <span class="n">r</span><span class="o">--;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
-<p>The hybrid approach attempts to more closely mimic best subset selection while retaining the computational advantages of forward and backward stepwise selection.</p>
-
-<p>The stepwise methods are all greedy algorithms, producing a nested sequence of models. However, the stepwise methods are computationally cheaper than best subset selection.</p>
-
-<p>Stepwise methods are more constraint than the best subset selection, hence they will have lower variance, but perhaps more bias.</p>
-
-<h2 id="shrinkage-methods-an-introduction-to-regularization">Shrinkage methods: an introduction to regularization</h2>
-
-<p>All variable selection methods explained above are within the LS framework.</p>
-
-<p>What if multicollinearity exists or what if $n &lt; p$?</p>
-
-<p>Shrinkage/regularization methods useful under these circumstances, and they are computationally more efficient.</p>
-
-<ul>
-  <li>LS: $\min_\beta(RSS)$</li>
-  <li>Shrinkage: $\min_\beta(RSS) + \lambda\times Pen(\beta)$</li>
-</ul>
-
-<p>The added penalty in the shrinkage estimator, shrinks the vector $\beta$ towards $0$.</p>
-
-<p>Shrinkage methods: Ridge, Lasso, and Elastic Net regression.</p>
 </div>
   <div class="share-page">
   <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
@@ -219,7 +164,7 @@
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
   <!-- Facebook -->
-  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/array/2020/06/08/59.-Spiral-Matrix-II.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
 </div>
 
 <div id="fb-root"></div>
@@ -270,9 +215,49 @@
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem</a>
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/08/73.-Set-Matrix-Zeroes.html">73. Set Matrix Zeroes</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/08/54.-Spiral-Matrix.html">54. Spiral Matrix</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
                   
                 </li>
           
@@ -295,59 +280,9 @@
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/06/Context-free-grammars-and-languages.html">Context-free grammars and languages</a>
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/07/48.-Rotate-Image.html">48. Rotate Image</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
-                  
-                </li>
-          
-          
-        
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-            
-                <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">An Introduction to Robust Regression</a>
-                  
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
-                  
-                </li>
-          
-          
-        
-      
-          
-      
-    
-        
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-            
-                <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html">Weighted Least Squares</a>
-                  
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
                   
                 </li>
           
@@ -372,6 +307,42 @@
           
       
     
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
         
           
       
@@ -408,6 +379,16 @@
       
         
           
+            
+                <li class="relatedPost">
+                  <a href="https://clairedeng.github.io/leetcode/array/two%20pointer/2020/06/03/245.-Shortest-Word-Distance-III.html">245. Shortest Word Distance III</a>
+                  
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>, <a href="/category/Two Pointer">Two Pointer</a>)
+                  
+                </li>
+          
+          
+        
       
           
       
@@ -574,12 +555,6 @@
   
     
       
-        
-          
-      
-          
-      
-    
         
           
       
@@ -768,10 +743,10 @@
 
 <div class="PageNavigation">
   
-    <a class="prev" href="/leetcode/array/2020/06/04/56.-Merge-Intervals.html">&laquo; 56. Merge Intervals</a>
+    <a class="prev" href="/leetcode/array/2020/06/08/54.-Spiral-Matrix.html">&laquo; 54. Spiral Matrix</a>
   
   
-    <a class="next" href="/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html">Weighted Least Squares &raquo;</a>
+    <a class="next" href="/leetcode/array/2020/06/08/73.-Set-Matrix-Zeroes.html">73. Set Matrix Zeroes &raquo;</a>
   
 </div>
 
@@ -780,8 +755,8 @@
   <script type="text/javascript">
     /* <![CDATA[ */
     var disqus_shortname = "stackproblems";
-    var disqus_identifier = "https://clairedeng.github.io_Variable Selection in Least Square Regression";
-    var disqus_title = "Variable Selection in Least Square Regression";
+    var disqus_identifier = "https://clairedeng.github.io_59. Spiral Matrix II";
+    var disqus_title = "59. Spiral Matrix II";
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {

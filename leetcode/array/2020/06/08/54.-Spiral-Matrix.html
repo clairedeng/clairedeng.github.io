@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <title>Balls and Bins - Study Notes</title>
+    <title>54. Spiral Matrix - Study Notes</title>
     <meta name="author" content="Claire Deng" />
-    <meta name="description" content="Balls and Bins" />
-    <meta name="keywords" content="Balls and Bins, Study Notes, Leetcode, CS466, Lecture4" />
+    <meta name="description" content="54. Spiral Matrix" />
+    <meta name="keywords" content="54. Spiral Matrix, Study Notes, Leetcode, Array" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
     <meta content="1749788565247320" property="fb:app_id">
     <meta content="Study Notes" property="og:site_name">
@@ -16,7 +16,7 @@
     
 
     
-      <meta content="Balls and Bins" property="og:title">
+      <meta content="54. Spiral Matrix" property="og:title">
       <meta content="article" property="og:type">
     
 
@@ -25,11 +25,11 @@
     
 
     
-      <meta content="https://clairedeng.github.io/leetcode/cs466/lecture4/2020/05/21/Balls-and-Bins.html" property="og:url">
+      <meta content="https://clairedeng.github.io/leetcode/array/2020/06/08/54.-Spiral-Matrix.html" property="og:url">
     
 
     
-      <meta content="2020-05-21T05:00:00-04:00" property="article:published_time">
+      <meta content="2020-06-08T01:00:00-04:00" property="article:published_time">
       <meta content="https://clairedeng.github.io/about/" property="article:author">
     
 
@@ -50,11 +50,11 @@
     <meta name="twitter:creator" content="@github.io">
 
     
-      <meta name="twitter:title" content="Balls and Bins">
+      <meta name="twitter:title" content="54. Spiral Matrix">
     
 
     
-      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/cs466/lecture4/2020/05/21/Balls-and-Bins.html">
+      <meta name="twitter:url" content="https://clairedeng.github.io/leetcode/array/2020/06/08/54.-Spiral-Matrix.html">
     
 
     
@@ -85,103 +85,79 @@
         <div class="fixed-condition">
           <a href="/">Home</a>
           <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#expected-number-of-balls-in-a-bin">Expected Number of Balls in a Bin</a></li>
-<li class="toc-entry toc-h2"><a href="#expected-number-of-empty-bins">Expected number of empty bins</a></li>
-<li class="toc-entry toc-h2"><a href="#maximum-load---what-is-the-maximum-number-of-balls-in-a-bin">Maximum Load - What is the maximum number of balls in a bin?</a></li>
-<li class="toc-entry toc-h2"><a href="#coupon-collector---what-m-do-we-expect-to-have-no-empty-bins">Coupon Collector - What m do we expect to have no empty bins?</a></li>
 </ul>
         </div>
         <!-- end /.fixed-condition -->
       </div>
       <div class="col-sm-8 col-offset-1 main-layout">
         <header class="post-header">
-  <h1 class="post-title">Balls and Bins</h1>
+  <h1 class="post-title">54. Spiral Matrix</h1>
 </header>
 
 <div class="info">
-  <span class="time">21 May 2020</span>
+  <span class="time">08 Jun 2020</span>
   
     <span class="categories">
-      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS466">CS466</a>, <a href="/category/Lecture4">Lecture4</a>
+      &raquo; <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>
     </span>
   
 </div>
 
 <div class="content">
-  <div class="post"><p>We have $m$ balls and $n$ bins. Each ball is thrown to a uniformly random bin independently. We would like to study the distribution of the balls into the bins.</p>
+  <div class="post"><p>Given a matrix of $m\times n$ elements (m rows, n columns), return all elements of the matrix in spiral order.</p>
 
-<h2 id="expected-number-of-balls-in-a-bin">Expected Number of Balls in a Bin</h2>
+<p>Test 1:</p>
 
-<p>Let $B_{i, j}$ be the indicator variable that ball $j$ is in bin $i$.</p>
+<blockquote>
+  <p>Input: []</p>
 
-<p>The $E[\text{# of balls in bin } i] = E[\sum_{j=1}^m B_{i,j}] = \sum_{j = 1}^mE[B_{i, j}] = \sum_{j = 1}^m Pr(\text{ball $j$ in bin $i$}) = \sum_{j=1}^m \frac1n = \frac mn$.</p>
+  <p>Output: []</p>
+</blockquote>
 
-<p>When $m = n$, the expected number of balls in a bin is $1$.</p>
+<p>Test 2:</p>
 
-<h2 id="expected-number-of-empty-bins">Expected number of empty bins</h2>
+<blockquote>
+  <p>Input:[[1,2,3],[4,5,6],[7,8,9]]</p>
 
-<p>Let $Y_i$ be the indicator variable that bin $i$ is empty.</p>
+  <p>Output: [1,2,3,6,9,8,7,4,5]</p>
+</blockquote>
 
-<p>Then, $E[Y_i] = Pr(\text{bin $i$ is empty}) = (1-\frac1n)^m \approx e^{-\frac mn}$using $1-x \le e^{-x}$ and $1-x\approx e^{-x}$ for small $x$.</p>
+<p>Test 3:</p>
 
-<p>So, $E[\text{# of empty bins}] = E[\sum_{i=1}^n Y_i] = \sum_{i=1}^nE[Y_i] = ne^{-\frac mn}$.</p>
+<blockquote>
+  <p>Input: [[1,2,3,4],[5,6,7,8],[9,10,11,12]]</p>
 
-<p>When $m = n$, we expected to see a $\frac 1e n$ bins are empty.</p>
+  <p>Output: [1,2,3,4,8,12,11,10,9,5,6,7]</p>
+</blockquote>
 
-<h2 id="maximum-load---what-is-the-maximum-number-of-balls-in-a-bin">Maximum Load - What is the maximum number of balls in a bin?</h2>
+<p>Approach 1:</p>
 
-<p><strong>A simpler question - what $m$ do we expect to see two balls in a bin (a collision occurs)?</strong></p>
-
-<p>The probability that there are no collision in the first $m$ balls is:
-$$
-\begin{align*}</p>
-
-<p>Pr(\text{no collision in first $m$ balls}) &amp; = (1-\frac1n)(1-\frac2n)…(1-\frac{m-1}{n}) <br />
-&amp;\le e^{-\frac1n}e^{-\frac2n}…e^{-\frac{m-1}{n}} <br />
-&amp;= e^{-\frac{m(m-1)}{2n}} <br />
-&amp;\approx e^{-\frac{m^2}{2n}}</p>
-
-<p>\end{align*}
-$$</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align*}
-Pr(\text{no collision in first $m$ balls})&  \le \frac12 \\
-e^{-\frac{m^2}{2n}} & \le \frac12 \\ 
-m & \ge \sqrt{2n\ln2}
-\end{align*} %]]></script>
-
-<p>The probability would be smaller than $1/2$ when $m \ge \sqrt{2n\ln2}$.</p>
-
-<p>For $n = 365$, when $m \ge 22.49$, the probability that the maximum load is at least two is at least $\frac12$. This estimate is very close to the exact number.</p>
-
-<p><strong>We expect to see a collision when $m = \theta(\sqrt n)$</strong>.</p>
-
-<p><strong>The maximum load when $m = n$</strong></p>
-
-<p>The probability that a bin has at least $k$ balls is at most ${n\choose k}(\frac1n)^k &lt; (\frac{ne}{k})^k(\frac{1}{n})^k = \frac{e^k}{k^k}$.</p>
-
-<p>Some useful bounds are: $(\frac nk)^k&lt; {n \choose k} &lt; \frac{n^k}{k!} &lt; (\frac{ne}{k})^k$. 
-<script type="math/tex">% <![CDATA[
-\begin{align*}
-Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + k-k\ln k} \\ \text{Setting $k = \frac{3\ln n}{\ln\ln n}$} \\ & \le  n \left (\frac{e\ln\ln n}{3\ln n}\right )^\frac{3\ln n}{\ln\ln n} \\ & \le  n \left (\frac{\ln\ln n}{\ln n}\right )^\frac{3\ln n}{\ln\ln n} \\ & = e^{\ln n + \frac{3\ln n}{\ln\ln n}(\ln\ln\ln n - \ln\ln n)} \\ & = e^{\ln n + \frac{3\ln n\ln\ln\ln n - 3\ln n\ln\ln n)}{\ln\ln n}} \\ & = e^{\ln n - 3\ln n + \frac{3\ln n\ln\ln\ln n}{\ln\ln n}} \\ & = e^{- 2\ln n + \frac{3\ln n\ln\ln\ln n}{\ln\ln n}} \\ & \le \frac{1}{n}
-\end{align*} %]]></script></p>
-
-<h2 id="coupon-collector---what-m-do-we-expect-to-have-no-empty-bins">Coupon Collector - What m do we expect to have no empty bins?</h2>
-
-<p>Let $X$ be the number of balls thrown until there are no empty bins.</p>
-
-<p>Let $X_i$ be the number of balls thrown until there are exactly $i$ empty bins.</p>
-
-<p>Then $E[X] = E[\sum_{i=1}^n X_i] = \sum_{i=1}^n E[X_i]$.</p>
-
-<p>Each $X_i$ is a geometric random variable where $Pr(X_i = k) = (1-p)^{k-1}p$ with $p = \frac in$</p>
-
-<p>In words, $X_i$ is the number of trials until the first success, when the success probability is $p$.</p>
-
-<p>$E[X_i] = \frac1p$</p>
-
-<p>$E[X] = \sum_{i=1}^n E[X_i] = \sum_{i=1}^n \frac ni \approx n\ln n $ ($\sum_{i=1}^n \frac1i = H_n$, the n-th harmonic number).</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">spiralOrder</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;();</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">matrix</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">r1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">c1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">r1</span> <span class="o">&lt;=</span> <span class="n">r2</span> <span class="o">&amp;&amp;</span> <span class="n">c1</span> <span class="o">&lt;=</span> <span class="n">c2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c1</span><span class="o">;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">c2</span><span class="o">;</span> <span class="n">c</span><span class="o">++)</span>
+                <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">matrix</span><span class="o">[</span><span class="n">r1</span><span class="o">][</span><span class="n">c</span><span class="o">]);</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r1</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="n">r2</span><span class="o">;</span> <span class="n">r</span><span class="o">++)</span>
+                <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">matrix</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c2</span><span class="o">]);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">r1</span> <span class="o">&lt;</span> <span class="n">r2</span> <span class="o">&amp;&amp;</span> <span class="n">c1</span> <span class="o">&lt;</span> <span class="n">c2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c2</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="n">c1</span><span class="o">;</span> <span class="n">c</span><span class="o">--)</span>
+                    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">matrix</span><span class="o">[</span><span class="n">r2</span><span class="o">][</span><span class="n">c</span><span class="o">]);</span>
+                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r2</span><span class="o">;</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">r1</span><span class="o">;</span> <span class="n">r</span><span class="o">--)</span>
+                    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">matrix</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c1</span><span class="o">]);</span>
+            <span class="o">}</span>
+            <span class="n">r1</span><span class="o">++;</span>
+            <span class="n">c1</span><span class="o">++;</span>
+            <span class="n">r2</span><span class="o">--;</span>
+            <span class="n">c2</span><span class="o">--;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
 </div>
   <div class="share-page">
@@ -192,7 +168,7 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
   <!-- Facebook -->
-  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/cs466/lecture4/2020/05/21/Balls-and-Bins.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+  <div class="fb-share-button" data-href="https://clairedeng.github.io/leetcode/array/2020/06/08/54.-Spiral-Matrix.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
 </div>
 
 <div id="fb-root"></div>
@@ -229,12 +205,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -247,9 +219,9 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/07/The-Myhill-Nerode-Theorem.html">The Myhill-Nerode Theorem</a>
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/08/73.-Set-Matrix-Zeroes.html">73. Set Matrix Zeroes</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
                   
                 </li>
           
@@ -258,12 +230,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -276,9 +244,9 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/cs360/2020/06/06/Context-free-grammars-and-languages.html">Context-free grammars and languages</a>
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/08/59.-Spiral-Matrix-II.html">59. Spiral Matrix II</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/CS360">CS360</a>)
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
                   
                 </li>
           
@@ -287,12 +255,23 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+        
           
       
           
@@ -305,9 +284,9 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/An-Introduction-to-Robust-Regression.html">An Introduction to Robust Regression</a>
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/07/48.-Rotate-Image.html">48. Rotate Image</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
                   
                 </li>
           
@@ -316,12 +295,59 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
+    
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
           
       
     
         
           
       
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+      
+          
+      
+    
+  
+    
+      
+        
           
       
           
@@ -334,9 +360,9 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Weighted-Least-Squares.html">Weighted Least Squares</a>
+                  <a href="https://clairedeng.github.io/leetcode/array/2020/06/04/56.-Merge-Intervals.html">56. Merge Intervals</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>)
                   
                 </li>
           
@@ -345,12 +371,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -363,9 +385,9 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
           
             
                 <li class="relatedPost">
-                  <a href="https://clairedeng.github.io/leetcode/stat444/2020/06/05/Variable-Selection-in-Least-Square-Regression.html">Variable Selection in Least Square Regression</a>
+                  <a href="https://clairedeng.github.io/leetcode/array/two%20pointer/2020/06/03/245.-Shortest-Word-Distance-III.html">245. Shortest Word Distance III</a>
                   
-                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/STAT444">STAT444</a>)
+                    (Categories: <a href="/category/Leetcode">Leetcode</a>, <a href="/category/Array">Array</a>, <a href="/category/Two Pointer">Two Pointer</a>)
                   
                 </li>
           
@@ -374,12 +396,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
+          
+      
+    
+        
           
       
           
@@ -393,12 +417,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
+          
+      
+    
+        
           
       
           
@@ -412,20 +438,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -439,20 +459,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -466,20 +480,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -493,20 +501,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -520,20 +522,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -547,20 +543,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -574,20 +564,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -601,20 +579,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -628,20 +594,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -655,12 +615,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
+          
+      
+    
+        
           
       
           
@@ -674,20 +636,14 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
           
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -701,20 +657,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -728,20 +672,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -755,12 +687,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -774,12 +702,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -793,12 +717,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
           
       
           
@@ -812,50 +732,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
       
           
       
-          
-      
     
         
-          
-      
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
-          
-      
-          
-      
-    
-  
-    
-      
-        
-          
-      
-          
-      
-          
-      
-    
-        
-          
-      
           
       
           
@@ -869,10 +747,10 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
 
 <div class="PageNavigation">
   
-    <a class="prev" href="/cs360/lecture3/2020/05/19/Finite-Automata.html">&laquo; Finite Automata</a>
+    <a class="prev" href="/leetcode/array/2020/06/07/48.-Rotate-Image.html">&laquo; 48. Rotate Image</a>
   
   
-    <a class="next" href="/leetcode/array/two%20pointer/2020/05/29/27-Remove-Element.html">27 Remove Element &raquo;</a>
+    <a class="next" href="/leetcode/array/2020/06/08/59.-Spiral-Matrix-II.html">59. Spiral Matrix II &raquo;</a>
   
 </div>
 
@@ -881,8 +759,8 @@ Pr(\text{some bin has at least $k$ balls}) & \le n \frac{e^k}{k^k} = e^{\ln n + 
   <script type="text/javascript">
     /* <![CDATA[ */
     var disqus_shortname = "stackproblems";
-    var disqus_identifier = "https://clairedeng.github.io_Balls and Bins";
-    var disqus_title = "Balls and Bins";
+    var disqus_identifier = "https://clairedeng.github.io_54. Spiral Matrix";
+    var disqus_title = "54. Spiral Matrix";
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
