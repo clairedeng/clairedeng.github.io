@@ -6,9 +6,15 @@ date: 2021-07-07 11:15:00 +0700
 categories: [Java]
 ---
 
+access modifier: (default, public, protect, private, ch5) control the level of access other parts of a program have to this code.
 
 
-Java is a **strongly typed language** (every variable must have a declared type).
+
+3 ways of marking comments
+
+1. //
+2. /*  */
+3. /**  */
 
 
 
@@ -63,6 +69,10 @@ char
 
 
 boolean 只有两个值：true、false，可以使用 1 bit 来存储，但是具体大小没有明确规定。JVM 会在编译时期将 boolean 类型的数据转换为 int，使用 1 来表示 true，0 表示 false。JVM 支持 boolean 数组，但是是通过读写 byte 数组来实现的。 
+
+
+
+after declare a variable, you must explicitly initialize it,you can never use the value of an uninitialized variable.
 
 
 
@@ -184,6 +194,18 @@ System.out.println(m == n); // true
 
 
 
+### Enumerated Types
+
+holds a finite number of named values.
+
+```java
+enum Size {SMALL, MEDIUM, LARGE, EXTRA_LARGE};
+Size s = Size.MEDIUM;
+Size t = null;
+```
+
+
+
 ### Array
 
 A data structure that stores a collection of values of the same type. 
@@ -203,6 +225,8 @@ int[] b = new int[n];
 
 //shortcut
 int[] smallPrimes = {2, 3, 5, 7, 11, 13};
+
+int[] c = {}; // c.length == 0, array with length 0
 
 //when you create an array of numbers, all elements are initialized with zero. Arrays of boolean are initialized with false. Arrays of objects are initialized with the special value null, which indicates that they do not(yet) hold empty strings.
 String[] names = new String[10]; //creates 10 string with null value
@@ -251,11 +275,20 @@ int[][] magicSquare =
 
 //access element
 balances[i][j];
-
-
 ```
 
 
+
+| java.util.Arrays                                             |
+| ------------------------------------------------------------ |
+| static String toString(xxx[] a) - returns a string with the elements of a, enclosed in brackets and delimited by commas. In this and the following methods, the component type xxx of the array can be int, long, short, char, byte, boolean, float or double. |
+| static xxx[] copyOf(xxx[] a, int end)                        |
+| static xxx[] copyOfRange(xxx[] a, int start, int end) - returns an array of the same type as a, of length either end or (end - start), filled with the values of a. If end is larger than a.length, the result is padded with 0 or false values. |
+| static void sort(xxx[] a) - sorts the array, using a tuned QuickSort algorithm |
+| static int binarySearch(xxx[] a, xxx v);                     |
+| static int binarySearch(xxx[] a, int start, ,int end, int v) - use the binary search algorithm to search for the value v in the sorted array a.If v is found, its index is returned. Otherwise, a negative value r is returned; -r-l is the spot at which v should be inserted to keep a sorted. |
+| static void fill(xxx[] a, xxx v) - sets all elements of the array to v |
+| static boolean equals(xxx[] a, xxx[] b) - returns true if the arrays have the same length and if the elements at corresponding indexes match. |
 
 
 
@@ -275,6 +308,7 @@ String s = greeting.substring(0, 3); //Hel, second param is the first position t
 String expletive = "Expletive";
 String PG13 = "deleted";
 String message = expletive + PG13; //Expletivedeleted
+String all = String.join(" / ", "S", "M", "L", "XL"); // "S / M / L / XL"
 
 //test equality
 s.equals(t);
@@ -284,7 +318,18 @@ s.equals(t);
 
 //empty string and null string
 //an empty string is a Java object which holds the string length 0.
+//the length method yields to num of code units required for a given string in the UTF-16 encoding
 str.length() == 0 || str.equals("")
+    
+//get the number of code points
+int cpCount = greeting.codePointCount(0, greeting.length());
+
+//s.charAt(n) returns the code unit at position n, n is between 0 and s.length() - 1
+char first = greeting.charAt(0); 
+
+//get the ith code point
+int index = greeting.offsetByCodePoints(0,i);
+int cp = greeting.codePointAt(index);
 
 //null: no object is currently associated with the variable
 if(str == null)
@@ -292,9 +337,20 @@ if(str == null)
 // test a string is neither null or empty
 if(str != null && str.length() != 0)
 // length returns the num of code units required for a given string
-    
-//api 3.6.7
 ```
+
+
+
+| java.lang.String                                             |
+| ------------------------------------------------------------ |
+| char charAt(int index) - returns the code unit at the specified location |
+| int codePointAt(int index) - returns the code point that starts at the specified location |
+| int offsetByCodePoints(int startIndex, int cpCount) - returns the index of the code point that is cpCount code points away from the code point at startIndex. |
+| int compareTo(String other) - returns a negative value if the string comes before other in dictionary order, a positive value if the string comes after other in dictionary order, or 0 if the strings are equal |
+| IntStream codePoints()....                                   |
+| 3.6.7                                                        |
+
+
 
 
 
@@ -573,7 +629,11 @@ s1 = (short) (s1 + 1);
 
 ### switch
 
-从 Java 7 开始，可以在 switch 条件判断语句中使用 String 对象。 
+a case label can be:
+
+- a constant expression of type char, byte, short, or int
+- an enumerated constant, need not supply the name of the enumeration in each label. `SMALL`, not `Size.SMALL`
+- Starting with Java 7, a string literal 从 Java 7 开始，可以在 switch 条件判断语句中使用 String 对象。
 
 ```java
 String s = "a";
@@ -600,6 +660,12 @@ switch 不支持 long、float、double，是因为 switch 的设计初衷是对�
 //         break;
 // }
 ```
+
+
+
+### Bitwise Operators
+
+& ("and")	| ("or")		^ ("xor")		~ ("not")		>>		>>>	(0)		<<
 
 
 
@@ -1612,3 +1678,10 @@ Java 注解是附加在代码中的一些元信息，用于一些工具在编译
 - JRE：Java Runtime Environment，Java 运行环境的简称，为 Java 的运行提供了所需的环境。它是一个 JVM 程序，主要包括了 JVM 的标准实现和一些 Java 基本类库。
 - JDK：Java Development Kit，Java 开发工具包，提供了 Java 的开发及运行环境。JDK 是 Java 开发的核心，集成了 JRE 以及一些其它的工具，比如编译 Java 源码的编译器 javac 等。
 
+
+
+## 参考资料
+
+Horstmann Cay S. Core Java. Volume I. Pearson, 2019
+
+[Java基础](http://www.cyc2018.xyz/Java/Java%20%E5%9F%BA%E7%A1%80.html#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
