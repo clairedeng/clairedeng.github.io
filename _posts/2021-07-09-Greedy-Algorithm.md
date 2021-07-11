@@ -3,7 +3,7 @@ title: "Greedy Algorithm"
 layout: post
 toc: true
 date: 2021-07-09 10:11:00 +0700
-categories: [Leetcode, Greedy Algorithm]
+categories: [Algorithm]
 ---
 
 贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。 
